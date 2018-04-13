@@ -1,0 +1,70 @@
+CREATE SCHEMA `RMPortal` ;
+
+CREATE TABLE `RMPortal`.`role` (
+  `role_id` INT NOT NULL AUTO_INCREMENT,
+  `role_name` VARCHAR(45) NOT NULL,
+  `role_description` VARCHAR(45) NULL,
+  PRIMARY KEY (`role_id`));
+
+
+CREATE TABLE `RMPortal`.`user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `created_at` VARCHAR(45) NULL,
+  `is_active` TINYINT  DEFAULT 0,
+  `last_login` VARCHAR(45) NULL,
+  `role_id` INT NULL,
+  PRIMARY KEY (`user_id`));
+
+CREATE TABLE `RMPortal`.`role` (
+  `role_id` INT NOT NULL AUTO_INCREMENT,
+  `role_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`role_id`));
+
+
+ALTER TABLE `RMPortal`.`user` 
+ADD INDEX `fk_user_1_idx` (`role_id` ASC);
+ALTER TABLE `RMPortal`.`user` 
+ADD CONSTRAINT `role_id`
+  FOREIGN KEY (`role_id`)
+  REFERENCES `RMPortal`.`role` (`role_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `RMPortal`.`user_token_type` (
+  `token_type_id` INT NOT NULL AUTO_INCREMENT,
+  `user_token_typecol` VARCHAR(45) NULL,
+  PRIMARY KEY (`token_type_id`));
+
+CREATE TABLE `RMPortal`.`user_token` (
+  `user_token_id` INT NOT NULL AUTO_INCREMENT,
+  `user_token` VARCHAR(45) NULL,
+  `token_type_id` INT NOT NULL,
+  PRIMARY KEY (`user_token_id`),
+  INDEX `token_type_id_idx` (`token_type_id` ASC),
+  CONSTRAINT `token_type_id`
+    FOREIGN KEY (`token_type_id`)
+    REFERENCES `RMPortal`.`user_token_type` (`token_type_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `RMPortal`.`user_role` (
+  `user_role_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `role_id` INT(11) NOT NULL,
+  PRIMARY KEY (`user_role_id`),
+  INDEX `fk_user_role_1_idx` (`role_id` ASC),
+  INDEX `fk_user_role_2_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_role_1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `RMPortal`.`role` (`role_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_role_2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `RMPortal`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
