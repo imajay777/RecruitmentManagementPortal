@@ -2,15 +2,11 @@ package com.rmportal.utility;
 
 import org.springframework.stereotype.Component;
 
-import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.RegisterRequestModel;
-<<<<<<< HEAD
-import com.rmportal.responseModel.UserResponseDTO;
-=======
 import com.rmportal.responseModel.ResponseModel;
->>>>>>> 449418ecf4b0845254c9df22f775e5b21c1dd2bb
+import com.rmportal.responseModel.UserResponseDTO;
+
 
 /**
  * @author tejas

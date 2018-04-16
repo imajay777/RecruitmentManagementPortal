@@ -39,12 +39,12 @@ public class UserServiceImpl implements UserServices {
 		return null;// userRepository.findByEmail(email);
 	}
 
-	public  boolean isValidEmail(String email) {
+	public boolean isValidEmail(String email) {
 		Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
 				Pattern.CASE_INSENSITIVE);
 
 		Matcher m = emailPattern.matcher(email);
-		
+
 		return m.matches();
 
 	}
@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserServices {
 		registerRequestModel.setActive(false);
 		Role userRole = roleRepository.findOne(3);
 		registerRequestModel.setRoles(userRole);
-
 
 		if (isValidEmail(registerRequestModel.getEmail())) {
 
@@ -80,11 +79,6 @@ public class UserServiceImpl implements UserServices {
 		 * conversionUtility.convertUserToresponse(user); } else {
 		 * System.out.println("the email is not correct"); } return null;
 		 */
-
-
-		
-		return userRepository.save(registerRequestModel);
-		
 
 	}
 
