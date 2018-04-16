@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class LoginRequestModel {
 
+	
+
 	@NotEmpty
 	@Email
 	String email;

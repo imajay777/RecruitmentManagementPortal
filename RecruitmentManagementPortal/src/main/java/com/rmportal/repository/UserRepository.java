@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.rmportal.model.User;
 import com.rmportal.requestModel.RegisterRequestModel;
-import com.rmportal.responseModel.RegisterResponseModel;
 
 /**
  * @author tejas

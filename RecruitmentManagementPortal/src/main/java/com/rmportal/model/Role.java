@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * @author tejas
  *
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 
 @Table(name = "role")
 @Entity
+@Data
 public class Role {
 
 	@Id
@@ -33,28 +36,6 @@ public class Role {
 	List<User> user;
 	
 
-	public List<User> getUser() {
-		return user;
-	}
-
-	public void setUser(List<User> user) {
-		this.user = user;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
+	
 
 }

@@ -1,8 +1,8 @@
 package com.rmportal.service;
 
 import com.rmportal.model.User;
-import com.rmportal.requestModel.RegisterRequestModel;
-import com.rmportal.responseModel.RegisterResponseModel;
+import com.rmportal.responseModel.UserResponseDTO;
+import com.rmportal.utility.CustomException;
 
 /**
  * @author tejas
@@ -12,6 +12,6 @@ import com.rmportal.responseModel.RegisterResponseModel;
 public interface UserServices {
 
 	 public User findUserByEmail(String email);
-	 User saveUser(User user);
+	 UserResponseDTO saveUser(User user) throws CustomException;
 
 }
