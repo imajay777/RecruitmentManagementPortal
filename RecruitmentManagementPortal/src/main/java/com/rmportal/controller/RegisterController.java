@@ -36,6 +36,7 @@ public class RegisterController {
 	
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
+
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) {
 
@@ -62,6 +63,13 @@ public class RegisterController {
 		}
 
 		return ResponseEntity.ok(httpResponse);
+
+	public User registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel, BindingResult bindingResult) {
+		
+		User user = conversionUtility.convertRequestToUser(registerRequestModel);
+		User resp = userService.saveUser(user);
+		return resp;
+
 
 	}
 

@@ -16,4 +16,5 @@ public class RecruitmentManagementPortalApplication {
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}*/
+	
 }

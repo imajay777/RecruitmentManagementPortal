@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserServices {
 		Role userRole = roleRepository.findOne(3);
 		registerRequestModel.setRoles(userRole);
 
+
 		if (isValidEmail(registerRequestModel.getEmail())) {
 
 			String str[] = registerRequestModel.getEmail().split("@");
@@ -79,6 +80,11 @@ public class UserServiceImpl implements UserServices {
 		 * conversionUtility.convertUserToresponse(user); } else {
 		 * System.out.println("the email is not correct"); } return null;
 		 */
+
+
+		
+		return userRepository.save(registerRequestModel);
+		
 
 	}
 
