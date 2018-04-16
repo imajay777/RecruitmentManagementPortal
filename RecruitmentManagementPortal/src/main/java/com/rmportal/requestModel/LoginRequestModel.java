@@ -1,30 +1,28 @@
 package com.rmportal.requestModel;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * @author saurabh
  *
  */
 public class LoginRequestModel {
 
-	String name;
+	@NotEmpty
+	@Email
+	String email;
+
+	@NotEmpty
 	String password;
 
 	public LoginRequestModel() {
-
 	}
 
-	public LoginRequestModel(String name, String password) {
+	public LoginRequestModel(String password, String email) {
 		super();
-		this.name = name;
 		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -35,9 +33,17 @@ public class LoginRequestModel {
 		this.password = password;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "LoginRequestModel [name=" + name + ", password=" + password + "]";
+		return "LoginRequestModel [password=" + password + ", email=" + email + "]";
 	}
 
 }

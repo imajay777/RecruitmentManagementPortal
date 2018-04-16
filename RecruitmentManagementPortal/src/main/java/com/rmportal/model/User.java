@@ -1,7 +1,5 @@
 package com.rmportal.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -53,7 +49,7 @@ public class User {
 	String email;
 	
 	@Column(name = "is_active")
-	private boolean active;
+	private boolean isActive;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="role_id")
@@ -73,7 +69,7 @@ public class User {
 
 
 	public boolean isActive() {
-		return active;
+		return isActive;
 	}
 
 	public Role getRoles() {
@@ -85,7 +81,7 @@ public class User {
 	}
 
 	public void setActive(boolean active) {
-		this.active = active;
+		this.isActive = active;
 	}
 
 	public int getId() {
@@ -134,6 +130,12 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", password=" + password + ", email=" + email + ", isActive=" + isActive + ", roles=" + roles + "]";
 	}
 
 	

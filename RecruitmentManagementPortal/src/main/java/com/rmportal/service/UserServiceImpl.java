@@ -32,20 +32,13 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public User saveUser(User registerRequestModel) {
 
-		registerRequestModel.setActive(true);
-		Role userRole = roleRepository.findByRole("ADMIN");
-		// user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
+		registerRequestModel.setActive(false);
+		Role userRole = roleRepository.findOne(3);
+		registerRequestModel.setRoles(userRole);
 		return userRepository.save(registerRequestModel);
 		
 	}
 
-	/*
-	 * @Override public void saveUser(User user) {
-	 * 
-	 * user.setPassword((user.getPassword())); Role userRole =
-	 * roleRepository.findByRole("ADMIN"); user.setRoles(new
-	 * HashSet<Role>(Arrays.asList(userRole))); userRepository.save(user);
-	 */
-
+	
+	 
 }

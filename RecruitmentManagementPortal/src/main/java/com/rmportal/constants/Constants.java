@@ -1,8 +1,5 @@
 package com.rmportal.constants;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.stereotype.Component;
-
 /**
  * @author saurabh
  *

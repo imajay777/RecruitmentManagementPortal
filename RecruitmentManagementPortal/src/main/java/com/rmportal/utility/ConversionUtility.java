@@ -21,8 +21,6 @@ public class ConversionUtility {
 		user.setFirstname(registerRequestModel.getFirstname());
 		user.setLastname(registerRequestModel.getLastname());
 		user.setPassword(registerRequestModel.getPassword());
-		Role role = new Role();
-		user.setRoles(role);
 
 		return user;
 	}

@@ -5,20 +5,19 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.rmportal.model.LoginModel;
+import com.rmportal.requestModel.LoginRequestModel;
 
 
 /**
  * @author saurabh
  *
  */
-public class Mapper implements RowMapper<LoginModel>{
+public class Mapper implements RowMapper<LoginRequestModel>{
 	@Override
-	public LoginModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public LoginRequestModel mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		LoginModel login = new LoginModel();
-		login.setUsername(rs.getString("name"));
-		login.setUsername(rs.getString("username"));
+		LoginRequestModel login = new LoginRequestModel();
+		login.setEmail(rs.getString("email"));
 		login.setPassword(rs.getString("password"));
 		return login;
 	}
