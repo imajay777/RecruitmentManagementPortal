@@ -1,11 +1,7 @@
 package com.rmportal.utility;
 
-import java.io.File;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -44,8 +40,8 @@ public class ActivationEmailUtility {
 	RegisterRequestModel registerRequestModel;
 
 	@SneakyThrows
-	public void sendingEmail(String subject) {
-		String finalSubject = "Activation Link for Recruitment Management Portal - " + subject;
+	public void sendingEmail() {
+		String finalSubject = "Activation Link for Recruitment Management Portal - ";
 
 		// get properties object
 		Properties properties = System.getProperties();
@@ -78,7 +74,7 @@ public class ActivationEmailUtility {
 			// create MimeBodyPart object and set your message text
 
 			BodyPart bodyText = new MimeBodyPart();
-			bodyText.setText(messageBody);
+			bodyText.setText(messageBody+link);
 
 			// create MultiPart object and add MimeBodyPart object to this
 			// object

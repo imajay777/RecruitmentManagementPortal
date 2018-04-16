@@ -31,17 +31,6 @@ public class RegisterController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
 	public User registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel, BindingResult bindingResult) {
 		
-		/*RegisterRequestModel userExits=userService.findUserByEmail(registerRequestModel.getEmail());
-		
-		if(userExits !=null){
-			bindingResult.rejectValue("email", "error.user", "There is already a registered user");
-		}
-		
-		if(bindingResult.hasErrors()){
-			
-		}
-		return*/
-		
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
 		User resp = userService.saveUser(user);
 		return resp;

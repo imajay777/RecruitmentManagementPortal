@@ -1,8 +1,6 @@
 package com.rmportal.service;
 
 import com.rmportal.model.User;
-import com.rmportal.requestModel.RegisterRequestModel;
-import com.rmportal.responseModel.RegisterResponseModel;
 
 /**
  * @author tejas

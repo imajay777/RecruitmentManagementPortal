@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserServices {
 		registerRequestModel.setActive(false);
 		Role userRole = roleRepository.findOne(3);
 		registerRequestModel.setRoles(userRole);
+		sendingEmail
 		return userRepository.save(registerRequestModel);
 		
 	}

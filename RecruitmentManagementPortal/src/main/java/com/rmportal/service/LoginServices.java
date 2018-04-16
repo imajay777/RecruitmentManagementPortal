@@ -1,17 +1,15 @@
 package com.rmportal.service;
 
-import org.springframework.stereotype.Repository;
-
 import com.rmportal.requestModel.LoginRequestModel;
-import com.rmportal.responseModel.LoginResponseModel;
+import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.utility.CustomException;
 
 /**
  * @author saurabh
  *
  */
-@Repository
 public interface LoginServices {
 
-	public LoginResponseModel validateUser(LoginRequestModel loginRequestModel);
+	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException;
 
 }

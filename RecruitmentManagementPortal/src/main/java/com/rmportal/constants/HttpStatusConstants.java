@@ -1,11 +1,16 @@
 package com.rmportal.constants;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author saurabh
  *
  */
 
-public enum Constants {
+@Getter
+@AllArgsConstructor
+public enum HttpStatusConstants {
 
 	
 	 OK("OK.",200),
@@ -38,27 +43,5 @@ public enum Constants {
 	 
 	public String status;
 	public int id;
-
-	private Constants(String status, int id) {
-		this.status = status;
-		this.id = id;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 
 }

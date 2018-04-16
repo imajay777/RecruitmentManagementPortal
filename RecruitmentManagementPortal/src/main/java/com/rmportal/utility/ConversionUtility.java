@@ -2,9 +2,11 @@ package com.rmportal.utility;
 
 import org.springframework.stereotype.Component;
 
+import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.RegisterRequestModel;
+import com.rmportal.responseModel.ResponseModel;
 
 /**
  * @author tejas
@@ -24,4 +26,16 @@ public class ConversionUtility {
 
 		return user;
 	}
+
+	public ResponseModel convertUserToResponse(User userFromTable) {
+		ResponseModel responseModel = new ResponseModel();
+		responseModel.setEmail(userFromTable.getEmail());
+		responseModel.setFirst_name(userFromTable.getFirstname());
+		responseModel.setLast_name(userFromTable.getLastname());
+		responseModel.setMobile(userFromTable.getId());
+		return responseModel;
+	
+	}
+	
+	 
 }
