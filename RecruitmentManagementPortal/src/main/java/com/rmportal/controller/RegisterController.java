@@ -3,7 +3,6 @@ package com.rmportal.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.RegisterRequestModel;
+import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.service.UserServices;
 import com.rmportal.utility.ConversionUtility;
@@ -32,6 +33,7 @@ public class RegisterController {
 
 	@Autowired
 	ConversionUtility conversionUtility;
+	
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
 
@@ -52,16 +54,31 @@ public class RegisterController {
 		 */
 
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
-		UserResponseDTO httpResponse=null;
+		UserResponseDTO httpResponseModel=null;
 		try {
-			httpResponse = userService.saveUser(user);
+			httpResponseModel = userService.saveUser(user);
 		} catch (CustomException e) {
 			
-			return ResponseEntity.ok(httpResponse);
+			return ResponseEntity.ok(
+					new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Email",
+							HttpStatusConstants.INTERNAL_SERVER_ERROR.id, httpResponseModel));
 		}
 
-		return ResponseEntity.ok(httpResponse);
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Register successfully",
+				HttpStatusConstants.OK.id, httpResponseModel));
 
 	}
+	
+	/*try {
+		httpResponseModel = loginService.validateUser(loginRequestModel);
+	} catch (CustomException e) {
+		return ResponseEntity.ok(
+				new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid credentials",
+						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, httpResponseModel));
+	}
+	return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Login successfully",
+			HttpStatusConstants.OK.id, httpResponseModel));
+
+}*/
 
 }
