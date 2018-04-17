@@ -35,6 +35,9 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	ConversionUtility conversionUtility;
 
+	@Autowired
+	ActivationEmailUtility activationEmailUtility;
+
 	@Override
 	public User findUserByEmail(String email) {
 		return null;// userRepository.findByEmail(email);
@@ -62,9 +65,9 @@ public class UserServiceImpl implements UserServices {
 			String str[] = registerRequestModel.getEmail().split("@");
 
 			if (str[1].compareTo("agsft.com") == 0) {
-				
+
 				User user = userRepository.save(registerRequestModel);
-				ActivationEmailUtility.sendingEmail();
+				activationEmailUtility.sendMail(user);
 				return conversionUtility.convertUserToresponse(user);
 			} else {
 				System.out.println("invalid");
