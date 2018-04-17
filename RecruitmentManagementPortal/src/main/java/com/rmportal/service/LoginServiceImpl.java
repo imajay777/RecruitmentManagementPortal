@@ -1,6 +1,7 @@
 package com.rmportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rmportal.constants.HttpStatusConstants;
@@ -25,15 +26,27 @@ public class LoginServiceImpl implements LoginServices {
 	@Autowired
 	ConversionUtility conversionUtility;
 
+	@Autowired
+	PasswordEncoder bCryptPassword;
+
 	@Override
 	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
-		
-		User userFromTable = userRepository.findByEmail(loginRequestModel.getEmail(), loginRequestModel.getPassword());
+
+		User userFromTable = userRepository.findByEmail(loginRequestModel.getEmail());
 
 		if (userFromTable == null) {
 			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, HttpStatusConstants.NO_CONTENT.getStatus());
-		} else {
-			return conversionUtility.convertUserToResponse(userFromTable);
+		}
+		if (userFromTable.isActive()) {
+
+			if (bCryptPassword.matches(loginRequestModel.getPassword(), userFromTable.getPassword())) {
+				return conversionUtility.convertUserToResponse(userFromTable);
+
+			} else {
+				throw new CustomException(401, "Invalid Password");
+			}
+		}else{
+			throw new CustomException(406, "User is Inactive");
 		}
 
 	}

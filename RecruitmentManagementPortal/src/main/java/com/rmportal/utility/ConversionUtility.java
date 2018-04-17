@@ -8,7 +8,6 @@ import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 
-
 /**
  * @author tejas
  *
@@ -18,9 +17,9 @@ public class ConversionUtility {
 
 	@Autowired
 	PasswordEncryption passwordEncryption;
-	
+
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
-		
+
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
 		user.setUsername(registerRequestModel.getUsername());
@@ -33,17 +32,16 @@ public class ConversionUtility {
 	}
 
 	public UserResponseDTO convertUserToresponse(User user) {
-		
 
 		UserResponseDTO userResponseDTO = new UserResponseDTO();
-		
+
 		userResponseDTO.setEmail(user.getEmail());
 		userResponseDTO.setFirstname(user.getFirstname());
 		userResponseDTO.setLastname(user.getLastname());
-		
+
 		return userResponseDTO;
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public ResponseModel convertUserToResponse(User userFromTable) {
@@ -53,9 +51,14 @@ public class ConversionUtility {
 		responseModel.setLast_name(userFromTable.getLastname());
 		responseModel.setMobile(userFromTable.getId());
 		return responseModel;
-	
+
 	}
-	
-	 
+
+	public String setStatusToUser() {
+
+		User user = new User();
+		user.setActive(true);
+		return "UserActivated";
+	}
 
 }

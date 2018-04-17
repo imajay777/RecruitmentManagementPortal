@@ -15,8 +15,6 @@ public class PasswordEncryption {
 	PasswordEncoder bCryptPassword;
 
 	public String hashEncoder(String password) {
-		System.out.println("Password : " +password);
-		System.out.println("BCryptPassword : " +bCryptPassword);
 		String hashEncoder = bCryptPassword.encode(password);
 		return hashEncoder;
 	}

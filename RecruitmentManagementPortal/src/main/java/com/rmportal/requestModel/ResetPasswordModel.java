@@ -1,8 +1,5 @@
 package com.rmportal.requestModel;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,16 +14,15 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LoginRequestModel {
+public class ResetPasswordModel {
 
+	int userid;
 	
+	String token;
 
-	@NotEmpty
-	@Email
 	String email;
 
-	@NotEmpty
 	String password;
 
-	
+
 }
