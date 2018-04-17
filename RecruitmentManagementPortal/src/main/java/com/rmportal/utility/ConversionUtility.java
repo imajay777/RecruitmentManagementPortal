@@ -1,5 +1,6 @@
 package com.rmportal.utility;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.model.User;
@@ -15,14 +16,18 @@ import com.rmportal.responseModel.UserResponseDTO;
 @Component
 public class ConversionUtility {
 
+	@Autowired
+	PasswordEncryption passwordEncryption;
+	
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
-
+		
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
 		user.setUsername(registerRequestModel.getUsername());
 		user.setFirstname(registerRequestModel.getFirstname());
 		user.setLastname(registerRequestModel.getLastname());
-		user.setPassword(registerRequestModel.getPassword());
+		System.out.println(registerRequestModel.getPassword());
+		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
 
 		return user;
 	}
