@@ -13,6 +13,7 @@ import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.responseModel.UserResponseDTO;
+import com.rmportal.utility.ActivationEmailUtility;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
@@ -61,7 +62,10 @@ public class UserServiceImpl implements UserServices {
 			String str[] = registerRequestModel.getEmail().split("@");
 
 			if (str[1].compareTo("agsft.com") == 0) {
-				return conversionUtility.convertUserToresponse(registerRequestModel);
+				
+				User user = userRepository.save(registerRequestModel);
+				ActivationEmailUtility.sendingEmail();
+				return conversionUtility.convertUserToresponse(user);
 			} else {
 				System.out.println("invalid");
 				throw new CustomException(500, "invalid email");

@@ -36,16 +36,16 @@ public class LoginController {
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody LoginRequestModel loginRequestModel) {
 
-		ResponseModel httpResponseModel = null;
+		ResponseModel responseModel = null;
 		try {
-			httpResponseModel = loginService.validateUser(loginRequestModel);
+			responseModel = loginService.validateUser(loginRequestModel);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(
 					new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid credentials",
-							HttpStatusConstants.INTERNAL_SERVER_ERROR.id, httpResponseModel));
+							HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));
 		}
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Login successfully",
-				HttpStatusConstants.OK.id, httpResponseModel));
+				HttpStatusConstants.OK.id, responseModel));
 
 	}
 }
