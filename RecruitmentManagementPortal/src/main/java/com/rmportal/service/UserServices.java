@@ -43,4 +43,6 @@ public interface UserServices {
 	
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException;
 	
+	public UpdateResponseModel getDetails(String email) throws CustomException;
+	
 }

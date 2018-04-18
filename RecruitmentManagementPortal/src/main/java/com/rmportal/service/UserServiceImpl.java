@@ -122,14 +122,14 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public UpdateResponseModel updateUser(int id, User user) throws CustomException {
-		//User userObj;
+		// User userObj;
 		if (user != null) {
 
 			User updatedUser = userRepository.findByUserId(id);
 			user.setId(updatedUser.getId());
-			 userRepository.save(user);
-			//System.out.println(user);
-		//	System.out.println(userObj);
+			userRepository.save(user);
+			// System.out.println(user);
+			// System.out.println(userObj);
 
 		} else {
 			throw new CustomException(500, "already exits");
@@ -152,11 +152,10 @@ public class UserServiceImpl implements UserServices {
 		if (user != null) {
 			user.setActive(true);
 			return true;
-			}
-		return false;
 		}
-	
-	
+		return false;
+	}
+
 	public boolean validateUserToken(int userId, String token) throws CustomException {
 
 		if (StringUtils.isEmpty(token)) {
@@ -226,5 +225,14 @@ public class UserServiceImpl implements UserServices {
 		user.setPassword(passwordEncryption.hashEncoder(changePasswordModel.getNewPassword()));
 		return true;
 
+	}
+
+	@Override
+	public UpdateResponseModel getDetails(String email) throws CustomException {
+		User user = userRepository.findByEmail(email);
+		if (Objects.isNull(user)) {
+			throw new CustomException(500, "Invalid Email ID. Unable to fetch Details");
+		}
+		return conversionUtility.convertForUpdateResponse(user);
 	}
 }

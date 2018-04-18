@@ -59,7 +59,6 @@ public class LoginController {
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
 	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
 
-		UserResponseDTO httpResponseModel = null;
 
 		if (userService.forgetPassword(email)) {
 			return ResponseEntity
@@ -77,7 +76,6 @@ public class LoginController {
 	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
-		UserResponseDTO httpResponseModel = null;
 
 		if (userService.resetPassword(resetPasswordModel)) {
 			return ResponseEntity

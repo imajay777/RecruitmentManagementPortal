@@ -45,9 +45,8 @@ public class ConversionUtility {
 
 	}
 	
-	public UpdateResponseModel convertUpdateUserToresponse(User user){
+	public UpdateResponseModel convertForUpdateResponse(User user){
 		UpdateResponseModel updateResponseModel=new UpdateResponseModel();
-		//updateResponseModel.setEmployee_id(user.getId());
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
 		updateResponseModel.setFirst_name(user.getFirstname());
 		updateResponseModel.setLast_name(user.getLastname());
@@ -97,10 +96,7 @@ public class ConversionUtility {
 		System.out.println(user);
 		return user;
 		
-
-		
 	}
 	
-	 
 
 }
