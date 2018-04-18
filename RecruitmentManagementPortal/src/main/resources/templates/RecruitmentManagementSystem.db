@@ -68,3 +68,15 @@ CREATE TABLE `RMPortal`.`user_role` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+////////////department table//////////////////
+CREATE TABLE `RMPortal`.`deparment` (
+  `dept_id` INT NOT NULL AUTO_INCREMENT,
+  `dept_name` VARCHAR(45) NULL,
+  `user_id` VARCHAR(45) NULL,
+  PRIMARY KEY (`dept_id`),
+  CONSTRAINT `fk_deparment_1`
+    FOREIGN KEY (`dept_id`)
+    REFERENCES `RMPortal`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+

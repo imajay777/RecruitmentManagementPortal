@@ -1,6 +1,7 @@
 package com.rmportal.service;
 
 import java.util.Objects;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,7 @@ import com.rmportal.repository.UserRepository;
 import com.rmportal.repository.UserTokenRepository;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
+import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
 import com.rmportal.utility.ConversionUtility;
@@ -43,6 +45,11 @@ public class UserServiceImpl implements UserServices {
 	@Autowired
 	ConversionUtility conversionUtility;
 
+	/*
+	 * @Autowired PasswordEncryption passwordEncryption;
+	 */
+
+	private static List<User> users;
 	@Autowired
 	ActivationEmailUtility activationEmailUtility;
 
@@ -86,7 +93,13 @@ public class UserServiceImpl implements UserServices {
 
 			if (str[1].compareTo("agsft.com") == 0) {
 
-				User user = userRepository.save(registerRequestModel);
+				User user = userRepository.findByEmail(registerRequestModel.getEmail());
+				if (user != null)
+					throw new CustomException(500, "User already exists");
+				/* passwordEncryption.hashEncoder(registerRequestModel); */
+				user = userRepository.save(registerRequestModel);
+				// ActivationEmailUtility.sendingEmail();
+				user = userRepository.save(registerRequestModel);
 				activationEmailUtility.sendMail(user);
 
 				return conversionUtility.convertUserToresponse(user);
@@ -103,6 +116,47 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
+	public User FindById(long id) {
+		return null;
+	}
+
+	@Override
+	public UpdateResponseModel updateUser(int id, User user) throws CustomException {
+		//User userObj;
+		if (user != null) {
+
+			User updatedUser = userRepository.findByUserId(id);
+			user.setId(updatedUser.getId());
+			 userRepository.save(user);
+			//System.out.println(user);
+		//	System.out.println(userObj);
+
+		} else {
+			throw new CustomException(500, "already exits");
+		}
+		return null;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+
+		System.out.println("hello");
+		List<User> getUsers = (List<User>) userRepository.findAll();
+
+		return getUsers;
+	}
+
+	@Override
+	public boolean updateStatus(boolean status, String email) {
+		User user = userRepository.findByEmail(email);
+		if (user != null) {
+			user.setActive(true);
+			return true;
+			}
+		return false;
+		}
+	
+	
 	public boolean validateUserToken(int userId, String token) throws CustomException {
 
 		if (StringUtils.isEmpty(token)) {

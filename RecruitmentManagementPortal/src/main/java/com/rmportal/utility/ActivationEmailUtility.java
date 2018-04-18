@@ -2,7 +2,6 @@ package com.rmportal.utility;
 
 import java.util.UUID;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,7 +22,13 @@ public class ActivationEmailUtility {
 
 	@Autowired
 	private JavaMailSender emailSender;
+
+	@Autowired
+	UserTokenRepository userTokenRepo;
 	
+	@Autowired
+	private JavaMailSender emailSender;
+
 	@Autowired
 	UserTokenRepository userTokenRepo;
 
