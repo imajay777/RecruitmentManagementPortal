@@ -17,7 +17,7 @@ public class RegisterRequestModel {
 	
 	int id;
 
-	String username;
+	/*String username;*/
 	@NotEmpty
 	String firstname;
 	@NotEmpty
@@ -26,7 +26,7 @@ public class RegisterRequestModel {
 	String password;
 	@Email
 	String email;
-	private boolean active;
+	/*private boolean active;*/
 	
 	
 

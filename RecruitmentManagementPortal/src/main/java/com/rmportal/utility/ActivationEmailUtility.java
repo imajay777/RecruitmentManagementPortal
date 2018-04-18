@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.rmportal.requestModel.RegisterRequestModel;
+import com.rmportal.responseModel.ResponseModel;
 
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
@@ -37,7 +37,7 @@ public class ActivationEmailUtility {
 	String password = "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";
 
 	@Autowired
-	RegisterRequestModel registerRequestModel;
+	ResponseModel responseModel;
 
 	@SneakyThrows
 	public void sendingEmail() {
@@ -63,7 +63,7 @@ public class ActivationEmailUtility {
 		// compose message
 		try {
 
-			String messageBody = "Hi" + registerRequestModel.getFirstname() + ", \n"
+			String messageBody = "Hi" + responseModel.getFirst_name() + ", \n"
 					+ "Welcome to AGSFT Recruitment Management Portal \n Please click on the activation link below to activate your account \n";
 			String link = "http://localhost:8080/activation";
 			MimeMessage message = new MimeMessage(session);
