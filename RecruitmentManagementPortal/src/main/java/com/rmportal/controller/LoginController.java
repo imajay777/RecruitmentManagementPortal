@@ -24,11 +24,11 @@ import com.rmportal.utility.CustomException;
 
 /**
  * @author saurabh
- *
+ * Controller for Login, Forgot Password and Reset Password
  */
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class LoginController {
 
 	@Autowired
@@ -37,24 +37,27 @@ public class LoginController {
 	@Autowired
 	UserServices userService;
 
+	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody LoginRequestModel loginRequestModel) {
 
 		ResponseModel responseModel = null;
+		
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(
 					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));
 		}
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Login successfully",
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Login Successful",
 				HttpStatusConstants.OK.id, responseModel));
 
 	}
 
+	// Forget Password Controller
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-	public ResponseEntity<?> confirmationPage(@RequestParam("email") String email) throws CustomException {
+	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
 
 		UserResponseDTO httpResponseModel = null;
 
@@ -69,8 +72,9 @@ public class LoginController {
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 	}
 	
+	// Reset Password Controller
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
+	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
 		UserResponseDTO httpResponseModel = null;
@@ -82,7 +86,7 @@ public class LoginController {
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Token or Email",
+				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + " Invalid Token or Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}

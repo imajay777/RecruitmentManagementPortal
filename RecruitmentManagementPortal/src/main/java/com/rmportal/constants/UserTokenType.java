@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * @author saurabh
- *
+ * @author saurabh 
+ * Constants for type of token generated for the user in
+ *         UserToken Table
  */
-@Getter
-@AllArgsConstructor
+@Getter	// Generate Getters
+@AllArgsConstructor	// Generate All args constructor
 public enum UserTokenType {
 
-	ADD_USER,
+	ADD_USER, 
 	RESET_PASSWORD
 }

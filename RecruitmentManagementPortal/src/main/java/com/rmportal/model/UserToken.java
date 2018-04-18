@@ -34,5 +34,7 @@ public class UserToken {
 	
 	@Column(name = "token_type")
 	String tokenType;
+	
+	
 
 }

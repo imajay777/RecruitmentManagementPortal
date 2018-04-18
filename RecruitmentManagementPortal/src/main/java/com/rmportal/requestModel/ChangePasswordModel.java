@@ -9,17 +9,17 @@ import lombok.ToString;
  * @author saurabh
  *
  */
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ResetPasswordModel {
+public class ChangePasswordModel {
 
-	int userId;
 	
-	String token;
-
-	String password;
-
+	String email;
+	
+	String oldPassword;
+	
+	String newPassword;
+	
 }

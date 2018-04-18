@@ -5,11 +5,11 @@ import lombok.Getter;
 
 /**
  * @author saurabh
- *
+ * Http Status Response messages and code
  */
 
-@Getter
-@AllArgsConstructor
+@Getter // Generate getter
+@AllArgsConstructor //Generate all args constructor
 public enum HttpStatusConstants {
 
 	

@@ -23,6 +23,7 @@ public class ActivationEmailUtility {
 
 	@Autowired
 	private JavaMailSender emailSender;
+	
 	@Autowired
 	UserTokenRepository userTokenRepo;
 

@@ -22,7 +22,6 @@ public class ConversionUtility {
 
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
-		user.setUsername(registerRequestModel.getUsername());
 		user.setFirstname(registerRequestModel.getFirstname());
 		user.setLastname(registerRequestModel.getLastname());
 		System.out.println(registerRequestModel.getPassword());
@@ -50,6 +49,7 @@ public class ConversionUtility {
 		responseModel.setFirst_name(userFromTable.getFirstname());
 		responseModel.setLast_name(userFromTable.getLastname());
 		responseModel.setMobile(userFromTable.getId());
+		responseModel.setUser_id(userFromTable.getId());
 		return responseModel;
 
 	}

@@ -1,8 +1,7 @@
 package com.rmportal.service;
 
-import org.springframework.data.jpa.repository.Query;
-
 import com.rmportal.model.User;
+import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.CustomException;
@@ -24,4 +23,7 @@ public interface UserServices {
 	public boolean forgetPassword(String email) throws CustomException;
 	
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException;
+	
+	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException;
+	
 }

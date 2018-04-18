@@ -1,18 +1,23 @@
 package com.rmportal.service;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rmportal.constants.UserTokenType;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.model.UserToken;
 import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.repository.UserTokenRepository;
+import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
@@ -46,9 +51,12 @@ public class UserServiceImpl implements UserServices {
 
 	@Autowired
 	ForgetPasswordEmailUtility forgotPasswordEmailUtility;
-	
+
 	@Autowired
 	PasswordEncryption passwordEncryption;
+
+	@Autowired
+	PasswordEncoder bCryptPassword;
 
 	@Override
 	public User findUserByEmail(String email) {
@@ -97,15 +105,24 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean validateUserToken(int userId, String token) throws CustomException {
 
-		UserToken userToken = userTokenRepository.findByToken(userId, token);
-		if (userToken != null) {
+		if (StringUtils.isEmpty(token)) {
+			throw new CustomException(500, "Token is not found");
+		} else {
+			UserToken tokenObj = userTokenRepository.findByTokenValue(token);
+			if (Objects.isNull(tokenObj)) {
+				throw new CustomException(500, "Token is Null");
+			}
+
+			if (tokenObj.getTokenType().compareTo(UserTokenType.ADD_USER.name()) != 0) {
+				throw new CustomException(500, "Token Type Mismatch");
+			}
+
 			User user = userRepository.findByUserId(userId);
 			user.setActive(true);
-
-			userTokenRepository.delete(userToken);
+			userTokenRepository.delete(tokenObj);
 			return true;
 		}
-		return false;
+
 	}
 
 	@Override
@@ -120,17 +137,40 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
-		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserid(),
+		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserId(),
 				resetPasswordModel.getToken());
-		if (userToken != null) {
-			User user = userRepository.findByUserId(resetPasswordModel.getUserid());
-			user.setPassword(passwordEncryption.hashEncoder(resetPasswordModel.getPassword()));
 
+		System.out.println(userToken);
+		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
+			User user = userRepository.findByUserId(userToken.getUser_id());
+
+			if (user == null)
+				throw new CustomException(500, "Token Not Foung OR Invalid TokenType");
+
+			if (resetPasswordModel.getPassword().length() > 15)
+				throw new CustomException(413, "Password Length too Long");
+
+			user.setPassword(passwordEncryption.hashEncoder(resetPasswordModel.getPassword()));
 			userTokenRepository.delete(userToken);
 			return true;
+
+		} else {
+			return false;
 		}
 
-		return false;
 	}
 
+	@Override
+	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
+		User user = userRepository.findByEmail(changePasswordModel.getEmail());
+		if (Objects.isNull(user) && !user.isActive())
+			throw new CustomException(500, "User is InActive");
+
+		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
+			throw new CustomException(500, "Old Password did not match");
+
+		user.setPassword(passwordEncryption.hashEncoder(changePasswordModel.getNewPassword()));
+		return true;
+
+	}
 }
