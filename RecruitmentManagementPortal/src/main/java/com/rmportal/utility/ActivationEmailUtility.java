@@ -26,11 +26,6 @@ public class ActivationEmailUtility {
 	@Autowired
 	UserTokenRepository userTokenRepo;
 	
-	@Autowired
-	private JavaMailSender emailSender;
-
-	@Autowired
-	UserTokenRepository userTokenRepo;
 
 	@Value("${email.activationTokenLink}")
 	private String activationLink;
