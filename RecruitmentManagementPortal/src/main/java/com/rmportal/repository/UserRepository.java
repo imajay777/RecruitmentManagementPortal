@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.rmportal.model.User;
 
-import com.rmportal.requestModel.RegisterRequestModel;
-
 /**
  * @author tejas
  *
@@ -25,8 +23,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query(value = "SELECT * FROM user WHERE user_id =:user_id", nativeQuery = true)
 	User findByUserId(@Param("user_id") int userId);
-	/*
-	@Query(value = "SELECT * FROM user", nativeQuery = true)
-	User findAllUser();*/
+	
+	
+
 	
 }

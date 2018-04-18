@@ -14,13 +14,15 @@ import com.rmportal.requestModel.RegisterRequestModel;
 @Component
 public class PasswordEncryption {
 
-	/*@Autowired
+	@Autowired
 	PasswordEncoder bCryptPassword;
 
-	public String hashEncoder(RegisterRequestModel registerRequestModel) {
-		String hashEncoder = bCryptPassword.encode(registerRequestModel.getPassword());
+	
+	
+	public String hashEncoder(String password) {
+		String hashEncoder = bCryptPassword.encode(password);
 		return hashEncoder;
 	}
 	
-	*/
+	
 }

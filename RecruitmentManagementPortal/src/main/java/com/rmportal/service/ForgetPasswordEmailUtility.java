@@ -1,4 +1,4 @@
-package com.rmportal.utility;
+package com.rmportal.service;
 
 import java.util.UUID;
 
@@ -12,47 +12,43 @@ import com.rmportal.constants.UserTokenType;
 import com.rmportal.model.User;
 import com.rmportal.model.UserToken;
 import com.rmportal.repository.UserTokenRepository;
-import com.rmportal.responseModel.ResponseModel;
 
 /**
  * @author saurabh
  *
  */
 @Component
-public class ActivationEmailUtility {
+public class ForgetPasswordEmailUtility {
 
-@Autowired
-private JavaMailSender emailSender;
+	@Autowired
+	private JavaMailSender emailSender;
+	@Autowired
+	UserTokenRepository userTokenRepo;
 
-@Autowired
-UserTokenRepository userTokenRepo;
-
-@Value("${email.activationTokenLink}")
-private String activationLink;
+	@Value("${email.resetPasswordLink}")
+	private String resetPasswordLink;
 
 	public void sendMail(User user) {
 
 		if (user != null) {
-			String subject = "Activation Link for Recruitment Management Portal";
+			String subject = "Reset Password Link for Recruitment Management Portal";
 			String message = "Hi " + user.getFirstname() + ", \n"
-					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the activation link below to activate your account \n";
-			// String token = RandomStringUtils.randomAlphabetic(8);
+					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the Reset Password link below to reset your password \n";
 			String token = String.valueOf(UUID.randomUUID());
 
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(user.getEmail());
 			mailMessage.setSubject(subject);
-			mailMessage.setText(message + activationLink + "/" + user.getId() + "/" + token);
+			mailMessage.setText(message + resetPasswordLink + "/" + user.getId() + "/" + token);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
 			emailSender.send(mailMessage);
 
 			UserToken userToken = new UserToken();
 			userToken.setToken(token);
 			userToken.setUser_id(user.getId());
-			userToken.setTokenType(UserTokenType.ADD_USER.name());
+			userToken.setTokenType(UserTokenType.RESET_PASSWORD.name());
 			userTokenRepo.save(userToken);
 		}
 
 	}
-
 }

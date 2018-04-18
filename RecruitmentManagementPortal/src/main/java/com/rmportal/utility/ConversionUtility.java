@@ -1,5 +1,6 @@
 package com.rmportal.utility;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.model.User;
@@ -9,7 +10,6 @@ import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 
-
 /**
  * @author tejas
  *
@@ -17,29 +17,32 @@ import com.rmportal.responseModel.UserResponseDTO;
 @Component
 public class ConversionUtility {
 
+	@Autowired
+	PasswordEncryption passwordEncryption;
+
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
 
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
 		user.setFirstname(registerRequestModel.getFirstname());
 		user.setLastname(registerRequestModel.getLastname());
-		user.setPassword(registerRequestModel.getPassword());
+		System.out.println(registerRequestModel.getPassword());
+		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
 
 		return user;
 	}
 
 	public UserResponseDTO convertUserToresponse(User user) {
-		
 
 		UserResponseDTO userResponseDTO = new UserResponseDTO();
-		
+
 		userResponseDTO.setEmail(user.getEmail());
 		userResponseDTO.setFirstname(user.getFirstname());
 		userResponseDTO.setLastname(user.getLastname());
-		
+
 		return userResponseDTO;
 		// TODO Auto-generated method stub
-		
+
 	}
 	
 	public UpdateResponseModel convertUpdateUserToresponse(User user){
@@ -66,7 +69,14 @@ public class ConversionUtility {
 		responseModel.setLast_name(userFromTable.getLastname());
 		responseModel.setMobile(userFromTable.getId());
 		return responseModel;
-	
+
+	}
+
+	public String setStatusToUser() {
+
+		User user = new User();
+		user.setActive(true);
+		return "UserActivated";
 	}
 
 	public User convertRequestToUser(UpdateRequestModel updateRequestModel) {

@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.rmportal.model.User;
 import com.rmportal.responseModel.UpdateResponseModel;
+import org.springframework.data.jpa.repository.Query;
+
+import com.rmportal.model.User;
+import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.CustomException;
 
@@ -28,4 +32,11 @@ public interface UserServices {
 	
 	public boolean updateStatus(boolean status, String email);  
 
+	
+	 
+	public boolean validateUserToken(int userid, String token) throws CustomException;
+	
+	public boolean forgetPassword(String email) throws CustomException;
+	
+	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException;
 }

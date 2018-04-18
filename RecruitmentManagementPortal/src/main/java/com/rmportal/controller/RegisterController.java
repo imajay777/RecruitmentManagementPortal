@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,8 +39,10 @@ public class RegisterController {
 
 	@Autowired
 	ConversionUtility conversionUtility;
+
 	
 ////////////////////////registration API
+
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
 
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
@@ -50,7 +51,8 @@ public class RegisterController {
 		
 
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
-		UserResponseDTO httpResponseModel=null;
+		UserResponseDTO httpResponseModel = null;
+		
 		try {
 			httpResponseModel = userService.saveUser(user);
 		} catch (CustomException e) {
@@ -62,7 +64,7 @@ public class RegisterController {
 
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Register successfully",
 				HttpStatusConstants.OK.id, httpResponseModel));
-
+		
 	}
 //////////////////////////updateUser API
 	@RequestMapping(value="/updateUser/{id}", method = RequestMethod.POST, consumes="application/json")
@@ -77,9 +79,28 @@ public class RegisterController {
 		  
 		  return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "updated successfully",
 					HttpStatusConstants.OK.id, user));
-
-		 
 	}
+
+		// Process Activation link
+			@RequestMapping(value = "/activation", method = RequestMethod.GET)
+			public ResponseEntity<?> confirmationPage(@RequestParam("token") String token, @RequestParam("userId") int userId)
+			throws CustomException {
+
+			UserResponseDTO httpResponseModel = null;
+			
+			if(userService.validateUserToken(userId,token)){
+			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "User Activated",
+			HttpStatusConstants.OK.id, null));
+			} 
+			
+			return ResponseEntity
+			.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Token",
+			HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
+			
+			
+
+			
+			}
 /////////////////////////////// List of Users API
 	 @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	    public ResponseEntity<?> listAllUsers() {
