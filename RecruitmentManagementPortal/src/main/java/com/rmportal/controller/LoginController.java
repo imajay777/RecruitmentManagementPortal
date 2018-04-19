@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
+import com.rmportal.model.User;
 import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.HttpResponseModel;
@@ -46,6 +47,7 @@ public class LoginController {
 		
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
+			
 		} catch (CustomException e) {
 			return ResponseEntity.ok(
 					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));

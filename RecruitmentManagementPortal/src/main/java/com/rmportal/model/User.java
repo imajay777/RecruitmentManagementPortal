@@ -13,10 +13,6 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
-
-
-
 /**
  * @author tejas
  *
@@ -32,65 +28,62 @@ public class User {
 	@Column(name = "user_id")
 	int id;
 
-	/*@Column(name = "user_name")
-	//@NotEmpty(message = "*Please provide your user name")
-	String username;*/
+	/*
+	 * @Column(name = "user_name") //@NotEmpty(message =
+	 * "*Please provide your user name") String username;
+	 */
 
 	@Column(name = "first_name")
-	//@NotEmpty(message = "*Please provide your first name")
+	// @NotEmpty(message = "*Please provide your first name")
 	String firstname;
 
 	@Column(name = "last_name")
-	//@NotEmpty(message = "*Please provide your last name")
+	// @NotEmpty(message = "*Please provide your last name")
 	String lastname;
 
 	@Column(name = "password")
 	String password;
 
 	@Column(name = "email")
-	//@Email(message = "*Please provide a valid Email")
-	//@NotEmpty(message = "*Please provide an email")
+	// @Email(message = "*Please provide a valid Email")
+	// @NotEmpty(message = "*Please provide an email")
 	String email;
-	
-	@Column(name="department")
-	String department;
-	
-	@Column(name="address")
+
+	@Column(name = "address")
 	String address;
-	
-	@Column(name="dob")
+
+	@Column(name = "dob")
 	String DOB;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	String city;
-	
-	@Column(name="country")
+
+	@Column(name = "country")
 	String country;
-	
-	@Column(name="mobile")
+
+	@Column(name = "mobile")
 	int mobile;
-	
-	@Column(name="blood_group")
+
+	@Column(name = "blood_group")
 	String blood_group;
-	
-	@Column(name="employee_id")
+
+	@Column(name = "employee_id")
 	String employee_id;
-	
+
 	@Column(name = "is_active")
 	private boolean isActive;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="role_id")
-	//@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinColumn(name = "role_id")
+	// @JoinTable(name = "user_role", joinColumns = @JoinColumn(name =
+	// "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	Role roles;
 
-	//@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	// @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 
-	/*@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="dept_id")
-	Department departments;*/
-
-	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "dept_id")
+	Department departments;
 
 	
 }

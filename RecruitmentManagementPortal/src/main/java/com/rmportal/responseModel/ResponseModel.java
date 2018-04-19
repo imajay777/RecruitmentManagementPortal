@@ -1,11 +1,11 @@
 package com.rmportal.responseModel;
 
+import com.rmportal.model.Role;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
@@ -16,14 +16,20 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = false)
 public class ResponseModel {
 
+	int user_id;
+	
 	String first_name;
 
 	String last_name;
 
 	String email;
 
-	long mobile;
+	UserPremissionModel permissions;  
 	
-	int user_id;
+	
+	
+	
+	
+	
 
 }

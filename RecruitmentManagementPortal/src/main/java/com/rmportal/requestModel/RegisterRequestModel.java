@@ -3,6 +3,8 @@ package com.rmportal.requestModel;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.rmportal.model.Role;
+
 import lombok.Data;
 
 /**
@@ -26,6 +28,7 @@ public class RegisterRequestModel {
 	@Email
 	String email;
 	
+
 	private boolean active;
 	
 	

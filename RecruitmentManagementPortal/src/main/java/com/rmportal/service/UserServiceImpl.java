@@ -85,6 +85,9 @@ public class UserServiceImpl implements UserServices {
 
 		registerRequestModel.setActive(false);
 		Role userRole = roleRepository.findOne(3);
+		if (userRole == null) {
+			throw new CustomException(500, "Role does not exits");
+		}
 		registerRequestModel.setRoles(userRole);
 
 		if (isValidEmail(registerRequestModel.getEmail())) {
@@ -97,8 +100,6 @@ public class UserServiceImpl implements UserServices {
 				if (user != null)
 					throw new CustomException(500, "User already exists");
 				/* passwordEncryption.hashEncoder(registerRequestModel); */
-				user = userRepository.save(registerRequestModel);
-				// ActivationEmailUtility.sendingEmail();
 				user = userRepository.save(registerRequestModel);
 				activationEmailUtility.sendMail(user);
 
