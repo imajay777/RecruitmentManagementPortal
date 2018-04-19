@@ -28,8 +28,8 @@ public class Department {
 	@Column(name="dept_name")
 	private String dept_name;
 	
-	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "departments")
-	List<User> user;
+	/*@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "departments")
+	List<User> user;*/
 	
 
 }

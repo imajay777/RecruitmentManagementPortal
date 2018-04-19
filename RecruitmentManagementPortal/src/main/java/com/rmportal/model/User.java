@@ -86,9 +86,9 @@ public class User {
 
 	//@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 
-	@OneToOne(cascade=CascadeType.ALL)
+	/*@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dept_id")
-	Department departments;
+	Department departments;*/
 
 	
 
