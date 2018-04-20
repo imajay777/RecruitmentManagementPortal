@@ -24,6 +24,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query(value = "SELECT * FROM user WHERE user_id =:user_id", nativeQuery = true)
 	User findByUserId(@Param("user_id") int userId);
 	
+	/*@Query(value = "SELECT * FROM user WHERE is_active =:is_active", nativeQuery = true)
+	User findActiveUsers(@Param("is_active") boolean isactive);*/
+	
 	/*@Query(value="SELECT permission.permission_id,permission.permission_type, permission_role.role_id from permission inner join permission_role on permission.permission_id=permission_role.role_permission_id",nativeQuertrue)
 	User findRoleAndPermission*/
 }

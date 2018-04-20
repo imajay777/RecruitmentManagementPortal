@@ -3,12 +3,9 @@ package com.rmportal.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rmportal.model.JobVacancy;
+import com.rmportal.model.Department;
 
 @Repository
-public interface JobVacancyRepository extends CrudRepository<JobVacancy, Integer>{
-
-	
-	
+public interface DepartmentRepository extends CrudRepository<Department, Integer>{ 
 
 }

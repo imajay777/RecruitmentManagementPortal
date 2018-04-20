@@ -7,9 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.rmportal.model.JobVacancy;
 import com.rmportal.model.Permission;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
+import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.responseModel.ResponseModel;
@@ -75,7 +77,7 @@ public class ConversionUtility {
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setRole(userFromTable.getRoles());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
-
+		//responseModel.setRoles(userFromTable.getRoles());
 		return responseModel;
 
 	}
@@ -92,19 +94,19 @@ public class ConversionUtility {
 					model.setAddUser(true);
 				}
 				if (permission.getPremissionName() == ("AddPosition")) {
-					model.setAddUser(true);
+					model.setAddPosition(true);
 				}
 				if (permission.getPremissionName() == ("UpdateUser")) {
-					model.setAddUser(true);
+					model.setUpdateUser(true);
 				}
 				if (permission.getPremissionName() == ("UpdateStatus")) {
-					model.setAddUser(true);
+					model.setUpdateStatus(true);
 				}
 				if (permission.getPremissionName() == ("DeactivateUser")) {
-					model.setAddUser(true);
+					model.setDeactivateUser(true);
 				}
 				if (permission.getPremissionName() == ("ChangeRole")) {
-					model.setAddUser(true);
+					model.setChangeRole(true);
 				}
 
 			}
@@ -149,5 +151,21 @@ public class ConversionUtility {
 		}
 		return roleResponseList;
 	}
+	
+	// Add Job Vacancies
+	public JobVacancy addJobVacancy(JobVacancyRequestModel jobVacancyRequestModel){
+		JobVacancy jobVacancy = new JobVacancy();
+		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
+		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
+		jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
+		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
+		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
+		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
+		jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
+		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
+		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
+		return jobVacancy;
+	}
+	
 
 }

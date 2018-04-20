@@ -1,7 +1,7 @@
 package com.rmportal.service;
 
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rmportal.constants.UserTokenType;
+import com.rmportal.model.Department;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.model.UserToken;
+import com.rmportal.repository.DepartmentRepository;
 import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.repository.UserTokenRepository;
@@ -64,6 +66,9 @@ public class UserServiceImpl implements UserServices {
 
 	@Autowired
 	PasswordEncoder bCryptPassword;
+	
+	@Autowired
+	DepartmentRepository departmentRepository;
 
 	@Override
 	public User findUserByEmail(String email) {
@@ -84,7 +89,12 @@ public class UserServiceImpl implements UserServices {
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
 
 		registerRequestModel.setActive(false);
+
 		Role userRole = roleRepository.findOne(3);
+
+		Department dept = departmentRepository.findOne(1);
+		registerRequestModel.setDepartments(dept);
+
 		if (userRole == null) {
 			throw new CustomException(500, "Role does not exits");
 		}
@@ -150,11 +160,17 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean updateStatus(boolean status, String email) {
 		User user = userRepository.findByEmail(email);
+		// userRepository.findActiveUsers(true);
 		if (user != null) {
-			user.setActive(true);
-			return true;
+			// user.setActive(true);
+			if (status) {
+				user.setActive(false);
+			} else {
+				user.setActive(true);
+			}
 		}
-		return false;
+		return status;
+
 	}
 
 	public boolean validateUserToken(int userId, String token) throws CustomException {
