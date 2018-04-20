@@ -1,16 +1,18 @@
 package com.rmportal.utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.loader.custom.Return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.model.Permission;
+import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserPremissionModel;
 import com.rmportal.responseModel.UserResponseDTO;
@@ -46,7 +48,6 @@ public class ConversionUtility {
 		userResponseDTO.setLastname(user.getLastname());
 
 		return userResponseDTO;
-		// TODO Auto-generated method stub
 
 	}
 
@@ -129,6 +130,17 @@ public class ConversionUtility {
 		System.out.println(user);
 		return user;
 
+	}
+
+	public List<RoleResponseModel> convertToRoleResponseModel(List<Role> roles){
+		List<RoleResponseModel> roleResponseList = new ArrayList<>();
+		for (Role role:roles){
+			RoleResponseModel roleResponseModel = new RoleResponseModel();
+			roleResponseModel.setId(role.getId());
+			roleResponseModel.setRole(role.getRole());
+			roleResponseList.add(roleResponseModel);
+		}
+		return roleResponseList;
 	}
 
 }

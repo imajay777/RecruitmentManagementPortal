@@ -15,11 +15,15 @@ import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.service.UserServices;
 import com.rmportal.utility.CustomException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author saurabh Controller for Login, Forgot Password and Reset Password
  */
 
 @RestController
+@Api(value="User Upgradation", description="Change Details from Profile Page")
 @CrossOrigin("*")
 public class ChangePasswordController {
 
@@ -28,6 +32,7 @@ public class ChangePasswordController {
 	
 	// Change Password Controller
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@ApiOperation(value = "Change Password")
 	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordModel changePasswordModel)
 			throws CustomException {
 		

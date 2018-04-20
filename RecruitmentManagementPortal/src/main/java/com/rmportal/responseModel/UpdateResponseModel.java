@@ -15,7 +15,7 @@ public class UpdateResponseModel {
 	String country;
 	int mobile;
 	String blood_group;
-	String email;
+	String email;	
 
 	
 

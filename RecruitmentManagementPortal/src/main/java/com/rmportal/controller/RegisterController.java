@@ -26,11 +26,15 @@ import com.rmportal.service.UserServices;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author tejas
  *
  */
 @RestController
+@Api(value="Registration Controller", description="Registration Process")
 @CrossOrigin("*")
 
 public class RegisterController {
@@ -43,7 +47,7 @@ public class RegisterController {
 
 	// Registration API
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
-
+	@ApiOperation(value="User Registration")
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) {
 
@@ -66,7 +70,7 @@ public class RegisterController {
 
 	// UpdateUser API
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST, consumes = "application/json")
-
+	@ApiOperation(value="Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody UpdateRequestModel updateRequestModel)
 			throws CustomException {
 
@@ -80,7 +84,8 @@ public class RegisterController {
 
 	// Process Activation link while Registration
 	@RequestMapping(value = "/activation", method = RequestMethod.GET)
-	public ResponseEntity<?> confirmationPage(@RequestParam("token") String token, @RequestParam("userId") int userId)
+	@ApiOperation(value="Validate Token")
+	public ResponseEntity<?> validateToken(@RequestParam("token") String token, @RequestParam("userId") int userId)
 			throws CustomException {
 
 
@@ -97,6 +102,7 @@ public class RegisterController {
 
 	// List of Users API
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	@ApiOperation(value="Get List of Users")
 	public ResponseEntity<?> listAllUsers() {
 		List<User> users = userService.getAllUsers();
 		/*
@@ -110,6 +116,7 @@ public class RegisterController {
 
 	// UserStatus Activation/Deactivation API through page
 	@RequestMapping(value = "/updateStatus/{status}", method = RequestMethod.GET)
+	@ApiOperation(value="Activation/Deactivation")
 	public ResponseEntity<?> updateStatus(@PathVariable boolean status, @RequestParam(required = true) String email) {
 		if (userService.updateStatus(status, email)) {
 
@@ -123,13 +130,14 @@ public class RegisterController {
 	}
 	
 	// Get User Details
-	@RequestMapping(value = "/getDetails", method = RequestMethod.GET)
-	public ResponseEntity<?> getDetails(@RequestParam("email") String email){
+	@RequestMapping(value = "/getDetails/{user_id}", method = RequestMethod.GET)
+	@ApiOperation(value="Get User Details")
+	public ResponseEntity<?> getDetails(@PathVariable("user_id") int user_id){
 		
 		UpdateResponseModel updateResponseModel = null; 
 		
 		try {
-			updateResponseModel = userService.getDetails(email);
+			updateResponseModel = userService.getDetails(user_id);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(
 					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, updateResponseModel));
