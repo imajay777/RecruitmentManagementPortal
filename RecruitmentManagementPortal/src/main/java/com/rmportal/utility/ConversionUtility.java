@@ -88,6 +88,25 @@ public class ConversionUtility {
 			// String permission1;
 			if (permission.getPremissionName() == "AddUser") {
 				model.setAddUser(true);
+				if (permission.getPremissionName() == "AddUser") {
+					model.setAddUser(true);
+				}
+				if (permission.getPremissionName() == ("AddPosition")) {
+					model.setAddUser(true);
+				}
+				if (permission.getPremissionName() == ("UpdateUser")) {
+					model.setAddUser(true);
+				}
+				if (permission.getPremissionName() == ("UpdateStatus")) {
+					model.setAddUser(true);
+				}
+				if (permission.getPremissionName() == ("DeactivateUser")) {
+					model.setAddUser(true);
+				}
+				if (permission.getPremissionName() == ("ChangeRole")) {
+					model.setAddUser(true);
+				}
+
 			}
 			if (permission.getPremissionName() == ("AddPosition")) {
 				model.setAddUser(true);

@@ -27,7 +27,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author saurabh
+ * @author saurabh/tejas
  * Controller for Login, Forgot Password and Reset Password
  */
 
