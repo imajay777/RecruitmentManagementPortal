@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rmportal.constants.HttpStatusConstants;
+import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.LoginRequestModel;
@@ -32,20 +33,30 @@ public class LoginServiceImpl implements LoginServices {
 	@Override
 	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
 
-		User userFromTable = userRepository.findByEmail(loginRequestModel.getEmail());
+		User user = userRepository.findByEmail(loginRequestModel.getEmail());
 
-		if (userFromTable == null) {
+		if (user == null) {
 			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, HttpStatusConstants.NO_CONTENT.getStatus());
 		}
-		if (userFromTable.isActive()) {
+		if (user.isActive()) {
 
-			if (bCryptPassword.matches(loginRequestModel.getPassword(), userFromTable.getPassword())) {
-				return conversionUtility.convertUserToResponse(userFromTable);
+			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
+				
+				
+				
+				return conversionUtility.convertUserToResponse(user);
+
+				// UserPremissionModel userPremissionModel =
+				// userPermissionRepository.findByRoleAndPermission(responseModel.getRole().getId());
+				// Role role = userFromTable.getRoles();
+
+				// responseModel.setRole(role);
+				
 
 			} else {
 				throw new CustomException(401, "Invalid Password");
 			}
-		}else{
+		} else {
 			throw new CustomException(406, "User is Inactive");
 		}
 
