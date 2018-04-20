@@ -24,7 +24,7 @@ import com.rmportal.service.UserServices;
 import com.rmportal.utility.CustomException;
 
 /**
- * @author saurabh
+ * @author saurabh/tejas
  * Controller for Login, Forgot Password and Reset Password
  */
 

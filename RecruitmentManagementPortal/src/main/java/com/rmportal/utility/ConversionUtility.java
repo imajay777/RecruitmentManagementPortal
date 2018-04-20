@@ -81,7 +81,6 @@ public class ConversionUtility {
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
 		for (Permission permission : list) {
-			// String permission1;
 				if (permission.getPremissionName() == "AddUser") {
 					model.setAddUser(true);
 				}
