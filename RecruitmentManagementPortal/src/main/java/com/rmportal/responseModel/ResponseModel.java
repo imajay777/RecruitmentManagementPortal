@@ -24,6 +24,8 @@ public class ResponseModel {
 
 	String email;
 
+	Role role;
+	
 	UserPremissionModel permissions;  
 	
 	//Role roles;

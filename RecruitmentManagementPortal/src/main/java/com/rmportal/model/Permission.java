@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -27,6 +28,7 @@ private int permission_id;
 private String premissionName;
 
 @ManyToMany(mappedBy = "rolePermission") 
+@JsonBackReference
 private List<Role> roles;
 
 

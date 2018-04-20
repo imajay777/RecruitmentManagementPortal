@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
+import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.responseModel.ResponseModel;
@@ -29,6 +30,9 @@ public class LoginServiceImpl implements LoginServices {
 
 	@Autowired
 	PasswordEncoder bCryptPassword;
+	
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Override
 	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
@@ -42,16 +46,7 @@ public class LoginServiceImpl implements LoginServices {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
 				
-				
-				
-				return conversionUtility.convertUserToResponse(user);
-
-				// UserPremissionModel userPremissionModel =
-				// userPermissionRepository.findByRoleAndPermission(responseModel.getRole().getId());
-				// Role role = userFromTable.getRoles();
-
-				// responseModel.setRole(role);
-				
+				return conversionUtility.convertUserToLoginResponse(user);
 
 			} else {
 				throw new CustomException(401, "Invalid Password");
