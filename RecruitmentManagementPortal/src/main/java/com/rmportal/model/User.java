@@ -23,6 +23,7 @@ import lombok.Data;
 @Table(name = "user")
 @Entity
 @Data
+
 public class User {
 
 	@Id
@@ -86,6 +87,7 @@ public class User {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dept_id")
+	@JsonManagedReference
 	Department departments;
 
 	

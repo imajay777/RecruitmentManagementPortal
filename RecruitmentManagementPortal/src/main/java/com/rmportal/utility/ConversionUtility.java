@@ -62,10 +62,10 @@ public class ConversionUtility {
 		updateResponseModel.setAddress(user.getAddress());
 		updateResponseModel.setCity(user.getCity());
 		updateResponseModel.setCountry(user.getCountry());
-		// updateResponseModel.setDepartment(user.getDepartment());
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
+		updateResponseModel.setRole(user.getRoles().getRole());
 		return updateResponseModel;
 	}
 
@@ -77,7 +77,6 @@ public class ConversionUtility {
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setRole(userFromTable.getRoles());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
-		//responseModel.setRoles(userFromTable.getRoles());
 		return responseModel;
 
 	}
@@ -88,6 +87,7 @@ public class ConversionUtility {
 
 		for (Permission permission : list) {
 			// String permission1;
+
 			if (permission.getPremissionName() == "AddUser") {
 				model.setAddUser(true);
 				if (permission.getPremissionName() == "AddUser") {
