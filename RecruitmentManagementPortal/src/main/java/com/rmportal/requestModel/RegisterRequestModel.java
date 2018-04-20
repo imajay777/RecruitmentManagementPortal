@@ -26,10 +26,5 @@ public class RegisterRequestModel {
 	@Email
 	String email;
 	
-	private boolean active;
-	
-	
-
-	
 
 }

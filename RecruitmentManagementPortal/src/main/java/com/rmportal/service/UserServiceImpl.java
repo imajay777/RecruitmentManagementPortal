@@ -228,8 +228,8 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public UpdateResponseModel getDetails(String email) throws CustomException {
-		User user = userRepository.findByEmail(email);
+	public UpdateResponseModel getDetails(int user_id) throws CustomException {
+		User user = userRepository.findByUserId(user_id);
 		if (Objects.isNull(user)) {
 			throw new CustomException(500, "Invalid Email ID. Unable to fetch Details");
 		}

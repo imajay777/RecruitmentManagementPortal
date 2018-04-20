@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +18,12 @@ import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.ResponseModel;
-import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.service.LoginServices;
 import com.rmportal.service.UserServices;
 import com.rmportal.utility.CustomException;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author saurabh
@@ -28,6 +31,7 @@ import com.rmportal.utility.CustomException;
  */
 
 @RestController
+@Api(value="Login Controller", description="Login details")
 @CrossOrigin("*")
 public class LoginController {
 
@@ -39,6 +43,7 @@ public class LoginController {
 
 	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ApiOperation(value="Login Controller")
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody LoginRequestModel loginRequestModel) {
 
@@ -56,8 +61,9 @@ public class LoginController {
 	}
 
 	// Forget Password Controller
-	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
+	@RequestMapping(value = "/forgetPassword/{email}", method = RequestMethod.GET)
+	@ApiOperation(value="Forget Password")
+	public ResponseEntity<?> forgetPassword(@PathVariable("email") String email) throws CustomException {
 
 
 		if (userService.forgetPassword(email)) {
@@ -73,6 +79,7 @@ public class LoginController {
 	
 	// Reset Password Controller
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	@ApiOperation(value="Reset Password")
 	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
