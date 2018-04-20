@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Entity
@@ -29,6 +31,7 @@ public class Department {
 	private String dept_name;
 	
 	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "departments")
+	@JsonBackReference
 	List<User> user;
 	
 

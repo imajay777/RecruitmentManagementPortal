@@ -60,10 +60,10 @@ public class ConversionUtility {
 		updateResponseModel.setAddress(user.getAddress());
 		updateResponseModel.setCity(user.getCity());
 		updateResponseModel.setCountry(user.getCountry());
-		// updateResponseModel.setDepartment(user.getDepartment());
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
+		updateResponseModel.setRole(user.getRoles().getRole());
 		return updateResponseModel;
 	}
 
@@ -75,7 +75,7 @@ public class ConversionUtility {
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setRole(userFromTable.getRoles());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
-		//responseModel.setRoles(userFromTable.getRoles());
+		// responseModel.setRoles(userFromTable.getRoles());
 		return responseModel;
 
 	}
@@ -83,46 +83,29 @@ public class ConversionUtility {
 	// getPermission method for above method(convertUserToLoginResponse)
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
-			
+
 		for (Permission permission : list) {
 			// String permission1;
+
 			if (permission.getPremissionName() == "AddUser") {
 				model.setAddUser(true);
-				if (permission.getPremissionName() == "AddUser") {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("AddPosition")) {
-					model.setAddPosition(true);
-				}
-				if (permission.getPremissionName() == ("UpdateUser")) {
-					model.setUpdateUser(true);
-				}
-				if (permission.getPremissionName() == ("UpdateStatus")) {
-					model.setUpdateStatus(true);
-				}
-				if (permission.getPremissionName() == ("DeactivateUser")) {
-					model.setDeactivateUser(true);
-				}
-				if (permission.getPremissionName() == ("ChangeRole")) {
-					model.setChangeRole(true);
-				}
-
 			}
 			if (permission.getPremissionName() == ("AddPosition")) {
-				model.setAddUser(true);
+				model.setAddPosition(true);
 			}
 			if (permission.getPremissionName() == ("UpdateUser")) {
-				model.setAddUser(true);
+				model.setUpdateUser(true);
 			}
 			if (permission.getPremissionName() == ("UpdateStatus")) {
-				model.setAddUser(true);
+				model.setUpdateStatus(true);
 			}
 			if (permission.getPremissionName() == ("DeactivateUser")) {
-				model.setAddUser(true);
+				model.setDeactivateUser(true);
 			}
 			if (permission.getPremissionName() == ("ChangeRole")) {
-				model.setAddUser(true);
+				model.setChangeRole(true);
 			}
+
 		}
 		return model;
 	}
