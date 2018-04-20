@@ -83,7 +83,7 @@ public class ConversionUtility {
 	// getPermission method for above method(convertUserToLoginResponse)
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
-			
+
 		for (Permission permission : list) {
 			// String permission1;
 			if (permission.getPremissionName() == "AddUser") {
@@ -107,21 +107,6 @@ public class ConversionUtility {
 					model.setAddUser(true);
 				}
 
-			}
-			if (permission.getPremissionName() == ("AddPosition")) {
-				model.setAddUser(true);
-			}
-			if (permission.getPremissionName() == ("UpdateUser")) {
-				model.setAddUser(true);
-			}
-			if (permission.getPremissionName() == ("UpdateStatus")) {
-				model.setAddUser(true);
-			}
-			if (permission.getPremissionName() == ("DeactivateUser")) {
-				model.setAddUser(true);
-			}
-			if (permission.getPremissionName() == ("ChangeRole")) {
-				model.setAddUser(true);
 			}
 		}
 		return model;

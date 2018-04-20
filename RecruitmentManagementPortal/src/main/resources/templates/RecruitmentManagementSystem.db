@@ -1,82 +1,92 @@
 CREATE SCHEMA `RMPortal` ;
 
-CREATE TABLE `RMPortal`.`role` (
-  `role_id` INT NOT NULL AUTO_INCREMENT,
-  `role_name` VARCHAR(45) NOT NULL,
-  `role_description` VARCHAR(45) NULL,
-  PRIMARY KEY (`role_id`));
+CREATE TABLE `role` (
+ `role_id` int(11) NOT NULL AUTO_INCREMENT,
+ `role_name` varchar(45) DEFAULT NULL,
+ PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `user` (
+ `user_id` int(11) NOT NULL AUTO_INCREMENT,
+ `first_name` varchar(45) DEFAULT NULL,
+ `last_name` varchar(45) DEFAULT NULL,
+ `created_at` varchar(45) DEFAULT NULL,
+ `is_active` tinyint(1) DEFAULT '0',
+ `last_login` varchar(45) DEFAULT NULL,
+ `email` varchar(45) DEFAULT NULL,
+ `password` varchar(100) DEFAULT NULL,
+ `role_id` int(11) DEFAULT NULL,
+ `department` varchar(45) DEFAULT NULL,
+ `city` varchar(45) DEFAULT NULL,
+ `country` varchar(45) DEFAULT NULL,
+ `mobile` int(11) DEFAULT NULL,
+ `address` varchar(45) DEFAULT NULL,
+ `dob` varchar(45) DEFAULT NULL,
+ `blood_group` varchar(45) DEFAULT NULL,
+ `employee_id` varchar(10) DEFAULT NULL,
+ `dept_id` int(11) NOT NULL DEFAULT '1',
+ PRIMARY KEY (`user_id`),
+ KEY `fk_user_1_idx` (`email`),
+ KEY `fk_user_1_idx1` (`role_id`),
+ KEY `fk_user_2_idx` (`dept_id`),
+ CONSTRAINT `fk_user_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `RMPortal`.`user` (
-  `user_id` INT NOT NULL AUTO_INCREMENT,
-  `user_name` VARCHAR(45) NOT NULL,
-  `first_name` VARCHAR(45) NULL,
-  `last_name` VARCHAR(45) NULL,
-  `created_at` VARCHAR(45) NULL,
-  `is_active` TINYINT  DEFAULT 0,
-  `last_login` VARCHAR(45) NULL,
-  `role_id` INT NULL,
-  PRIMARY KEY (`user_id`));
+CREATE TABLE `user_role` (
+ `user_role_id` int(11) NOT NULL AUTO_INCREMENT,
+ `user_id` int(11) NOT NULL,
+ `role_id` int(11) NOT NULL,
+ PRIMARY KEY (`user_role_id`),
+ KEY `fk_user_role_1_idx` (`role_id`),
+ KEY `fk_user_role_2_idx` (`user_id`),
+ CONSTRAINT `fk_user_role_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ CONSTRAINT `fk_user_role_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `RMPortal`.`role` (
-  `role_id` INT NOT NULL AUTO_INCREMENT,
-  `role_name` VARCHAR(45) NULL,
-  PRIMARY KEY (`role_id`));
+CREATE TABLE `user_token` (
+ `user_token_id` int(11) NOT NULL AUTO_INCREMENT,
+ `user_token` varchar(45) DEFAULT NULL,
+ `user_id` int(11) DEFAULT NULL,
+ `token_type` varchar(45) DEFAULT NULL,
+ PRIMARY KEY (`user_token_id`),
+ KEY `user_id_idx` (`user_id`),
+ CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
+CREATE TABLE `permission` (
+ `permission_id` int(11) NOT NULL AUTO_INCREMENT,
+ `permission_name` varchar(45) DEFAULT NULL,
+ PRIMARY KEY (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE `RMPortal`.`user` 
-ADD INDEX `fk_user_1_idx` (`role_id` ASC);
-ALTER TABLE `RMPortal`.`user` 
-ADD CONSTRAINT `role_id`
-  FOREIGN KEY (`role_id`)
-  REFERENCES `RMPortal`.`role` (`role_id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+CREATE TABLE `permission_role` (
+ `role_permission_id` int(11) NOT NULL AUTO_INCREMENT,
+ `role_id` int(11) NOT NULL,
+ `permission_id` int(11) NOT NULL,
+ PRIMARY KEY (`role_permission_id`),
+ KEY `fk_role_permission_1_idx` (`permission_id`),
+ KEY `fk_role_permission_2_idx` (`role_id`),
+ CONSTRAINT `fk_role_permission_1` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`permission_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ CONSTRAINT `fk_role_permission_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `RMPortal`.`user_token_type` (
-  `token_type_id` INT NOT NULL AUTO_INCREMENT,
-  `user_token_typecol` VARCHAR(45) NULL,
-  PRIMARY KEY (`token_type_id`));
+CREATE TABLE `department` (
+ `dept_id` int(11) NOT NULL AUTO_INCREMENT,
+ `dept_name` varchar(45) DEFAULT NULL,
+ PRIMARY KEY (`dept_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-CREATE TABLE `RMPortal`.`user_token` (
-  `user_token_id` INT NOT NULL AUTO_INCREMENT,
-  `user_token` VARCHAR(45) NULL,
-  `token_type_id` INT NOT NULL,
-  PRIMARY KEY (`user_token_id`),
-  INDEX `token_type_id_idx` (`token_type_id` ASC),
-  CONSTRAINT `token_type_id`
-    FOREIGN KEY (`token_type_id`)
-    REFERENCES `RMPortal`.`user_token_type` (`token_type_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-CREATE TABLE `RMPortal`.`user_role` (
-  `user_role_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
-  `role_id` INT(11) NOT NULL,
-  PRIMARY KEY (`user_role_id`),
-  INDEX `fk_user_role_1_idx` (`role_id` ASC),
-  INDEX `fk_user_role_2_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_role_1`
-    FOREIGN KEY (`role_id`)
-    REFERENCES `RMPortal`.`role` (`role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_role_2`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `RMPortal`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-////////////department table//////////////////
-CREATE TABLE `RMPortal`.`deparment` (
-  `dept_id` INT NOT NULL AUTO_INCREMENT,
-  `dept_name` VARCHAR(45) NULL,
-  `user_id` VARCHAR(45) NULL,
-  PRIMARY KEY (`dept_id`),
-  CONSTRAINT `fk_deparment_1`
-    FOREIGN KEY (`dept_id`)
-    REFERENCES `RMPortal`.`user` (`user_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
+CREATE TABLE `job_vacancy` (
+ `job_vacancy_id` int(11) NOT NULL AUTO_INCREMENT,
+ `job_title` varchar(70) NOT NULL,
+ `number_of_openings` int(11) NOT NULL,
+ `experience_required` varchar(50) NOT NULL,
+ `job_description` varchar(500) DEFAULT NULL,
+ `technical_skills` varchar(500) NOT NULL,
+ `job_location` varchar(500) NOT NULL,
+ `salary_ctc` varchar(100) DEFAULT 'Not disclosed',
+ `education` varchar(500) NOT NULL,
+ `job_type` varchar(50) NOT NULL,
+ PRIMARY KEY (`job_vacancy_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
