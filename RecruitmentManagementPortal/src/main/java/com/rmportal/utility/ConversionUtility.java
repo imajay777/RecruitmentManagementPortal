@@ -74,7 +74,7 @@ public class ConversionUtility {
 		// responseModel.setMobile(userFromTable.getId());
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
-
+		//responseModel.setRoles(userFromTable.getRoles());
 		return responseModel;
 
 	}
@@ -86,19 +86,19 @@ public class ConversionUtility {
 					model.setAddUser(true);
 				}
 				if (permission.getPremissionName() == ("AddPosition")) {
-					model.setAddUser(true);
+					model.setAddPosition(true);
 				}
 				if (permission.getPremissionName() == ("UpdateUser")) {
-					model.setAddUser(true);
+					model.setUpdateUser(true);
 				}
 				if (permission.getPremissionName() == ("UpdateStatus")) {
-					model.setAddUser(true);
+					model.setUpdateStatus(true);
 				}
 				if (permission.getPremissionName() == ("DeactivateUser")) {
-					model.setAddUser(true);
+					model.setDeactivateUser(true);
 				}
 				if (permission.getPremissionName() == ("ChangeRole")) {
-					model.setAddUser(true);
+					model.setChangeRole(true);
 				}
 
 			}

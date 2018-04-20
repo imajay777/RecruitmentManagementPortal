@@ -26,7 +26,7 @@ public class ResponseModel {
 
 	UserPremissionModel permissions;  
 	
-	
+	//Role roles;
 	
 	
 	

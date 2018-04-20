@@ -150,11 +150,17 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean updateStatus(boolean status, String email) {
 		User user = userRepository.findByEmail(email);
+		// userRepository.findActiveUsers(true);
 		if (user != null) {
-			user.setActive(true);
-			return true;
+			// user.setActive(true);
+			if (status) {
+				user.setActive(false);
+			} else {
+				user.setActive(true);
+			}
 		}
-		return false;
+		return status;
+
 	}
 
 	public boolean validateUserToken(int userId, String token) throws CustomException {
