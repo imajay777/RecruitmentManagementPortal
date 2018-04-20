@@ -1,6 +1,7 @@
 package com.rmportal.utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,45 +67,44 @@ public class ConversionUtility {
 		return updateResponseModel;
 	}
 
-	public ResponseModel convertUserToResponse(User userFromTable) {
+	public ResponseModel convertUserToLoginResponse(User userFromTable) {
 		ResponseModel responseModel = new ResponseModel();
 		responseModel.setEmail(userFromTable.getEmail());
 		responseModel.setFirst_name(userFromTable.getFirstname());
 		responseModel.setLast_name(userFromTable.getLastname());
-		// responseModel.setMobile(userFromTable.getId());
 		responseModel.setUser_id(userFromTable.getId());
+		responseModel.setRole(userFromTable.getRoles());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
 
 		return responseModel;
 
 	}
 
+	// getPermission method for above method(convertUserToLoginResponse)
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
+			
 		for (Permission permission : list) {
 			// String permission1;
-				if (permission.getPremissionName() == "AddUser") {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("AddPosition")) {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("UpdateUser")) {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("UpdateStatus")) {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("DeactivateUser")) {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("ChangeRole")) {
-					model.setAddUser(true);
-				}
-
+			if (permission.getPremissionName() == "AddUser") {
+				model.setAddUser(true);
 			}
-
-		
+			if (permission.getPremissionName() == ("AddPosition")) {
+				model.setAddUser(true);
+			}
+			if (permission.getPremissionName() == ("UpdateUser")) {
+				model.setAddUser(true);
+			}
+			if (permission.getPremissionName() == ("UpdateStatus")) {
+				model.setAddUser(true);
+			}
+			if (permission.getPremissionName() == ("DeactivateUser")) {
+				model.setAddUser(true);
+			}
+			if (permission.getPremissionName() == ("ChangeRole")) {
+				model.setAddUser(true);
+			}
+		}
 		return model;
 	}
 
@@ -115,6 +115,7 @@ public class ConversionUtility {
 		return "UserActivated";
 	}
 
+	// Method for Update Status
 	public User convertRequestToUser(UpdateRequestModel updateRequestModel) {
 
 		User user = new User();
@@ -133,9 +134,10 @@ public class ConversionUtility {
 
 	}
 
-	public List<RoleResponseModel> convertToRoleResponseModel(List<Role> roles){
+	// Method for List of Roles
+	public List<RoleResponseModel> convertToRoleResponseModel(List<Role> roles) {
 		List<RoleResponseModel> roleResponseList = new ArrayList<>();
-		for (Role role:roles){
+		for (Role role : roles) {
 			RoleResponseModel roleResponseModel = new RoleResponseModel();
 			roleResponseModel.setId(role.getId());
 			roleResponseModel.setRole(role.getRole());
