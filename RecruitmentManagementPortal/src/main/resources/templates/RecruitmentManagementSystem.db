@@ -92,15 +92,18 @@ CREATE TABLE `job_vacancy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `RMPortal`.`employee_referal` (
-  `referal_id` INT NOT NULL AUTO_INCREMENT,
-  `applicant_name` VARCHAR(255) NULL,
-  `experience` VARCHAR(255) NULL,
-  `technical_skill` VARCHAR(500) NULL,
-  `referance_email` VARCHAR(255) NULL,
-  `referance_user_id` INT NULL,
-  `resume` LONGBLOB NULL,
-  `application_status` VARCHAR(255) NULL,
-  `job_id` INT NULL,
-  PRIMARY KEY (`referal_id`));
+CREATE TABLE `employee_referal` (
+  `referal_id` int(11) NOT NULL AUTO_INCREMENT,
+  `applicant_name` varchar(255) DEFAULT NULL,
+  `experience` varchar(255) DEFAULT NULL,
+  `technical_skill` varchar(500) DEFAULT NULL,
+  `referance_email` varchar(255) DEFAULT NULL,
+  `referance_user_id` int(11) DEFAULT NULL,
+  `resume` longblob,
+  `application_status` varchar(255) DEFAULT NULL,
+  `job_id` int(11) DEFAULT NULL,
+  `bonous_status` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`referal_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
