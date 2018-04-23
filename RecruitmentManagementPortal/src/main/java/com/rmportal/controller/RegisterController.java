@@ -121,11 +121,11 @@ public class RegisterController {
 		if (userService.updateStatus(status, email)) {
 
 			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "status updated",
-					HttpStatusConstants.OK.id, null));
+					HttpStatusConstants.OK.id, true));
 		}
 
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "invalid user",
-				HttpStatusConstants.OK.id, null));
+				HttpStatusConstants.OK.id, false));
 
 	}
 	
