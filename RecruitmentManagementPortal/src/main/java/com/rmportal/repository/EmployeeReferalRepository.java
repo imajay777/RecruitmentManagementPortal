@@ -21,4 +21,11 @@ public interface EmployeeReferalRepository extends CrudRepository<EmployeeRefera
 	/*@Query(value = "SELECT * FROM employee_referal WHERE referance_email =:referance_email", nativeQuery = true)
 
 	EmployeeReferal findByReferalEmail(@Param("referance_email")String referance_email);*/
+	<S> S save(EmployeeReferal employeeReferal);
+	
+	@Query(value = "SELECT * FROM employee_referal WHERE referal_id =:referal_id", nativeQuery = true)
+	User findByEmployeeId(@Param("referal_id") int referalId);
+
+	@Query(value = "SELECT * FROM employee_referal WHERE referance_email =:referance_email", nativeQuery = true)
+	EmployeeReferal findByReferalEmail(@Param("referance_email")String referance_email);
 }
