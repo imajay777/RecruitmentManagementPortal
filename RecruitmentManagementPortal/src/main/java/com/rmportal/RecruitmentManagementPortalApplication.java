@@ -37,7 +37,8 @@ public class RecruitmentManagementPortalApplication {
 
 	private ApiInfo information() {
 
-		ApiInfo apiInfo = new ApiInfo("AGSFT RECRUITMENT PORTAL", "Online Portal for Recruitment Management", " ", "TOS", "agsft.com", "AGSFT License", "www.agsft.com");
+		ApiInfo apiInfo = new ApiInfo("AGSFT RECRUITMENT PORTAL", "Online Portal for Recruitment Management", " ",
+				"TOS", "agsft.com", "AGSFT License", "www.agsft.com");
 		return apiInfo;
 	}
 
