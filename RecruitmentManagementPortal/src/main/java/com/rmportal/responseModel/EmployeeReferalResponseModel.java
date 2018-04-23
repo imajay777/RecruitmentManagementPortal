@@ -2,6 +2,10 @@ package com.rmportal.responseModel;
 
 import javax.persistence.Column;
 
+import lombok.Data;
+
+
+@Data
 public class EmployeeReferalResponseModel 
 {
 	

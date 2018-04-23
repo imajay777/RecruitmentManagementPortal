@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import com.mysql.jdbc.Blob;
 
 import lombok.Data;
 
@@ -36,7 +39,8 @@ public class EmployeeReferal {
 	int referance_user_id;
 	
 	@Column(name="resume")
-	byte[] resume;
+	@Lob
+	Blob resume;
 	
 	@Column(name="application_status")
 	String application_status;

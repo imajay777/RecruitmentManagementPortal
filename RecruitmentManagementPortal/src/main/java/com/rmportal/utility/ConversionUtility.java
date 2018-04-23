@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.JobVacancy;
 import com.rmportal.model.Permission;
 import com.rmportal.model.Role;
@@ -14,6 +15,7 @@ import com.rmportal.model.User;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
+import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
@@ -198,6 +200,23 @@ public class ConversionUtility {
 		}
 		return jobresponselist;
 
+	}
+	
+	
+
+	public EmployeeReferalResponseModel convertTOGetEmployees(EmployeeReferal employeeReferal){
+		
+		EmployeeReferalResponseModel employeeReferalResponseModel=new EmployeeReferalResponseModel();
+		employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
+		employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
+		employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
+		employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
+		employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
+		//employeeReferalResponseModel.setResume(employeeReferal.getResume());
+		employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
+	
+		return employeeReferalResponseModel;
+		
 	}
 
 }
