@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author tejas
@@ -23,7 +24,7 @@ import lombok.Data;
 @Table(name = "user")
 @Entity
 @Data
-
+@EqualsAndHashCode(exclude="roles")
 public class User {
 
 	@Id
