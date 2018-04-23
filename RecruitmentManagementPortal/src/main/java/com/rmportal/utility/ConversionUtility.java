@@ -151,9 +151,9 @@ public class ConversionUtility {
 		}
 		return roleResponseList;
 	}
-	
+
 	// Add Job Vacancies
-	public JobVacancy addJobVacancy(JobVacancyRequestModel jobVacancyRequestModel){
+	public JobVacancy addJobVacancy(JobVacancyRequestModel jobVacancyRequestModel) {
 		JobVacancy jobVacancy = new JobVacancy();
 		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
@@ -161,11 +161,14 @@ public class ConversionUtility {
 		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
-		jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
+		if (jobVacancyRequestModel.getSalary_ctc() == "" || jobVacancyRequestModel.getSalary_ctc() == " ") {
+			jobVacancy.setSalary_ctc("Not Disclosed");
+		} else {
+			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
+		}
 		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
 		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
 		return jobVacancy;
 	}
-	
 
 }

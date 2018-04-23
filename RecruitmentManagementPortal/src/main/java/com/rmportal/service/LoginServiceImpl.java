@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginServices {
 
 	@Autowired
 	PasswordEncoder bCryptPassword;
-	
+
 	@Autowired
 	RoleRepository roleRepository;
 
@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginServices {
 		if (user.isActive()) {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
-				
+
 				return conversionUtility.convertUserToLoginResponse(user);
 
 			} else {

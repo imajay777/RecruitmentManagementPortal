@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author tejas
@@ -27,6 +28,7 @@ import lombok.Data;
 @Table(name = "role")
 @Entity
 @Data
+@EqualsAndHashCode(exclude="user")
 public class Role {
 
 	@Id
