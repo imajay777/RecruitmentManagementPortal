@@ -90,3 +90,17 @@ CREATE TABLE `job_vacancy` (
  `job_type` varchar(50) NOT NULL,
  PRIMARY KEY (`job_vacancy_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE `RMPortal`.`employee_referal` (
+  `referal_id` INT NOT NULL AUTO_INCREMENT,
+  `applicant_name` VARCHAR(255) NULL,
+  `experience` VARCHAR(255) NULL,
+  `technical_skill` VARCHAR(500) NULL,
+  `referance_email` VARCHAR(255) NULL,
+  `referance_user_id` INT NULL,
+  `resume` LONGBLOB NULL,
+  `application_status` VARCHAR(255) NULL,
+  `job_id` INT NULL,
+  PRIMARY KEY (`referal_id`));
+

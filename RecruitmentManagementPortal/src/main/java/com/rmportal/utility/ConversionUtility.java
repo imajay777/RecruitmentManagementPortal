@@ -14,6 +14,7 @@ import com.rmportal.model.User;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
+import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
@@ -169,6 +170,34 @@ public class ConversionUtility {
 		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
 		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
 		return jobVacancy;
+	}
+
+	// List of job vacancy
+	public List<JobVacancyResponseModel> getAllJobVacancy(List<JobVacancy> jobVacancylist) {
+		List<JobVacancyResponseModel> jobresponselist = new ArrayList<>();
+
+		for (JobVacancy jobVacancy : jobVacancylist) {
+			JobVacancyResponseModel jobVacancyResponse = new JobVacancyResponseModel();
+			jobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+			jobVacancyResponse.setNumber_of_openings(jobVacancy.getNumber_of_openings());
+			jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
+			jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
+			jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
+			jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
+			System.out.println(jobVacancy.getSalary_ctc());
+			if (jobVacancy.getSalary_ctc() == null || jobVacancy.getSalary_ctc() == "") {
+				jobVacancyResponse.setSalary_ctc("Not Disclosed");
+			} else {
+				jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
+			}
+			jobVacancyResponse.setEducation(jobVacancy.getEducation());
+			jobVacancyResponse.setJob_type(jobVacancy.getJob_type());
+			jobVacancyResponse.setJob_location(jobVacancy.getJob_location());
+			jobresponselist.add(jobVacancyResponse);
+
+		}
+		return jobresponselist;
+
 	}
 
 }
