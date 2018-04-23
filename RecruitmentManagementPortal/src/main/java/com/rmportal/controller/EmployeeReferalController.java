@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +24,11 @@ import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.HttpResponseModel;
 
+import com.rmportal.constants.HttpStatusConstants;
+import com.rmportal.responseModel.HttpResponseModel;
+import com.rmportal.responseModel.UpdateResponseModel;
+import com.rmportal.utility.CustomException;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -26,6 +36,24 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "EmployeeReferal Controller", description = "Refer the Candidate")
 @CrossOrigin("*")
 public class EmployeeReferalController {
+	
+	/*@RequestMapping(value = "/getEmployeeDetails/{referal_id}", method = RequestMethod.GET)
+	@ApiOperation(value="Get Employee Details")
+public ResponseEntity<?> getDetails(@PathVariable("user_id") int user_id){
+		
+		UpdateResponseModel updateResponseModel = null; 
+		
+		try {
+			updateResponseModel = userService.getDetails(user_id);
+		} catch (CustomException e) {
+			return ResponseEntity.ok(
+					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, updateResponseModel));
+		}
+		
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Data Fetched Successfully",
+				HttpStatusConstants.OK.id, updateResponseModel));
+		
+	}*/
 
 	@Autowired
 	EmployeeReferalRepository employeeReferalRepo;

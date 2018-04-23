@@ -30,4 +30,5 @@ public class JobVacancyRequestModel {
 
 	String job_type;
 	
+	
 }

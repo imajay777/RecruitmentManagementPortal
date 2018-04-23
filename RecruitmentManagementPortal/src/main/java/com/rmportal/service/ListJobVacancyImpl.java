@@ -11,6 +11,10 @@ import com.rmportal.repository.UserRepository;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.utility.ConversionUtility;
 
+/**
+ * @author tejas
+ *
+ */
 @Service
 public class ListJobVacancyImpl implements ListJobVacancyService{
 
