@@ -25,7 +25,7 @@ public class EmployeeReferalResponseModel
 //	int referance_user_id;
 //	
 
-	byte[] resume;
+	String resume;
 	
 	
 	String application_status;

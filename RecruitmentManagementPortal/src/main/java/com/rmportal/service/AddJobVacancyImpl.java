@@ -12,6 +12,10 @@ import com.rmportal.responseModel.AddJobVacancyResponse;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
+/**
+ * @author saurabh
+ *
+ */
 @Service
 public class AddJobVacancyImpl implements AddJobVacancyService {
 
@@ -22,10 +26,6 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 	ConversionUtility conversionUtility;
 
 	
-	/* @Autowired 
-	 AddJobVacancyResponse addJobVacancyResponse;*/
-	 
-
 	@Override
 	public AddJobVacancyResponse addVacancy(JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
 

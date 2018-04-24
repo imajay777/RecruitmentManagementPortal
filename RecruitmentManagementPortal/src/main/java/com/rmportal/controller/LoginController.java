@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.model.User;
 import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.HttpResponseModel;
@@ -27,12 +25,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author saurabh/tejas
- * Controller for Login, Forgot Password and Reset Password
+ * @author saurabh/tejas Controller for Login, Forgot Password and Reset
+ *         Password
  */
 
 @RestController
-@Api(value="Login Controller", description="Login details")
+@Api(value = "Login Controller", description = "Login details")
 @CrossOrigin("*")
 public class LoginController {
 
@@ -44,15 +42,15 @@ public class LoginController {
 
 	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@ApiOperation(value="Login Controller")
+	@ApiOperation(value = "Login Controller")
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody LoginRequestModel loginRequestModel) {
 
 		ResponseModel responseModel = null;
-		
+
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
-			
+
 		} catch (CustomException e) {
 			return ResponseEntity.ok(
 					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));
@@ -60,13 +58,16 @@ public class LoginController {
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Login Successful",
 				HttpStatusConstants.OK.id, responseModel));
 
+		/*
+		 * HttpStatus httpStatus = HttpStatus.BAD_REQUEST; return
+		 * (ResponseEntity<?>) ResponseEntity.status(httpStatus);
+		 */
 	}
 
 	// Forget Password Controller
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-	@ApiOperation(value="Forget Password")
+	@ApiOperation(value = "Forget Password")
 	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
-
 
 		if (userService.forgetPassword(email)) {
 			return ResponseEntity
@@ -78,22 +79,20 @@ public class LoginController {
 				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 	}
-	
+
 	// Reset Password Controller
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	@ApiOperation(value="Reset Password")
+	@ApiOperation(value = "Reset Password")
 	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
-
 		if (userService.resetPassword(resetPasswordModel)) {
-			return ResponseEntity
-					.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Password Reset",
-							HttpStatusConstants.OK.id, null));
+			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Password Reset",
+					HttpStatusConstants.OK.id, null));
 		}
 
-		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + " Invalid Token or Email",
+		return ResponseEntity.ok(
+				new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + " Invalid Token or Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}

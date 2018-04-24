@@ -234,7 +234,7 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
-		if (Objects.isNull(user) && !user.isActive())
+		if (Objects.isNull(user) || !user.isActive())
 			throw new CustomException(500, "User is InActive");
 
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
