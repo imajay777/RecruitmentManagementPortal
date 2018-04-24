@@ -1,12 +1,16 @@
 package com.rmportal.utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.JobVacancy;
 import com.rmportal.model.Permission;
 import com.rmportal.model.Role;
@@ -14,6 +18,7 @@ import com.rmportal.model.User;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
+import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
@@ -198,6 +203,26 @@ public class ConversionUtility {
 		}
 		return jobresponselist;
 
+	}
+
+	public EmployeeReferal addEmployeeResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
+			throws IOException {
+		EmployeeReferal employeeReferal = new EmployeeReferal();
+		employeeReferal.setApplicant_name(uploadResumeRequestModel.getApplicant_name());
+		employeeReferal.setExperience(uploadResumeRequestModel.getExperience());
+		employeeReferal.setTechnical_skill(uploadResumeRequestModel.getTechnical_skills());
+		employeeReferal.setReferance_email(uploadResumeRequestModel.getEmail());
+
+		if (!file.isEmpty()) {
+
+			System.out.println("Attachment Name?= " + file.getOriginalFilename() + "\n");
+			if (!file.getOriginalFilename().equals("")) {
+				employeeReferal.setResume(file.getBytes());
+
+			}
+		}
+
+		return employeeReferal;
 	}
 
 }

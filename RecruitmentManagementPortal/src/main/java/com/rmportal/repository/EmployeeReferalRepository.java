@@ -12,7 +12,7 @@ import com.rmportal.model.User;
 public interface EmployeeReferalRepository extends CrudRepository<EmployeeReferal, Integer>{
 	
 
-	<S> S save(EmployeeReferal employeeReferal);
+	EmployeeReferal save(EmployeeReferal employeeReferal);
 	
 	@Query(value = "SELECT * FROM employee_referal WHERE referal_id =:referal_id", nativeQuery = true)
 	User findByEmployeeId(@Param("referal_id") int referalId);

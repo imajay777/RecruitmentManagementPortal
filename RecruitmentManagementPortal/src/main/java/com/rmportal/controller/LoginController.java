@@ -63,9 +63,9 @@ public class LoginController {
 	}
 
 	// Forget Password Controller
-	@RequestMapping(value = "/forgetPassword/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
 	@ApiOperation(value="Forget Password")
-	public ResponseEntity<?> forgetPassword(@PathVariable("email") String email) throws CustomException {
+	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
 
 
 		if (userService.forgetPassword(email)) {

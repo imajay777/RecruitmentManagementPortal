@@ -4,29 +4,22 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.model.EmployeeReferal;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.HttpResponseModel;
-
-import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.responseModel.HttpResponseModel;
-import com.rmportal.responseModel.UpdateResponseModel;
+import com.rmportal.responseModel.UploadResumeResponseModel;
+import com.rmportal.service.EmployeeReferalService;
 import com.rmportal.utility.CustomException;
 
 import io.swagger.annotations.Api;
@@ -36,55 +29,48 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "EmployeeReferal Controller", description = "Refer the Candidate")
 @CrossOrigin("*")
 public class EmployeeReferalController {
-	
-	/*@RequestMapping(value = "/getEmployeeDetails/{referal_id}", method = RequestMethod.GET)
-	@ApiOperation(value="Get Employee Details")
-public ResponseEntity<?> getDetails(@PathVariable("user_id") int user_id){
-		
-		UpdateResponseModel updateResponseModel = null; 
-		
-		try {
-			updateResponseModel = userService.getDetails(user_id);
-		} catch (CustomException e) {
-			return ResponseEntity.ok(
-					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, updateResponseModel));
-		}
-		
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Data Fetched Successfully",
-				HttpStatusConstants.OK.id, updateResponseModel));
-		
-	}*/
 
 	@Autowired
 	EmployeeReferalRepository employeeReferalRepo;
 
-	@RequestMapping(value = "/addResume", method = RequestMethod.POST)
+	@Autowired
+	EmployeeReferalService employeeReferalService;
+
+	@RequestMapping(value = "/uploadResume", method = RequestMethod.POST, consumes = {
+			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Upload Resume")
-	public ResponseEntity<?> uploadResume(@RequestBody UploadResumeRequestModel uploadResumeModel,
-			@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<?> uploadResume(@RequestParam("details") String details,
+			@RequestParam("file") MultipartFile file) throws CustomException {
+
+		// insert details in this format
+		// {"email":"abc@gmail.com",
+		// "applicant_name":"abc","experience":"125years","technical_skills":"Java
+		// Master"}
+
+		UploadResumeRequestModel uploadResumeRequestModel = null;
 
 		if (file.isEmpty()) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatus.NO_CONTENT.name() + " Please Upload File",
+			return ResponseEntity.ok(new HttpResponseModel(HttpStatus.NO_CONTENT.name() + " Please attach the Resume",
 					HttpStatusConstants.OK.id, null));
 		}
-
-		if (Objects.isNull(uploadResumeModel)){
+		if (Objects.isNull(details)) {
 			return ResponseEntity.ok(new HttpResponseModel(HttpStatus.NO_CONTENT.name() + " Please Fill the Details",
 					HttpStatusConstants.OK.id, null));
 		}
-		
-		
-		
-		/*if (file != null) {
-			
 
-				EmployeeReferal employeeReferal = new EmployeeReferal();
-				employeeReferal.;
-				employeeReferalRepo.save(employeeReferal);
-			
-		}*/
+		ObjectMapper mapper = new ObjectMapper();
 
-		return null;
+		try {
+			uploadResumeRequestModel = mapper.readValue(details, UploadResumeRequestModel.class);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		UploadResumeResponseModel uploadResumeResponseModel = employeeReferalService.addResume(uploadResumeRequestModel,
+				file);
+
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatus.OK.name() + " Data Saved Successfully",
+				HttpStatusConstants.OK.id, uploadResumeResponseModel));
 	}
 
 }
