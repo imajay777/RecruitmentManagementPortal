@@ -4,14 +4,13 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
@@ -47,6 +46,16 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 			e.printStackTrace();
 		}
 		return uploadResumeResponseModel;
+	}
+
+	@Override
+	public EmployeeReferalResponseModel getEmployeeDetails(String referance_email) throws CustomException {
+		EmployeeReferal employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
+
+		if (Objects.isNull(employeeReferal)) {
+			throw new CustomException(500, " Unable to fetch Details");
+		}
+		return conversionUtility.convertTOGetEmployees(employeeReferal);
 	}
 
 }

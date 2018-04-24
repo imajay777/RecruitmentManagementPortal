@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.JobVacancy;
@@ -19,6 +18,7 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.responseModel.ResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
@@ -36,6 +36,7 @@ public class ConversionUtility {
 	@Autowired
 	PasswordEncryption passwordEncryption;
 
+	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
 
 		User user = new User();
@@ -48,6 +49,7 @@ public class ConversionUtility {
 		return user;
 	}
 
+	// Registration Response
 	public UserResponseDTO convertUserToresponse(User user) {
 
 		UserResponseDTO userResponseDTO = new UserResponseDTO();
@@ -60,6 +62,7 @@ public class ConversionUtility {
 
 	}
 
+	// Update Response
 	public UpdateResponseModel convertForUpdateResponse(User user) {
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
@@ -75,6 +78,7 @@ public class ConversionUtility {
 		return updateResponseModel;
 	}
 
+	// Login Response
 	public ResponseModel convertUserToLoginResponse(User userFromTable) {
 		ResponseModel responseModel = new ResponseModel();
 		responseModel.setEmail(userFromTable.getEmail());
@@ -120,6 +124,7 @@ public class ConversionUtility {
 		return model;
 	}
 
+	// Activate user through profile
 	public String setStatusToUser() {
 
 		User user = new User();
@@ -131,7 +136,6 @@ public class ConversionUtility {
 	public User convertRequestToUser(UpdateRequestModel updateRequestModel) {
 
 		User user = new User();
-		// user.setId(user.getId());
 		user.setFirstname(updateRequestModel.getFirst_name());
 		user.setEmail(updateRequestModel.getEmail());
 		user.setLastname(updateRequestModel.getLast_name());
@@ -204,7 +208,25 @@ public class ConversionUtility {
 		return jobresponselist;
 
 	}
+	
+	
+	// Get Employee Details
+	public EmployeeReferalResponseModel convertTOGetEmployees(EmployeeReferal employeeReferal){
+		
+		EmployeeReferalResponseModel employeeReferalResponseModel=new EmployeeReferalResponseModel();
+		employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
+		employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
+		employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
+		employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
+		employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
+		//employeeReferalResponseModel.setResume(employeeReferal.getResume());
+		employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
+	
+		return employeeReferalResponseModel;
+		
+	}
 
+	// Add Resume
 	public EmployeeReferal addEmployeeResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
 			throws IOException {
 		EmployeeReferal employeeReferal = new EmployeeReferal();
@@ -215,10 +237,9 @@ public class ConversionUtility {
 
 		if (!file.isEmpty()) {
 
-			System.out.println("Attachment Name?= " + file.getOriginalFilename() + "\n");
 			if (!file.getOriginalFilename().equals("")) {
+//				byte[] fileContents = IOUtils.toByteArray(new FileInputStream(new File(file.getOriginalFilename())));
 				employeeReferal.setResume(file.getBytes());
-
 			}
 		}
 

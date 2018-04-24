@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.mysql.jdbc.Blob;
+
 import lombok.Data;
 
 @Table(name = "employee_referal")
@@ -34,11 +36,11 @@ public class EmployeeReferal {
 
 	@Column(name = "referance_user_id")
 	int referance_user_id;
-
-	@Column(name = "resume")
+	
+	@Column(name="resume")
 	@Lob
 	byte[] resume;
-
+	
 	@Column(name = "application_status")
 	String application_status;
 
