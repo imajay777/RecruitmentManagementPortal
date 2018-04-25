@@ -196,9 +196,7 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
-		System.out.println("user is Active :"+ user.isActive());
 		if (user != null && user.isActive()) {
-			System.out.println("Inside IF");
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		}

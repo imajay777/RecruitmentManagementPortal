@@ -19,7 +19,7 @@ public class UpdateResponseModel {
 	long mobile;
 	String blood_group;
 	String email;
-	Role role;
+//	Role role;
 	String roles;
 
 	

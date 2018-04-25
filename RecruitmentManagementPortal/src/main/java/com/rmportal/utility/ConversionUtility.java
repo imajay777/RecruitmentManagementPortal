@@ -148,7 +148,7 @@ public class ConversionUtility {
 		user.setMobile(updateRequestModel.getMobile());
 		user.setBlood_group(updateRequestModel.getBlood_group());
 //		user.setDepartments(updateRequestModel.getDepartment());
-		user.setEmployee_id(updateRequestModel.getEmployee_id());
+//		user.setEmployee_id(updateRequestModel.getEmployee_id());
 		return user;
 
 	}
@@ -291,7 +291,7 @@ public class ConversionUtility {
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
 		updateResponseModel.setDepartment(user.getDepartments());
-		updateResponseModel.setRole(user.getRoles());
+//		updateResponseModel.setRole(user.getRoles());
 		
 		return updateResponseModel;
 		
