@@ -21,7 +21,7 @@ public interface EmployeeReferalService {
 	 * throws CustomException;
 	 */
 
-	public EmployeeReferalResponseModel getEmployeeDetails(String referance_email) throws CustomException;
+	public List<EmployeeReferalResponseModel> getEmployeeDetails(String referance_email) throws CustomException;
 
 	public UploadResumeResponseModel addResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
 			throws CustomException;

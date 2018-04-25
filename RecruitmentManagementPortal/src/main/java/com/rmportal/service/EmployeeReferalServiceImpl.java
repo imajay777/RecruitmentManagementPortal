@@ -59,8 +59,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	// Get details of Referred Candidate
 	@Override
-	public EmployeeReferalResponseModel getEmployeeDetails(String referance_email) throws CustomException {
-		EmployeeReferal employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
+	public List<EmployeeReferalResponseModel> getEmployeeDetails(String referance_email) throws CustomException {
+		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
 		if (Objects.isNull(employeeReferal)) {
 			throw new CustomException(500, " Unable to fetch Details");

@@ -76,10 +76,10 @@ public class RegisterController {
 
 		User user = conversionUtility.convertRequestToUser(updateRequestModel);
 
-		userService.updateUser(id, user);
+		UpdateResponseModel updateResponseModel = userService.updateUser(id, user);
 
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "updated successfully",
-				HttpStatusConstants.OK.id, user));
+				HttpStatusConstants.OK.id, updateResponseModel));
 	}
 
 	// Process Activation link while Registration

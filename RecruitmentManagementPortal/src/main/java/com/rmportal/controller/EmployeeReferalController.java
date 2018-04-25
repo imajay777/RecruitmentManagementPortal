@@ -1,9 +1,5 @@
 package com.rmportal.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +33,6 @@ import com.rmportal.utility.CustomException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.Cleanup;
 
 /**
  * @author tejas
@@ -57,14 +52,12 @@ public class EmployeeReferalController {
 	@Autowired
 	EmployeeReferalService employeeReferalService;
 
-	// Get Employee Details
+	// Get Employee Details -- For the employee
 	@RequestMapping(value = "/getEmployeeReferalList", method = RequestMethod.POST)
 	@ApiOperation(value = "Get Candidate list for the employee Reference")
 	public ResponseEntity<?> getEmployeeReferalList(@RequestParam("referance_email") String referance_email) {
 
-		System.out.println(referance_email);
-
-		EmployeeReferalResponseModel employeeReferalResponseModel = null;
+		List<EmployeeReferalResponseModel> employeeReferalResponseModel = null;
 
 		try {
 			employeeReferalResponseModel = employeeReferalService.getEmployeeDetails(referance_email);
@@ -134,6 +127,7 @@ public class EmployeeReferalController {
 		return null;
 	}
 
+	// Get all referral list -- Only to HR and Admin
 	@RequestMapping(value = "/getAllEmployeeReferals", method = RequestMethod.GET)
 	@ApiOperation(value = "Get All Employee Referal List")
 	public ResponseEntity<?> getAllEmployeeReferals() throws CustomException {

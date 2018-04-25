@@ -139,13 +139,11 @@ public class UserServiceImpl implements UserServices {
 			User updatedUser = userRepository.findByUserId(id);
 			user.setId(updatedUser.getId());
 			userRepository.save(user);
-			// System.out.println(user);
-			// System.out.println(userObj);
-
 		} else {
 			throw new CustomException(500, "already exits");
 		}
-		return null;
+		UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
+		return updateResponseModel;
 	}
 
 	@Override
@@ -198,8 +196,9 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
-		System.out.println(user);
+		System.out.println("user is Active :"+ user.isActive());
 		if (user != null && user.isActive()) {
+			System.out.println("Inside IF");
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		}

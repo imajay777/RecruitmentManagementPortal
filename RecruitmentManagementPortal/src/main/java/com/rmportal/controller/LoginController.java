@@ -68,7 +68,8 @@ public class LoginController {
 	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
 	@ApiOperation(value = "Forget Password")
 	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
-
+System.out.println("Email :"+email);
+System.out.println("User Service :"+ userService);
 		if (userService.forgetPassword(email)) {
 			return ResponseEntity
 					.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Link Sent to your Email Address",

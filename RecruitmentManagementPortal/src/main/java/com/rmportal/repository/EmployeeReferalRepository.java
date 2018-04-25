@@ -1,5 +1,7 @@
 package com.rmportal.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +15,7 @@ public interface EmployeeReferalRepository extends CrudRepository<EmployeeRefera
 	EmployeeReferal save(EmployeeReferal employeeReferal);
 
 	@Query(value = "SELECT * FROM employee_referal WHERE referance_email =:referance_email", nativeQuery = true)
-	EmployeeReferal findByEmployeeEmail(@Param("referance_email") String referance_email);
+	List<EmployeeReferal> findByEmployeeEmail(@Param("referance_email") String referance_email);
 
 	/*
 	 * @Query(value =

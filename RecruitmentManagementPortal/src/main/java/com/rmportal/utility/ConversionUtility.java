@@ -76,7 +76,7 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-		updateResponseModel.setRole(user.getRoles().getRole());
+		updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
 	}
 
@@ -139,15 +139,16 @@ public class ConversionUtility {
 
 		User user = new User();
 		user.setFirstname(updateRequestModel.getFirst_name());
-		user.setEmail(updateRequestModel.getEmail());
 		user.setLastname(updateRequestModel.getLast_name());
+		user.setEmail(updateRequestModel.getEmail());
 		user.setAddress(updateRequestModel.getAddress());
 		user.setCity(updateRequestModel.getCity());
 		user.setCountry(updateRequestModel.getCountry());
-		// user.setDepartment(updateRequestModel.getDepartment());
 		user.setDOB(updateRequestModel.getDateOfBirth());
 		user.setMobile(updateRequestModel.getMobile());
-		System.out.println(user);
+		user.setBlood_group(updateRequestModel.getBlood_group());
+//		user.setDepartments(updateRequestModel.getDepartment());
+		user.setEmployee_id(updateRequestModel.getEmployee_id());
 		return user;
 
 	}
@@ -216,18 +217,22 @@ public class ConversionUtility {
 	}
 
 	// Get Employee Details
-	public EmployeeReferalResponseModel convertTOGetEmployees(EmployeeReferal employeeReferal) {
+	public List<EmployeeReferalResponseModel> convertTOGetEmployees(List<EmployeeReferal> employeeReferalList) {
+		List<EmployeeReferalResponseModel> employeeReferalResponselist = new ArrayList<>();
+		for (EmployeeReferal employeeReferal : employeeReferalList) {
+			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
+			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
+			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
+			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
+			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
+			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name() + " Resume");
+			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
+			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
+			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
+			employeeReferalResponselist.add(employeeReferalResponseModel);
 
-		EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
-		employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
-		employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
-		employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
-		employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
-		employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
-		// employeeReferalResponseModel.setResume(employeeReferal.getResume());
-		employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
-
-		return employeeReferalResponseModel;
+		}
+		return employeeReferalResponselist;
 
 	}
 
@@ -239,6 +244,7 @@ public class ConversionUtility {
 		employeeReferal.setExperience(uploadResumeRequestModel.getExperience());
 		employeeReferal.setTechnical_skill(uploadResumeRequestModel.getTechnical_skills());
 		employeeReferal.setReferance_email(uploadResumeRequestModel.getEmail());
+		employeeReferal.setApplication_status("In Progress");
 
 		if (!file.isEmpty()) {
 
@@ -255,10 +261,11 @@ public class ConversionUtility {
 		List<EmployeeReferalResponseModel> employeeReferalResponselist = new ArrayList<>();
 		for (EmployeeReferal employeeReferal : employeeReferalList) {
 			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
+			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
-			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name()+" Resume");
+			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name() + " Resume");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
 			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
@@ -267,6 +274,27 @@ public class ConversionUtility {
 		}
 		return employeeReferalResponselist;
 
+	}
+
+	// Response model for Update Profile
+	public UpdateResponseModel convertToUpdateResponseModel(User user) {
+		
+		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
+		updateResponseModel.setFirst_name(user.getFirstname());
+		updateResponseModel.setLast_name(user.getLastname());
+		updateResponseModel.setDOB(user.getDOB());
+		updateResponseModel.setBlood_group(user.getBlood_group());
+		updateResponseModel.setEmail(user.getEmail());
+		updateResponseModel.setAddress(user.getAddress());
+		updateResponseModel.setCity(user.getCity());
+		updateResponseModel.setCountry(user.getCountry());
+		updateResponseModel.setMobile(user.getMobile());
+		updateResponseModel.setEmployee_id(user.getEmployee_id());
+		updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setRole(user.getRoles());
+		
+		return updateResponseModel;
+		
 	}
 
 }
