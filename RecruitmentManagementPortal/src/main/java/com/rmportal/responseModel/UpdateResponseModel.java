@@ -1,5 +1,8 @@
 package com.rmportal.responseModel;
 
+import com.rmportal.model.Department;
+import com.rmportal.model.Role;
+
 import lombok.Data;
 
 @Data
@@ -8,15 +11,16 @@ public class UpdateResponseModel {
 	String employee_id;
 	String first_name;
 	String last_name;
-	String department;
+	Department department;
 	String address;
 	String DOB;
 	String city;
 	String country;
-	int mobile;
+	long mobile;
 	String blood_group;
 	String email;
-	String role;
+//	Role role;
+	String roles;
 
 	
 

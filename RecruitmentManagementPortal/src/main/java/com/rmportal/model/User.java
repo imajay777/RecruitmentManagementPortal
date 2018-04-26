@@ -66,7 +66,7 @@ public class User {
 	String country;
 
 	@Column(name = "mobile")
-	int mobile;
+	long mobile;
 
 	@Column(name = "blood_group")
 	String blood_group;

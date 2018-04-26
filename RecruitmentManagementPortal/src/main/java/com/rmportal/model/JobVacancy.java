@@ -46,4 +46,6 @@ public class JobVacancy {
 	@Column(name = "job_type")
 	String job_type;
 
+	@Column(name = "is_active")
+	boolean isActive;
 }

@@ -1,4 +1,4 @@
-package com.rmportal.requestModel;
+package com.rmportal.responseModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,17 +9,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UploadResumeRequestModel {
+public class UploadResumeResponseModel {
 
-	String email;
+	int reference_id;
 
 	String applicant_name;
-
-	String experience;
-
-	String technical_skills;
-
-	//	MultipartFile resume;
-	// byte[] resume;
-
+	
+	
+	
 }

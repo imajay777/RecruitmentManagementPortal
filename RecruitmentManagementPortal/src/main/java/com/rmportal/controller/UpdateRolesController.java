@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.Role;
+import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.service.UpdateRoles;
@@ -45,10 +46,10 @@ public class UpdateRolesController {
 
 	@RequestMapping(value = "/updateUserRole", method = RequestMethod.POST)
 	@ApiOperation(value = "User Registration")
-	public ResponseEntity<?> updateUserRole(@RequestParam String email, @RequestParam int role_id)
+	public ResponseEntity<?> updateUserRole(@RequestBody UpdateRoleRequestModel updateRoleRequestModel)
 			throws CustomException {
 
-		String message = updateRoles.changeRole(email,role_id);
+		String message = updateRoles.changeRole(updateRoleRequestModel);
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message,
 				HttpStatusConstants.OK.id, null));
 	}

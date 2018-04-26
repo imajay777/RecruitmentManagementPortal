@@ -12,6 +12,7 @@ import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
+import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
@@ -48,11 +49,11 @@ public class UpdateRolesImpl implements UpdateRoles {
 	}
 
 	@Override
-	public String changeRole(String email, int role_id) throws CustomException {
+	public String changeRole(UpdateRoleRequestModel updateRoleRequestModel) throws CustomException {
 
-		User user = userRepository.findByEmail(email);
+		User user = userRepository.findByEmail(updateRoleRequestModel.getEmail());
 		
-		Role role = roleRepository.findOne(role_id);
+		Role role = roleRepository.findOne(updateRoleRequestModel.getRole_id());
 		
 		if(Objects.isNull(user)){
 			throw new CustomException(203, "User Not found");

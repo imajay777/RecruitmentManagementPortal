@@ -25,7 +25,6 @@ public class ActivationEmailUtility {
 
 	@Autowired
 	UserTokenRepository userTokenRepo;
-	
 
 	@Value("${email.activationTokenLink}")
 	private String activationLink;

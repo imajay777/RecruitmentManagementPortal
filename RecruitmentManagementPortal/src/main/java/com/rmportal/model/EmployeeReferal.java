@@ -15,7 +15,6 @@ import lombok.Data;
 @Table(name = "employee_referal")
 @Entity
 @Data
-// @EqualsAndHashCode(exclude="user")
 public class EmployeeReferal {
 
 	@Id
@@ -40,10 +39,8 @@ public class EmployeeReferal {
 	
 	@Column(name="resume")
 	@Lob
-	Blob resume;
+	byte[] resume;
 	
-	
-
 	@Column(name = "application_status")
 	String application_status;
 

@@ -9,17 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UploadResumeRequestModel {
+public class UpdateRoleRequestModel {
 
 	String email;
-
-	String applicant_name;
-
-	String experience;
-
-	String technical_skills;
-
-	//	MultipartFile resume;
-	// byte[] resume;
-
+	
+	int role_id;
+	
 }

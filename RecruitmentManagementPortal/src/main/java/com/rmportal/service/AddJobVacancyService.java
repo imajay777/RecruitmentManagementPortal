@@ -6,6 +6,10 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.responseModel.AddJobVacancyResponse;
 import com.rmportal.utility.CustomException;
 
+/**
+ * @author saurabh
+ *
+ */
 @Component
 public interface AddJobVacancyService {
 

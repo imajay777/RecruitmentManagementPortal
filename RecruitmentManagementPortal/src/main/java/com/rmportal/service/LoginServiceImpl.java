@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginServices {
 		User user = userRepository.findByEmail(loginRequestModel.getEmail());
 
 		if (user == null) {
-			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, HttpStatusConstants.NO_CONTENT.getStatus());
+			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, "Email is not valid");
 		}
 		if (user.isActive()) {
 

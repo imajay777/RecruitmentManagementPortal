@@ -11,6 +11,8 @@ import lombok.ToString;
 @ToString
 public class JobVacancyResponseModel {
 
+	int job_vacancy_id;
+	
 	String job_title;
 
 	int number_of_openings;

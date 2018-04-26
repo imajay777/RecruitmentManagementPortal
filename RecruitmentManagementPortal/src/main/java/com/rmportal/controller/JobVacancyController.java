@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
@@ -15,7 +17,6 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.responseModel.AddJobVacancyResponse;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
-import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.service.AddJobVacancyService;
 import com.rmportal.service.ListJobVacancyService;
 import com.rmportal.utility.CustomException;
@@ -23,6 +24,10 @@ import com.rmportal.utility.CustomException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * @author saurabh
+ *
+ */
 @RestController
 @Api(value = "Job Vacancy", description = "Job Vacancies")
 @CrossOrigin("*")
@@ -30,22 +35,25 @@ public class JobVacancyController {
 
 	@Autowired
 	AddJobVacancyService addJobVacancyService;
-	
+
 	@Autowired
 	ListJobVacancyService listJobVacancyService;
 
+	// Add Job Vacancies
 	@RequestMapping(value = "/addJobVacancy", method = RequestMethod.POST)
-	@ApiOperation(value = "Add Job Vacencies")
+	@ApiOperation(value = "Add Job Vacancies")
 	public ResponseEntity<?> addJobVacancy(@RequestBody JobVacancyRequestModel jobVacancyRequestModel)
 			throws CustomException {
 
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		addJobVacancyResponse = addJobVacancyService.addVacancy(jobVacancyRequestModel);
 
-		return ResponseEntity.ok(new HttpResponseModel(
-				HttpStatusConstants.OK.getStatus() + " New JOB POSTED Successfully", HttpStatusConstants.OK.id, addJobVacancyResponse));
+		return ResponseEntity
+				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " New JOB POSTED Successfully",
+						HttpStatusConstants.OK.id, addJobVacancyResponse));
 	}
-	
+
+	// Get job Vacancies
 	@RequestMapping(value = "/getJobVacancy", method = RequestMethod.GET)
 	@ApiOperation(value = "Job Vacancy List")
 	public ResponseEntity<?> getJobVacancy() throws CustomException {
@@ -54,6 +62,16 @@ public class JobVacancyController {
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " List of Job Vacancies",
 				HttpStatusConstants.OK.id, jobVacancy));
 
+	}
+
+	// Update Job Status
+	@RequestMapping(value = "/jobStatus", method = RequestMethod.GET)
+	@ApiOperation(value = "Activate or Deactivate the jobs")
+	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id,@RequestParam boolean is_active) {
+
+		String message = listJobVacancyService.updateJobStatus(job_vacancy_id, is_active);
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message,
+				HttpStatusConstants.OK.id, null));
 	}
 
 }

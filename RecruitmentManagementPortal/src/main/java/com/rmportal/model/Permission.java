@@ -13,10 +13,14 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name="permission")
 @Data
+@ToString
+@EqualsAndHashCode(exclude="roles")
 public class Permission {
 	
 @Id

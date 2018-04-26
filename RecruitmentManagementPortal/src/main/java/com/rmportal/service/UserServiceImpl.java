@@ -139,13 +139,11 @@ public class UserServiceImpl implements UserServices {
 			User updatedUser = userRepository.findByUserId(id);
 			user.setId(updatedUser.getId());
 			userRepository.save(user);
-			// System.out.println(user);
-			// System.out.println(userObj);
-
 		} else {
 			throw new CustomException(500, "already exits");
 		}
-		return null;
+		UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
+		return updateResponseModel;
 	}
 
 	@Override
@@ -233,7 +231,7 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
-		if (Objects.isNull(user) && !user.isActive())
+		if (Objects.isNull(user) || !user.isActive())
 			throw new CustomException(500, "User is InActive");
 
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))

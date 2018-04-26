@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 public class RegisterRequestModel {
 	
-	int id;
+	
 
 	@NotEmpty
 	String firstname;

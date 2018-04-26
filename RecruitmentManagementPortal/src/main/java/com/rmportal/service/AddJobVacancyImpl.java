@@ -12,6 +12,10 @@ import com.rmportal.responseModel.AddJobVacancyResponse;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
+/**
+ * @author saurabh
+ *
+ */
 @Service
 public class AddJobVacancyImpl implements AddJobVacancyService {
 
@@ -22,14 +26,10 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 	ConversionUtility conversionUtility;
 
 	
-	/* @Autowired 
-	 AddJobVacancyResponse addJobVacancyResponse;*/
-	 
-
 	@Override
 	public AddJobVacancyResponse addVacancy(JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
 
-		 AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
+		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		JobVacancy jobVacancy = conversionUtility.addJobVacancy(jobVacancyRequestModel);
 		if (Objects.isNull(jobVacancy)) {
 			throw new CustomException(501, "Error in JOB Posting");
