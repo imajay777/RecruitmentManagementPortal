@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.mysql.jdbc.Blob;
-
 import lombok.Data;
 
 @Table(name = "employee_referal")
@@ -28,7 +26,7 @@ public class EmployeeReferal {
 	String applicant_name;
 
 	@Column(name = "experience")
-	String experience;
+	int experience;
 
 	@Column(name = "technical_skill")
 	String technical_skill;

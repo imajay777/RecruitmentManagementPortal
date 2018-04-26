@@ -2,12 +2,10 @@ package com.rmportal.utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.Multipart;
-
+import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,11 +15,12 @@ import com.rmportal.model.JobVacancy;
 import com.rmportal.model.Permission;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
+import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.JobVacancyRequestModel;
-import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.responseModel.ResponseModel;
@@ -219,7 +218,7 @@ public class ConversionUtility {
 
 	}
 
-	// Get My Candidate Referral list 
+	// Get My Candidate Referral list
 	public List<EmployeeReferalResponseModel> convertTOGetEmployees(List<EmployeeReferal> employeeReferalList) {
 		List<EmployeeReferalResponseModel> employeeReferalResponselist = new ArrayList<>();
 		for (EmployeeReferal employeeReferal : employeeReferalList) {
@@ -301,7 +300,39 @@ public class ConversionUtility {
 		// updateResponseModel.setRole(user.getRoles());
 
 		return updateResponseModel;
+	}
 
+	@Autowired
+	EmployeeReferalRepository employeeReferalBonusrepo;
+
+	// Calculate Bonus
+	public EmployeeBonusStatusResponseModel calculateBonus(EmployeeReferal employeeReferal) {
+
+		Date joinedDate = employeeReferal.getDate();
+		int experience = employeeReferal.getExperience();
+
+		List<EmployeeReferal> employeeReferalBonus = (List<EmployeeReferal>) employeeReferalBonusrepo.findAll();
+		Range<Integer> beginner = Range.between(0, 2);
+		Range<Integer> senior = Range.between(3, 5);
+		Range<Integer> superSenior = Range.between(6, 15);
+
+		EmployeeBonusStatusResponseModel employeeBonusStatusResponse = new EmployeeBonusStatusResponseModel();
+		for (EmployeeReferal employeeBonus : employeeReferalBonus) {
+			if (beginner.contains(experience)) {
+				employeeBonusStatusResponse.setReferal_id(employeeBonus.getReferal_id());
+				employeeBonusStatusResponse.setBonus_status("Not applicable");
+				break;
+			} else if (senior.contains(experience)) {
+				employeeBonusStatusResponse.setReferal_id(employeeBonus.getReferal_id());
+				employeeBonusStatusResponse.setBonus_status("10000");
+				break;
+			} else if (superSenior.contains(experience)) {
+				employeeBonusStatusResponse.setReferal_id(employeeBonus.getReferal_id());
+				employeeBonusStatusResponse.setBonus_status("15000");
+				break;
+			}
+		}
+		return employeeBonusStatusResponse;
 	}
 
 }

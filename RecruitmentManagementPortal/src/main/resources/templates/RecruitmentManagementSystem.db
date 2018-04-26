@@ -119,4 +119,17 @@ INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALU
 INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('6', 'Selected');
 INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('7', 'Rejected');
   
+CREATE TABLE `RMPortal`.`employee_bonus` (
+  `range_id` INT NOT NULL AUTO_INCREMENT,
+  `employee_name` VARCHAR(45) NOT NULL,
+  `from` INT NULL DEFAULT 0,
+  `to` INT NULL DEFAULT 1,
+  `bonus_amount` DOUBLE NOT NULL,
+  PRIMARY KEY (`range_id`));
+  
+INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount`) VALUES ('1', '0', '2', '0.0');
+INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount`) VALUES ('2', '2', '5', '10000');
+INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount`) VALUES ('3', '5', '15', '15000');
+  
+
 

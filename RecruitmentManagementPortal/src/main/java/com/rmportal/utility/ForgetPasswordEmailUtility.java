@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.utility;
 
 import java.util.UUID;
 

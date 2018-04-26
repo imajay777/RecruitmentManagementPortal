@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
+import com.rmportal.model.ReferralStatus;
 import com.rmportal.repository.EmployeeReferalRepository;
+import com.rmportal.repository.ReferralStatusRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
@@ -34,6 +36,9 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	@Autowired
 	EmployeeReferalRepository employeeReferalRepository;
+
+	@Autowired
+	ReferralStatusRepository referralStatusRepository;
 
 	// Upload Resume
 	@Override
@@ -106,5 +111,14 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		changeReferralResponse.setDate(employeeReferal.getDate());
 		changeReferralResponse.setApplicant_name(employeeReferal.getApplicant_name());
 		return changeReferralResponse;
+	}
+
+	
+	// Get Referral Status List
+	@Override
+	public List<ReferralStatus> getReferralStatusList() {
+
+		List<ReferralStatus> referralStatusList = (List<ReferralStatus>) referralStatusRepository.findAll();
+		return referralStatusList;
 	}
 }

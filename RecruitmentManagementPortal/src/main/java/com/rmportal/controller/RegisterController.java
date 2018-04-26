@@ -83,9 +83,9 @@ public class RegisterController {
 	}
 
 	// Process Activation link while Registration
-	@RequestMapping(value = "/activation", method = RequestMethod.GET)
+	@RequestMapping(value = "/activation/{userId}/{token}", method = RequestMethod.GET)
 	@ApiOperation(value="Validate Token")
-	public ResponseEntity<?> validateToken(@RequestParam("token") String token, @RequestParam("userId") int userId)
+	public ResponseEntity<?> validateToken(@PathVariable("token") String token, @PathVariable("userId") int userId)
 			throws CustomException {
 
 
