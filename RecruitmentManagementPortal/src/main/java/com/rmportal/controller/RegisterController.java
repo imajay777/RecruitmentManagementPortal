@@ -73,7 +73,7 @@ public class RegisterController {
 	@ApiOperation(value="Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody UpdateRequestModel updateRequestModel)
 			throws CustomException {
-
+		System.out.println("ui request model"+updateRequestModel);
 		User user = conversionUtility.convertRequestToUser(updateRequestModel);
 
 		UpdateResponseModel updateResponseModel = userService.updateUser(id, user);

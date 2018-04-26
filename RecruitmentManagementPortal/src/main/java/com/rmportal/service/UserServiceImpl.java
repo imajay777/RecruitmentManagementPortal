@@ -115,12 +115,10 @@ public class UserServiceImpl implements UserServices {
 
 				return conversionUtility.convertUserToresponse(user);
 			} else {
-				System.out.println("invalid");
 				throw new CustomException(500, "invalid email");
 			}
 
 		} else {
-			System.out.println("invalid");
 			throw new CustomException();
 		}
 
@@ -133,14 +131,14 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public UpdateResponseModel updateUser(int id, User user) throws CustomException {
-		// User userObj;
 		if (user != null) {
+			System.out.println("user details"+user);
 
 			User updatedUser = userRepository.findByUserId(id);
 			user.setId(updatedUser.getId());
 			userRepository.save(user);
 		} else {
-			throw new CustomException(500, "already exits");
+			throw new CustomException(500, " User already exits");
 		}
 		UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
 		return updateResponseModel;

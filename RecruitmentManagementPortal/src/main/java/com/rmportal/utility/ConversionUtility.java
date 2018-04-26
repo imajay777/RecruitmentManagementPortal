@@ -65,7 +65,7 @@ public class ConversionUtility {
 	}
 
 	// Update Response
-	public UpdateResponseModel convertForUpdateResponse(User user) {
+	/*public UpdateResponseModel convertForUpdateResponse(User user) {
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
 		updateResponseModel.setFirst_name(user.getFirstname());
@@ -76,7 +76,26 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-		updateResponseModel.setRoles(user.getRoles().getRole());
+		updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setBlood_group(user.getBlood_group());
+	//	updateResponseModel.setRoles(user.getRoles().getRole());
+		return updateResponseModel;
+	}*/
+	
+	public UpdateResponseModel convertForUpdateResponse(User user) {
+		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
+		user.setEmployee_id(updateResponseModel.getEmployee_id());
+		user.setEmail(updateResponseModel.getEmail());
+		user.setDepartments(updateResponseModel.getDepartment());
+		user.setFirstname(updateResponseModel.getFirst_name());
+		user.setLastname(updateResponseModel.getLast_name());
+		user.setDOB(updateResponseModel.getDOB());
+		user.setAddress(updateResponseModel.getAddress());
+		user.setCity(updateResponseModel.getCity());
+		user.setCountry(updateResponseModel.getCountry());
+		user.setMobile(updateResponseModel.getMobile());
+		user.setBlood_group(updateResponseModel.getBlood_group());
+		
 		return updateResponseModel;
 	}
 
