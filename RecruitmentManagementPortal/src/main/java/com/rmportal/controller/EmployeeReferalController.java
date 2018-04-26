@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.repository.EmployeeReferalRepository;
+import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.service.EmployeeReferalService;
