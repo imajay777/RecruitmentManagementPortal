@@ -11,12 +11,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UploadResumeResponseModel {
-
-	int reference_id;
+public class ChangeReferralStatusResponse {
 
 	String applicant_name;
-	
+
 	Date date;
-	
+
 }

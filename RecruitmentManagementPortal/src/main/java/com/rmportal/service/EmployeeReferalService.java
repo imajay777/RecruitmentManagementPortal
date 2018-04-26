@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
+import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
 import com.rmportal.utility.CustomException;
@@ -29,4 +31,6 @@ public interface EmployeeReferalService {
 	public EmployeeReferal fetchResume(int job_vacancy_id);
 
 	public List<EmployeeReferalResponseModel> getEmployeeReferalList() throws CustomException;
+	
+	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel) throws CustomException;
 }

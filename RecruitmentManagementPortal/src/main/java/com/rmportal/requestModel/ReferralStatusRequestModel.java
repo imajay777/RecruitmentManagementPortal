@@ -1,6 +1,4 @@
-package com.rmportal.responseModel;
-
-import java.util.Date;
+package com.rmportal.requestModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,12 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UploadResumeResponseModel {
+public class ReferralStatusRequestModel {
 
-	int reference_id;
-
-	String applicant_name;
+	int referal_id;
 	
-	Date date;
+	String referral_status;
 	
 }

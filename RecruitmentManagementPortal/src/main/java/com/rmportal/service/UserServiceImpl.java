@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserServices {
 
 	@Autowired
 	PasswordEncoder bCryptPassword;
-	
+
 	@Autowired
 	DepartmentRepository departmentRepository;
 
@@ -149,25 +150,31 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public List<User> getAllUsers() {
 
-		//System.out.println("hello");
+		// System.out.println("hello");
 		List<User> getUsers = (List<User>) userRepository.findAll();
 
 		return getUsers;
 	}
 
 	@Override
-	public boolean updateStatus(boolean status, String email) {
+	public boolean updateStatus(boolean status, String email) throws CustomException {
+		System.out.println("email"+email);
 		User user = userRepository.findByEmail(email);
-		// userRepository.findActiveUsers(true);
-		if (user != null) {
-			// user.setActive(true);
-			if (status) {
-				user.setActive(false);
-			} else {
-				user.setActive(true);
-			}
+	    if(user==null)
+	    {
+	    	throw new CustomException(HttpStatus.NOT_FOUND.value(), "user doesn't exits");
+	    }
+		if(user.isActive()&&status)
+		{
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "user alerady activated");
 		}
-		return status;
+		if(!user.isActive()&&!status)
+		{
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "user already deactivated");
+		}
+		user.setActive(status);
+		userRepository.save(user);
+		return user.isActive();
 
 	}
 
@@ -199,8 +206,9 @@ public class UserServiceImpl implements UserServices {
 		if (user != null && user.isActive()) {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
+		} else {
+			throw new CustomException(213, "User is Not Available");
 		}
-		return false;
 	}
 
 	@Override
