@@ -106,4 +106,17 @@ CREATE TABLE `employee_referal` (
   PRIMARY KEY (`referal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `RMPortal`.`referral_status` (
+  `referral_id` INT NOT NULL AUTO_INCREMENT,
+  `referral_status` VARCHAR(45) NULL,
+  PRIMARY KEY (`referral_id`));
+  
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('1', 'In Process');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('2', 'Screening');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('3', 'Technical Round');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('4', 'Machine Round');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('5', 'HR Round');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('6', 'Selected');
+INSERT INTO `RMPortal`.`referral_status` (`referral_id`, `referral_status`) VALUES ('7', 'Rejected');
+  
 

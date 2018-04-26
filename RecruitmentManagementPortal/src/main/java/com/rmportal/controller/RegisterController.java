@@ -118,14 +118,16 @@ public class RegisterController {
 	@RequestMapping(value = "/updateStatus/{status}", method = RequestMethod.GET)
 	@ApiOperation(value="Activation/Deactivation")
 	public ResponseEntity<?> updateStatus(@PathVariable boolean status, @RequestParam(required = true) String email) {
-		if (userService.updateStatus(status, email)) {
-
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "status updated",
-					HttpStatusConstants.OK.id, true));
+		
+		try
+		{
+			return ResponseEntity.ok(new HttpResponseModel("user status updated successfully",
+					HttpStatusConstants.OK.id, userService.updateStatus(status, email)));
 		}
-
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "invalid user",
-				HttpStatusConstants.OK.id, false));
+		catch(CustomException e)
+		{
+		return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(), null));
+		}
 
 	}
 	

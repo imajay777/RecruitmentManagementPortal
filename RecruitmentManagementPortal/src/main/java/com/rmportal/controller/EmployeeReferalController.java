@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.repository.EmployeeReferalRepository;
+import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
@@ -137,6 +140,26 @@ public class EmployeeReferalController {
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " List of Employee Referal",
 				HttpStatusConstants.OK.id, employeeReferalList));
 
+	}
+
+	// Set Referral Status
+	@RequestMapping(value = "/changeReferralStatus", method = RequestMethod.POST)
+	@ApiOperation(value = "Change the Referral status for the applicant")
+	public ResponseEntity<?> setReferralStatus(@RequestBody ReferralStatusRequestModel referralStatusRequestModel)
+			throws CustomException {
+
+		if (Objects.isNull(referralStatusRequestModel)) {
+			return ResponseEntity
+					.ok(new HttpResponseModel(HttpStatusConstants.NO_CONTENT.getStatus() + " No Request Found",
+							HttpStatusConstants.NO_CONTENT.id, null));
+		}
+
+		ChangeReferralStatusResponse changeReferralStatusResponse = employeeReferalService
+				.setReferralStatus(referralStatusRequestModel);
+		return ResponseEntity.ok(new HttpResponseModel(
+				HttpStatusConstants.OK.getStatus() + "Status Changed for Candidate Name :"
+						+ changeReferralStatusResponse.getApplicant_name(),
+				HttpStatusConstants.OK.id, changeReferralStatusResponse));
 	}
 
 }

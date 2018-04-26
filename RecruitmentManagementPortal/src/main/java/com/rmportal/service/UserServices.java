@@ -28,9 +28,7 @@ public interface UserServices {
 	
 	public List<User> getAllUsers();
 	
-	public boolean updateStatus(boolean status, String email);  
-
-	
+	public boolean updateStatus(boolean status, String email) throws CustomException;  
 	 
 	public boolean validateUserToken(int userid, String token) throws CustomException;
 	

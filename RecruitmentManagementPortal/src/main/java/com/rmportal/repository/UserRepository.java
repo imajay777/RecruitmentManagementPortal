@@ -21,8 +21,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query(value = "SELECT * FROM user WHERE email=:email", nativeQuery = true)
 	User findByEmail(@Param("email") String email);
 	
-	@Query(value = "SELECT * FROM user WHERE user_id =:user_id", nativeQuery = true)
-	User findByUserId(@Param("user_id") int userId);
+	@Query(value = "SELECT * FROM user WHERE user_id=:user_id", nativeQuery = true)
+	User findByUserId(@Param("user_id") int user_id);
 	
 	/*@Query(value = "SELECT * FROM user WHERE is_active =:is_active", nativeQuery = true)
 	User findActiveUsers(@Param("is_active") boolean isactive);*/

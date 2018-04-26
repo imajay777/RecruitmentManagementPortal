@@ -3,6 +3,7 @@ package com.rmportal.utility;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.Multipart;
@@ -17,6 +18,7 @@ import com.rmportal.model.Permission;
 import com.rmportal.model.Role;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.JobVacancyRequestModel;
+import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
@@ -156,6 +158,7 @@ public class ConversionUtility {
 	// Method for Update Status
 	public User convertRequestToUser(UpdateRequestModel updateRequestModel) {
 
+		System.out.println("firstname : " + updateRequestModel.getFirst_name());
 		User user = new User();
 		user.setFirstname(updateRequestModel.getFirst_name());
 		user.setLastname(updateRequestModel.getLast_name());
@@ -166,8 +169,8 @@ public class ConversionUtility {
 		user.setDOB(updateRequestModel.getDateOfBirth());
 		user.setMobile(updateRequestModel.getMobile());
 		user.setBlood_group(updateRequestModel.getBlood_group());
-//		user.setDepartments(updateRequestModel.getDepartment());
-//		user.setEmployee_id(updateRequestModel.getEmployee_id());
+		// user.setDepartments(updateRequestModel.getDepartment());
+		// user.setEmployee_id(updateRequestModel.getEmployee_id());
 		return user;
 
 	}
@@ -235,7 +238,7 @@ public class ConversionUtility {
 
 	}
 
-	// Get Employee Details
+	// Get My Candidate Referral list 
 	public List<EmployeeReferalResponseModel> convertTOGetEmployees(List<EmployeeReferal> employeeReferalList) {
 		List<EmployeeReferalResponseModel> employeeReferalResponselist = new ArrayList<>();
 		for (EmployeeReferal employeeReferal : employeeReferalList) {
@@ -248,6 +251,7 @@ public class ConversionUtility {
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
 			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
+			employeeReferalResponseModel.setDate(employeeReferal.getDate());
 			employeeReferalResponselist.add(employeeReferalResponseModel);
 
 		}
@@ -263,6 +267,8 @@ public class ConversionUtility {
 		employeeReferal.setExperience(uploadResumeRequestModel.getExperience());
 		employeeReferal.setTechnical_skill(uploadResumeRequestModel.getTechnical_skills());
 		employeeReferal.setReferance_email(uploadResumeRequestModel.getEmail());
+		Date date = new Date();
+		employeeReferal.setDate(date);
 		employeeReferal.setApplication_status("In Progress");
 
 		if (!file.isEmpty()) {
@@ -288,6 +294,7 @@ public class ConversionUtility {
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
 			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
+			employeeReferalResponseModel.setDate(employeeReferal.getDate());
 			employeeReferalResponselist.add(employeeReferalResponseModel);
 
 		}
@@ -297,7 +304,7 @@ public class ConversionUtility {
 
 	// Response model for Update Profile
 	public UpdateResponseModel convertToUpdateResponseModel(User user) {
-		
+
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
 		updateResponseModel.setFirst_name(user.getFirstname());
 		updateResponseModel.setLast_name(user.getLastname());
@@ -310,10 +317,10 @@ public class ConversionUtility {
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
 		updateResponseModel.setDepartment(user.getDepartments());
-//		updateResponseModel.setRole(user.getRoles());
-		
+		// updateResponseModel.setRole(user.getRoles());
+
 		return updateResponseModel;
-		
+
 	}
 
 }

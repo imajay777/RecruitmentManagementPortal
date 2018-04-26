@@ -1,5 +1,7 @@
 package com.rmportal.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +45,9 @@ public class EmployeeReferal {
 	
 	@Column(name = "application_status")
 	String application_status;
+	
+	@Column(name="status_date")
+	Date date;
 
 	@Column(name = "job_id")
 	int job_id;
