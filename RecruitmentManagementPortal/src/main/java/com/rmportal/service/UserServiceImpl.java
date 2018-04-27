@@ -293,7 +293,7 @@ public class UserServiceImpl implements UserServices {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
 			if (user == null)
-				throw new CustomException(500, "Token Not Foung OR Invalid TokenType");
+				throw new CustomException(500, "Token Not Found OR Invalid TokenType");
 
 			if (resetPasswordModel.getPassword().length() > 15)
 				throw new CustomException(413, "Password Length too Long");

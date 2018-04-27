@@ -266,7 +266,6 @@ public class ConversionUtility {
 				jobVacancyResponse.setJob_type(jobVacancy.getJob_type());
 				jobVacancyResponse.setJob_location(jobVacancy.getJob_location());
 				jobresponselist.add(jobVacancyResponse);
-				System.out.println(jobresponselist);
 			}
 		}
 		return jobresponselist;
