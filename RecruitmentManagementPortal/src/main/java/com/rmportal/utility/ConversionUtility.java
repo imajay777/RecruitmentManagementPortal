@@ -78,9 +78,9 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-		// updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
-		// updateResponseModel.setRoles(user.getRoles().getRole());
+		updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
 	}
 
@@ -102,40 +102,48 @@ public class ConversionUtility {
 		UserPremissionModel model = new UserPremissionModel();
 
 		for (Permission permission : list) {
-			// String permission1;
-
-			if (permission.getPremissionName() == "AddUser") {
-				model.setAddUser(true);
-				if (permission.getPremissionName() == "AddUser") {
-					model.setAddUser(true);
-				}
-				if (permission.getPremissionName() == ("AddPosition")) {
-					model.setAddPosition(true);
-				}
-				if (permission.getPremissionName() == ("UpdateUser")) {
-					model.setUpdateUser(true);
-				}
-				if (permission.getPremissionName() == ("UpdateStatus")) {
-					model.setUpdateStatus(true);
-				}
-				if (permission.getPremissionName() == ("DeactivateUser")) {
-					model.setDeactivateUser(true);
-				}
-				if (permission.getPremissionName() == ("ChangeRole")) {
-					model.setChangeRole(true);
-				}
-				if (permission.getPremissionName() == "UpdatePosition") {
-
-					model.setUpdatePosition(true);
-				}
-
-				if (permission.getPremissionName() == "ViewPosition") {
-					model.setViewPosition(true);
-				}
-				if (permission.getPremissionName() == "ChangeStatus") {
-					model.setChangeStatus(true);
-				}
-
+			
+			if(permission .getPremissionName()=="AddOpenPosition"){
+				model.setAddOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="UpdateOpenPosition"){
+				model.setUpdateOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="ViewOpenPosition"){
+				model.setViewOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="ChangeApplicationStatus"){
+				model.setChangeApplicationStatus(true);
+			}
+			
+			if(permission.getPremissionName()=="DeactivateUser"){
+				model.setDeactivateUser(true);
+			}
+			
+			if(permission.getPremissionName()=="AssignRole"){
+				model.setAssignRole(true);
+			}
+			
+			if(permission.getPremissionName()=="ViewResumeStatus"){
+				model.setViewResumeStatus(true);
+			}
+			if(permission.getPremissionName()=="ViewBonus"){
+				model.setViewBonus(true);
+			}
+			
+			if(permission.getPremissionName()=="AddReferral"){
+				model.setAddReferral(true);
+			}
+			
+			if(permission.getPremissionName()=="AddBonusDetails"){
+				model.setAddBonusDetails(true);
+			}
+			
+			if(permission.getPremissionName()=="UpdateBonusDetails"){
+				model.setUpdateBonusDetails(true);
 			}
 		}
 		return model;
@@ -344,14 +352,4 @@ public class ConversionUtility {
 		return employeeBonusStatusResponse;
 	}
 
-	/*public ChangeReferralStatusResponse setReferralStatus() {
-		employeeReferal.setApplication_status(referralStatusRequestModel.getReferral_status());
-		Date date = new Date();
-		employeeReferal.setDate(date);
-		employeeReferalRepository.save(employeeReferal);
-		ChangeReferralStatusResponse changeReferralResponse = new ChangeReferralStatusResponse();
-		changeReferralResponse.setDate(employeeReferal.getDate());
-		changeReferralResponse.setApplicant_name(employeeReferal.getApplicant_name());
-		return changeReferralResponse;
-	}*/
 }
