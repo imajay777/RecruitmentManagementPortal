@@ -15,7 +15,7 @@ public class UploadResumeRequestModel {
 
 	String applicant_name;
 
-	String experience;
+	int experience;
 
 	String technical_skills;
 

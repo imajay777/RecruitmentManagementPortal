@@ -1,5 +1,6 @@
 package com.rmportal.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-
-import com.mysql.jdbc.Blob;
 
 import lombok.Data;
 
@@ -28,7 +27,7 @@ public class EmployeeReferal {
 	String applicant_name;
 
 	@Column(name = "experience")
-	String experience;
+	int experience;
 
 	@Column(name = "technical_skill")
 	String technical_skill;

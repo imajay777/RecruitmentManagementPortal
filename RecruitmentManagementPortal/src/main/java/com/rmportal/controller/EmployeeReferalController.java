@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.EmployeeReferal;
+import com.rmportal.model.ReferralStatus;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
@@ -56,7 +58,7 @@ public class EmployeeReferalController {
 	EmployeeReferalService employeeReferalService;
 
 	// Get Employee Details -- For the employee
-	@RequestMapping(value = "/getEmployeeReferalList", method = RequestMethod.POST)
+	@RequestMapping(value = "/getEmployeeReferalList", method = RequestMethod.GET)
 	@ApiOperation(value = "Get Candidate list for the employee Reference")
 	public ResponseEntity<?> getEmployeeReferalList(@RequestParam("referance_email") String referance_email) {
 
@@ -160,6 +162,18 @@ public class EmployeeReferalController {
 				HttpStatusConstants.OK.getStatus() + "Status Changed for Candidate Name :"
 						+ changeReferralStatusResponse.getApplicant_name(),
 				HttpStatusConstants.OK.id, changeReferralStatusResponse));
+	}
+
+	// referral status list
+
+	@RequestMapping(value = "/getReferralStatusList", method = RequestMethod.GET)
+	@ApiOperation(value = "Get List of Referral Status")
+	public ResponseEntity<?> getReferralStatusList() {
+		List<ReferralStatus> referralStatusList = employeeReferalService.getReferralStatusList();
+
+		return ResponseEntity
+				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Referral Status list fetched",
+						HttpStatusConstants.OK.id, referralStatusList));
 	}
 
 }

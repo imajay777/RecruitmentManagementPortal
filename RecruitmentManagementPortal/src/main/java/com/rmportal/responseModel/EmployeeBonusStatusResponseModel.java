@@ -1,8 +1,5 @@
 package com.rmportal.responseModel;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,12 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UploadResumeResponseModel {
-
-	int reference_id;
-
-	String applicant_name;
+public class EmployeeBonusStatusResponseModel {
+ 
+	int referal_id;
 	
-	Date date;
-	
+	String bonus_status;
 }

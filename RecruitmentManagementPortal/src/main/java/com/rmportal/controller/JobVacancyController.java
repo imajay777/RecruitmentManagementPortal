@@ -2,8 +2,12 @@ package com.rmportal.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +23,7 @@ import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.service.AddJobVacancyService;
 import com.rmportal.service.ListJobVacancyService;
+import com.rmportal.utility.ApplicationUtils;
 import com.rmportal.utility.CustomException;
 
 import io.swagger.annotations.Api;
@@ -39,11 +44,22 @@ public class JobVacancyController {
 	@Autowired
 	ListJobVacancyService listJobVacancyService;
 
+	@Autowired
+	ApplicationUtils applicationUtils;
+
 	// Add Job Vacancies
 	@RequestMapping(value = "/addJobVacancy", method = RequestMethod.POST)
 	@ApiOperation(value = "Add Job Vacancies")
-	public ResponseEntity<?> addJobVacancy(@RequestBody JobVacancyRequestModel jobVacancyRequestModel)
-			throws CustomException {
+	public ResponseEntity<?> addJobVacancy(@Valid @RequestBody JobVacancyRequestModel jobVacancyRequestModel,
+			BindingResult binding) throws CustomException {
+
+		try {
+			if (binding.hasErrors())
+				throw new CustomException(204, binding.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(jobVacancyRequestModel, binding);
+		} catch (Exception e) {
+			throw new CustomException(201, e.getMessage());
+		}
 
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		addJobVacancyResponse = addJobVacancyService.addVacancy(jobVacancyRequestModel);
@@ -67,11 +83,11 @@ public class JobVacancyController {
 	// Update Job Status
 	@RequestMapping(value = "/jobStatus", method = RequestMethod.GET)
 	@ApiOperation(value = "Activate or Deactivate the jobs")
-	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id,@RequestParam boolean is_active) {
+	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id, @RequestParam boolean is_active) {
 
 		String message = listJobVacancyService.updateJobStatus(job_vacancy_id, is_active);
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message,
-				HttpStatusConstants.OK.id, null));
+		return ResponseEntity.ok(
+				new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message, HttpStatusConstants.OK.id, null));
 	}
 	
 	//Update Job Vacancy

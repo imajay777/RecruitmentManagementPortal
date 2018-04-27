@@ -29,6 +29,7 @@ import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
+import com.rmportal.utility.ForgetPasswordEmailUtility;
 import com.rmportal.utility.PasswordEncryption;
 
 /**
