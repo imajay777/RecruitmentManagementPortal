@@ -11,7 +11,7 @@ import com.rmportal.model.User;
 import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.LoginRequestModel;
-import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginServices {
 	RoleRepository roleRepository;
 
 	@Override
-	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
+	public LoginResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
 
 		User user = userRepository.findByEmail(loginRequestModel.getEmail());
 
@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginServices {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
 
-				ResponseModel responseModel = conversionUtility.convertUserToLoginResponse(user);
+				LoginResponseModel responseModel = conversionUtility.convertUserToLoginResponse(user);
 				
 				return responseModel;
 

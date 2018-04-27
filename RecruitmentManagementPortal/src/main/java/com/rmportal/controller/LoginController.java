@@ -17,7 +17,7 @@ import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.responseModel.HttpResponseModel;
-import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.service.LoginServices;
 import com.rmportal.service.UserServices;
 import com.rmportal.utility.CustomException;
@@ -47,7 +47,7 @@ public class LoginController {
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@RequestBody LoginRequestModel loginRequestModel) {
 
-		ResponseModel responseModel = null;
+		LoginResponseModel responseModel = null;
 
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
@@ -55,7 +55,7 @@ public class LoginController {
 			return ResponseEntity.ok(
 					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));
 		}
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Login Successful",
+		return ResponseEntity.ok(new HttpResponseModel("Login Successful",
 				HttpStatusConstants.OK.id, responseModel));
 
 		/*
@@ -71,12 +71,12 @@ public class LoginController {
 
 		if (userService.forgetPassword(email)) {
 			return ResponseEntity
-					.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Link Sent to your Email Address",
+					.ok(new HttpResponseModel("Link Sent to your Email Address",
 							HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Email",
+				.ok(new HttpResponseModel("Invalid Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 	}
 
@@ -87,12 +87,12 @@ public class LoginController {
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
 		if (userService.resetPassword(resetPasswordModel)) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Password Reset",
+			return ResponseEntity.ok(new HttpResponseModel("Password Reset",
 					HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity.ok(
-				new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + " Invalid Token or Email",
+				new HttpResponseModel("Invalid Token or Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}

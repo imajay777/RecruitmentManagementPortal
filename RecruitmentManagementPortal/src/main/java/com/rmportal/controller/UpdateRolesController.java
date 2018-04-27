@@ -39,8 +39,7 @@ public class UpdateRolesController {
 	public ResponseEntity<?> getRoles() throws CustomException {
 		List<RoleResponseModel> roles = updateRoles.getAllRoles();
 
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " List of Roles",
-				HttpStatusConstants.OK.id, roles));
+		return ResponseEntity.ok(new HttpResponseModel("List of Roles", HttpStatusConstants.OK.id, roles));
 
 	}
 
@@ -50,8 +49,7 @@ public class UpdateRolesController {
 			throws CustomException {
 
 		String message = updateRoles.changeRole(updateRoleRequestModel);
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message,
-				HttpStatusConstants.OK.id, null));
+		return ResponseEntity.ok(new HttpResponseModel(message, HttpStatusConstants.OK.id, null));
 	}
 
 }

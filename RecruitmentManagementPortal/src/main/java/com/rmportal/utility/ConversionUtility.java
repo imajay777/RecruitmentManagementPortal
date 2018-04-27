@@ -24,7 +24,7 @@ import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
-import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserPremissionModel;
@@ -85,8 +85,8 @@ public class ConversionUtility {
 	}
 
 	// Login Response
-	public ResponseModel convertUserToLoginResponse(User userFromTable) {
-		ResponseModel responseModel = new ResponseModel();
+	public LoginResponseModel convertUserToLoginResponse(User userFromTable) {
+		LoginResponseModel responseModel = new LoginResponseModel();
 		responseModel.setEmail(userFromTable.getEmail());
 		responseModel.setFirstName(userFromTable.getFirstName());
 		responseModel.setLastName(userFromTable.getLastName());

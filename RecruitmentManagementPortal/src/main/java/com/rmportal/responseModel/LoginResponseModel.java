@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = false)
-public class ResponseModel {
+public class LoginResponseModel {
 
 	int user_id;
 

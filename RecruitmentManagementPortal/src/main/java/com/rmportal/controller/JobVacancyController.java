@@ -64,9 +64,8 @@ public class JobVacancyController {
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		addJobVacancyResponse = addJobVacancyService.addVacancy(jobVacancyRequestModel);
 
-		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " New JOB POSTED Successfully",
-						HttpStatusConstants.OK.id, addJobVacancyResponse));
+		return ResponseEntity.ok(
+				new HttpResponseModel("New JOB POSTED Successfully", HttpStatusConstants.OK.id, addJobVacancyResponse));
 	}
 
 	// Get job Vacancies
@@ -75,8 +74,7 @@ public class JobVacancyController {
 	public ResponseEntity<?> getJobVacancy() throws CustomException {
 		List<JobVacancyResponseModel> jobVacancy = listJobVacancyService.getAllJobs();
 
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " List of Job Vacancies",
-				HttpStatusConstants.OK.id, jobVacancy));
+		return ResponseEntity.ok(new HttpResponseModel("List of Job Vacancies", HttpStatusConstants.OK.id, jobVacancy));
 
 	}
 
@@ -89,19 +87,17 @@ public class JobVacancyController {
 		return ResponseEntity.ok(
 				new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message, HttpStatusConstants.OK.id, null));
 	}
-	
-	//Update Job Vacancy
+
+	// Update Job Vacancy
 	@RequestMapping(value = "/updateJobVacancy/{id}", method = RequestMethod.POST)
 	@ApiOperation(value = "update Job Vacancies")
-	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,@RequestBody JobVacancyRequestModel jobVacancyRequestModel)
-			throws CustomException {
-        System.out.println("jobVacancyRequestModel: "+jobVacancyRequestModel);
+	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,
+			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
+		System.out.println("jobVacancyRequestModel: " + jobVacancyRequestModel);
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
-		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "  JOB vacancy updated Successfully",
-						HttpStatusConstants.OK.id, addJobVacancyResponse));
+		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
+				addJobVacancyResponse));
 	}
-
 
 }
