@@ -73,13 +73,15 @@ public class RegisterController {
 	@ApiOperation(value="Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody UpdateRequestModel updateRequestModel)
 			throws CustomException {
-		System.out.println("ui request model"+updateRequestModel);
-		User user = conversionUtility.convertRequestToUser(updateRequestModel);
+		//System.out.println("ui request model"+updateRequestModel);
+		//User user = conversionUtility.convertRequestToUser(updateRequestModel);
+		System.out.println("request.."+updateRequestModel);
 
-		UpdateResponseModel updateResponseModel = userService.updateUser(id, user);
-
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "updated successfully",
-				HttpStatusConstants.OK.id, updateResponseModel));
+          User user= userService.updateUser(id, updateRequestModel);
+         
+          UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
+          return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " User updated successfully",
+				HttpStatusConstants.OK.id, updateUserResponse));
 	}
 
 	// Process Activation link while Registration
@@ -104,13 +106,19 @@ public class RegisterController {
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	@ApiOperation(value="Get List of Users")
 	public ResponseEntity<?> listAllUsers() {
-		List<User> users = userService.getAllUsers();
+		List<User> users = null;
+		try {
+			users = userService.getAllUsers();
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "list users fetched",
+					HttpStatusConstants.OK.id, users));
+		}
 		/*
 		 * if (users.isEmpty()) { return
-		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // You many decide to
+		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // 
 		 * return HttpStatus.NOT_FOUND }
 		 */
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "users fetched",
+		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "not able to fetch list",
 				HttpStatusConstants.OK.id, users));
 	}
 

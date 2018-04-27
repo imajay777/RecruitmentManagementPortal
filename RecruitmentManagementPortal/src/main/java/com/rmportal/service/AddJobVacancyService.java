@@ -15,4 +15,5 @@ public interface AddJobVacancyService {
 
 	public AddJobVacancyResponse addVacancy(JobVacancyRequestModel jobVacancyRequestModel) throws CustomException;
 	
+	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id,JobVacancyRequestModel jobVacancyRequestModel) throws CustomException;
 }

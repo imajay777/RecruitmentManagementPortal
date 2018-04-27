@@ -33,7 +33,7 @@ public class ActivationEmailUtility {
 
 		if (user != null) {
 			String subject = "Activation Link for Recruitment Management Portal";
-			String message = "Hi " + user.getFirstname() + ", \n"
+			String message = "Hi " + user.getFirstName() + ", \n"
 					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the activation link below to activate your account \n";
 			// String token = RandomStringUtils.randomAlphabetic(8);
 			String token = String.valueOf(UUID.randomUUID());

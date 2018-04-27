@@ -11,4 +11,22 @@ public class UserPremissionModel {
 	boolean UpdateStatus;
 	boolean DeactivateUser;
 	boolean ChangeRole;	
+	boolean UpdatePosition;//
+	boolean ViewPosition;//
+	boolean ChangeStatus;//
+	boolean ViewStatus;//	
+	
+	
+	
+	
+	/*boolean AddUser;
+	boolean AddPosition;
+	boolean UpdatePosition;//
+	boolean ViewPosition;//
+	boolean ChangeStatus;//
+	boolean ViewStatus;//
+	boolean UpdateUser;
+	boolean UpdateStatus;
+	boolean DeactivateUser;
+	boolean ChangeRole;	*/
 }

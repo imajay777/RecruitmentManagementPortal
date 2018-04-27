@@ -32,7 +32,7 @@ public class ForgetPasswordEmailUtility {
 
 		if (user != null) {
 			String subject = "Reset Password Link for Recruitment Management Portal";
-			String message = "Hi " + user.getFirstname() + ", \n"
+			String message = "Hi " + user.getFirstName() + ", \n"
 					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the Reset Password link below to reset your password \n";
 			String token = String.valueOf(UUID.randomUUID());
 

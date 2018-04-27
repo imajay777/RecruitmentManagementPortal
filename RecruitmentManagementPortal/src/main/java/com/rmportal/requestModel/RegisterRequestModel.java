@@ -12,21 +12,16 @@ import lombok.Data;
  *
  */
 
-
-
 @Data
 public class RegisterRequestModel {
-	
-	
 
 	@NotEmpty
-	String firstname;
+	String firstName;
 	@NotEmpty
-	String lastname;
+	String lastName;
 	@NotEmpty
 	String password;
 	@Email
 	String email;
-	
-	
+
 }

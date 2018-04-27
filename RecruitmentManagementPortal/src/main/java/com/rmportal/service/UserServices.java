@@ -5,6 +5,7 @@ import java.util.List;
 import com.rmportal.model.User;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
+import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.CustomException;
@@ -24,9 +25,9 @@ public interface UserServices {
 
 	
 
-	public UpdateResponseModel updateUser(int id, User user) throws CustomException;
+	public User updateUser(int id, UpdateRequestModel updateRequestModel) throws CustomException;
 	
-	public List<User> getAllUsers();
+	public List<User> getAllUsers() throws CustomException;
 	
 	public boolean updateStatus(boolean status, String email) throws CustomException;  
 	 

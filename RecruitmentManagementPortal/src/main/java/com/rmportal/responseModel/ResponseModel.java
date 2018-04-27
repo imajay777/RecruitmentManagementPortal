@@ -17,23 +17,19 @@ import lombok.experimental.FieldDefaults;
 public class ResponseModel {
 
 	int user_id;
-	
-	String first_name;
 
-	String last_name;
+	String firstName;
+
+	String lastName;
 
 	String email;
 
 	boolean profileStatus;
 	
 	Role role;
-	
-	UserPremissionModel permissions;  
-	
-	//Role roles;
-	
-	
-	
-	
+
+	UserPremissionModel permissions;
+
+	// Role roles;
 
 }
