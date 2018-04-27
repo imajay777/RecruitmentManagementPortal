@@ -77,9 +77,9 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-	//	updateResponseModel.setDepartment(user.getDepartments());
+	 updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
-	//	updateResponseModel.setRoles(user.getRoles().getRole());
+		updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
 	}
 	
@@ -103,42 +103,85 @@ public class ConversionUtility {
 		UserPremissionModel model = new UserPremissionModel();
 
 		for (Permission permission : list) {
+			
+			if(permission .getPremissionName()=="AddOpenPosition"){
+				model.setAddOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="UpdateOpenPosition"){
+				model.setUpdateOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="ViewOpenPosition"){
+				model.setViewOpenPosition(true);
+			}
+			
+			if(permission.getPremissionName()=="ChangeApplicationStatus"){
+				model.setChangeApplicationStatus(true);
+			}
+			
+			if(permission.getPremissionName()=="DeactivateUser"){
+				model.setDeactivateUser(true);
+			}
+			
+			if(permission.getPremissionName()=="AssignRole"){
+				model.setAssignRole(true);
+			}
+			
+			if(permission.getPremissionName()=="ViewResumeStatus"){
+				model.setViewResumeStatus(true);
+			}
+			if(permission.getPremissionName()=="ViewBonus"){
+				model.setViewBonus(true);
+			}
+			
+			if(permission.getPremissionName()=="AddReferral"){
+				model.setAddReferral(true);
+			}
+			
+			if(permission.getPremissionName()=="AddBonusDetails"){
+				model.setAddBonusDetails(true);
+			}
+			
+			if(permission.getPremissionName()=="UpdateBonusDetails"){
+				model.setUpdateBonusDetails(true);
+			}
 			// String permission1;
 
-			if (permission.getPremissionName() == "AddUser") {
+			/*if (permission.getPremissionName() == "AddOpenPosition") {
 				model.setAddUser(true);
-				if (permission.getPremissionName() == "AddUser") {
+				if (permission.getPremissionName() == "UpdateOpenPosition") {
 					model.setAddUser(true);
 				}
-				if (permission.getPremissionName() == ("AddPosition")) {
+				if (permission.getPremissionName() == ("ViewOpenPosition")) {
 					model.setAddPosition(true);
 				}
-				if (permission.getPremissionName() == ("UpdateUser")) {
+				if (permission.getPremissionName() == ("ChangeApplicationStatus")) {
 					model.setUpdateUser(true);
 				}
-				if (permission.getPremissionName() == ("UpdateStatus")) {
+				if (permission.getPremissionName() == ("DeactivateUser")) {
 					model.setUpdateStatus(true);
 				}
-				if (permission.getPremissionName() == ("DeactivateUser")) {
+				if (permission.getPremissionName() == ("AssignRole")) {
 					model.setDeactivateUser(true);
 				}
-				if (permission.getPremissionName() == ("ChangeRole")) {
+				if (permission.getPremissionName() == ("ViewResumeStatus")) {
 					model.setChangeRole(true);
 				}
-				if(permission.getPremissionName()=="UpdatePosition") {
+				if(permission.getPremissionName()=="ViewBonus") {
 				
 					model.setUpdatePosition(true);
 				}
 			
-				if(permission.getPremissionName()=="ViewPosition"){
+				if(permission.getPremissionName()=="AddReferral"){
 					model.setViewPosition(true);
 				}
-				if(permission.getPremissionName()=="ChangeStatus"){
+				if(permission.getPremissionName()=="AddBonusDetails"){
 					model.setChangeStatus(true);
 				}
+				*/
 				
-				
-			}
+			
 		}
 		return model;
 	}

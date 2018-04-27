@@ -132,4 +132,21 @@ INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount
 INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount`) VALUES ('3', '5', '15', '15000');
   
 
+UPDATE `RMPortal`.`permission_role` SET `role_id`='1', `permission_id`='7' WHERE `role_permission_id`='2';
+UPDATE `RMPortal`.`permission_role` SET `role_id`='1', `permission_id`='8' WHERE `role_permission_id`='3';
+UPDATE `RMPortal`.`permission_role` SET `role_id`='1', `permission_id`='9' WHERE `role_permission_id`='4';
+UPDATE `RMPortal`.`permission_role` SET `permission_id`='1' WHERE `role_permission_id`='5';
+UPDATE `RMPortal`.`permission_role` SET `permission_id`='2' WHERE `role_permission_id`='6';
+UPDATE `RMPortal`.`permission_role` SET `permission_id`='3' WHERE `role_permission_id`='7';
+UPDATE `RMPortal`.`permission_role` SET `role_id`='2', `permission_id`='4' WHERE `role_permission_id`='8';
+UPDATE `RMPortal`.`permission_role` SET `role_id`='2', `permission_id`='5' WHERE `role_permission_id`='9';
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('10', '2', '6');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('11', '2', '7');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('12', '3', '1');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('13', '3', '2');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('14', '3', '4');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('15', '3', '5');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('16', '3', '8');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('17', '3', '10');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('18', '3', '11');
 

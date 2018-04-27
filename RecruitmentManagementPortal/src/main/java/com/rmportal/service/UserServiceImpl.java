@@ -137,14 +137,14 @@ public class UserServiceImpl implements UserServices {
 		
 		
 		User updatedUser = userRepository.findByUserId(id);
-		System.out.println(updateRequestModel.getFirstName());
 		
 		if (updateRequestModel != null) {
 			//System.out.println("user details"+user);
 
 			if(updateRequestModel.getFirstName()==null)
 			{
-				throw new CustomException(500, " First name can not be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), " First name can not be null");
+				//throw new CustomException(500, " First name can not be null");
 			}
 			else
 			{
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getLastName()==null)
 			{
-				throw new CustomException(500, " last name can not be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), " last name can not be null");
 			}
 			else
 			{
@@ -161,10 +161,11 @@ public class UserServiceImpl implements UserServices {
 
 			
 			updatedUser.setEmployee_id("Not Set");
+//			updatedUser.setDepartments(updatedUser.getDepartments());
 		//	updatedUser.setDepartments(updateRequestModel.getDepartment());
 			if(updateRequestModel.getAddress()==null)
 			{
-				throw new CustomException(500,"mension the proper address");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the proper address");
 			}
 			else
 			{
@@ -172,7 +173,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getBlood_group()==null)
 			{
-				throw new CustomException(500,"specify the blood group");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the blood group");
 			}
 			else
 			{
@@ -180,7 +181,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getCity()==null)
 			{
-				throw new CustomException(500,"mension the city");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the city");
 			}
 			else
 			{
@@ -188,7 +189,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getCountry()==null)
 			{
-				throw new CustomException(500,"mension the country");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the country");
 			}
 			else
 			{
