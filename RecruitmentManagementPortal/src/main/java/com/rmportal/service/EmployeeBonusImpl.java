@@ -43,7 +43,6 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 			throw new CustomException(206, " Bonus Cannot be applicable");
 		}
 		EmployeeBonusStatusResponseModel bonusResponse = conversionUtility.calculateBonus(employeeReferal);
-//		cronJobSchedular.sendReminderMail(employeeReferal);
 		return bonusResponse;
 		
 	}

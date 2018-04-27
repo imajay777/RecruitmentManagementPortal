@@ -2,6 +2,7 @@ package com.rmportal.service;
 
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		JobVacancy jobVacancy = conversionUtility.addJobVacancy(jobVacancyRequestModel);
 		if (Objects.isNull(jobVacancy)) {
-			throw new CustomException(501, "Error in JOB Posting");
+			throw new CustomException(501, "Error in JOB Posting.");
 		}
 
 		jobVacancyRepository.save(jobVacancy);

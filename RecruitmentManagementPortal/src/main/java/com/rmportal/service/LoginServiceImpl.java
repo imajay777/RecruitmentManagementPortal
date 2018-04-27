@@ -1,5 +1,6 @@
 package com.rmportal.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,13 +41,15 @@ public class LoginServiceImpl implements LoginServices {
 		User user = userRepository.findByEmail(loginRequestModel.getEmail());
 
 		if (user == null) {
-			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, "Email is not valid");
+			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, " Email is not valid");
 		}
 		if (user.isActive()) {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
 
-				return conversionUtility.convertUserToLoginResponse(user);
+				ResponseModel responseModel = conversionUtility.convertUserToLoginResponse(user);
+				
+				return responseModel;
 
 			} else {
 				throw new CustomException(401, "Invalid Password");
@@ -54,7 +57,6 @@ public class LoginServiceImpl implements LoginServices {
 		} else {
 			throw new CustomException(406, "User is Inactive");
 		}
-
 	}
 
 }
