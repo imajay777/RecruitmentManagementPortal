@@ -39,11 +39,11 @@ public class User {
 
 	@Column(name = "first_name")
 	// @NotEmpty(message = "*Please provide your first name")
-	String firstname;
+	String firstName;
 
 	@Column(name = "last_name")
 	// @NotEmpty(message = "*Please provide your last name")
-	String lastname;
+	String lastName;
 
 	@Column(name = "password")
 	String password;

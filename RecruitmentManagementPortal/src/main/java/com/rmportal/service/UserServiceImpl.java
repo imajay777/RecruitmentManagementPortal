@@ -23,6 +23,7 @@ import com.rmportal.repository.UserRepository;
 import com.rmportal.repository.UserTokenRepository;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
+import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
@@ -131,25 +132,96 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public UpdateResponseModel updateUser(int id, User user) throws CustomException {
-		if (user != null) {
-			System.out.println("user details"+user);
+	public User updateUser(int id,UpdateRequestModel updateRequestModel) throws CustomException {
+		
+		
+		User updatedUser = userRepository.findByUserId(id);
+		System.out.println(updateRequestModel.getFirstName());
+		
+		if (updateRequestModel != null) {
+			//System.out.println("user details"+user);
 
-			User updatedUser = userRepository.findByUserId(id);
-			user.setId(updatedUser.getId());
-			userRepository.save(user);
+			if(updateRequestModel.getFirstName()==null)
+			{
+				throw new CustomException(500, " First name can not be null");
+			}
+			else
+			{
+				updatedUser.setFirstName(updateRequestModel.getFirstName());
+			}
+			if(updateRequestModel.getLastName()==null)
+			{
+				throw new CustomException(500, " last name can not be null");
+			}
+			else
+			{
+				updatedUser.setLastName(updateRequestModel.getLastName());
+			}
+
+			
+			updatedUser.setEmployee_id("Not Set");
+		//	updatedUser.setDepartments(updateRequestModel.getDepartment());
+			if(updateRequestModel.getAddress()==null)
+			{
+				throw new CustomException(500,"mension the proper address");
+			}
+			else
+			{
+			updatedUser.setAddress(updateRequestModel.getAddress());
+			}
+			if(updateRequestModel.getBlood_group()==null)
+			{
+				throw new CustomException(500,"specify the blood group");
+			}
+			else
+			{
+			updatedUser.setBlood_group(updateRequestModel.getBlood_group());
+			}
+			if(updateRequestModel.getCity()==null)
+			{
+				throw new CustomException(500,"mension the city");
+			}
+			else
+			{
+			updatedUser.setCity(updateRequestModel.getCity());
+			}
+			if(updateRequestModel.getCountry()==null)
+			{
+				throw new CustomException(500,"mension the country");
+			}
+			else
+			{
+			updatedUser.setCountry(updateRequestModel.getCountry());
+			}
+			updatedUser.setMobile(updateRequestModel.getMobile());
+			updatedUser.setDOB(updateRequestModel.getDateOfBirth());
+			
+			/*if(updatedUser.getFirstName() !=null && updatedUser.getLastName() !=null){
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already Exits");
+			}*/
+			userRepository.save(updatedUser);	
+			//conversionUtility.convertForUpdateResponse(user);
+		//	userRepository.save(user);
+			//response = "user updated succesfully";
+			
 		} else {
 			throw new CustomException(500, " User already exits");
+			
 		}
-		UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
-		return updateResponseModel;
+		/*UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
+		return updateResponseModel;*/
+		return updatedUser;
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<User> getAllUsers() throws CustomException {
 
 		// System.out.println("hello");
 		List<User> getUsers = (List<User>) userRepository.findAll();
+		if(getUsers==null)
+		{
+			throw new CustomException(500,"no users are presents");
+		}
 
 		return getUsers;
 	}

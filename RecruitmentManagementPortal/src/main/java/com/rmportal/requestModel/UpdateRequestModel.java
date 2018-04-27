@@ -6,15 +6,17 @@ import lombok.Data;
 public class UpdateRequestModel {
 
 //	String employee_id;
-	String user_name;
-	String first_name;
-	String last_name;
-	String email;
+//	String userName;
+	String firstName;
+	String lastName;
+//	String email;
 	String address;
 	String dateOfBirth;
 	String city;
 	String country;
+	String employee_id;
 	long mobile;
 	String blood_group;
+//	Department department;
 
 }

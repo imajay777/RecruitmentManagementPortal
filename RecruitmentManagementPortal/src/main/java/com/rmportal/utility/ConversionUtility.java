@@ -45,8 +45,8 @@ public class ConversionUtility {
 
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
-		user.setFirstname(registerRequestModel.getFirstname());
-		user.setLastname(registerRequestModel.getLastname());
+		user.setFirstName(registerRequestModel.getFirstName());
+		user.setLastName(registerRequestModel.getLastName());
 		System.out.println(registerRequestModel.getPassword());
 		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
 
@@ -59,54 +59,39 @@ public class ConversionUtility {
 		UserResponseDTO userResponseDTO = new UserResponseDTO();
 
 		userResponseDTO.setEmail(user.getEmail());
-		userResponseDTO.setFirstname(user.getFirstname());
-		userResponseDTO.setLastname(user.getLastname());
+		userResponseDTO.setFirstname(user.getFirstName());
+		userResponseDTO.setLastname(user.getLastName());
 
 		return userResponseDTO;
 
 	}
 
-	// Update Response
-	/*public UpdateResponseModel convertForUpdateResponse(User user) {
+	// Update Response for Update Profile
+	public UpdateResponseModel convertForUpdateResponse(User user) {
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
-		updateResponseModel.setFirst_name(user.getFirstname());
-		updateResponseModel.setLast_name(user.getLastname());
+		updateResponseModel.setFirstName(user.getFirstName());
+		updateResponseModel.setLastName(user.getLastName());
 		updateResponseModel.setAddress(user.getAddress());
 		updateResponseModel.setCity(user.getCity());
 		updateResponseModel.setCountry(user.getCountry());
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-		updateResponseModel.setDepartment(user.getDepartments());
+	//	updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
 	//	updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
-	}*/
-	
-	public UpdateResponseModel convertForUpdateResponse(User user) {
-		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
-		user.setEmployee_id(updateResponseModel.getEmployee_id());
-		user.setEmail(updateResponseModel.getEmail());
-		user.setDepartments(updateResponseModel.getDepartment());
-		user.setFirstname(updateResponseModel.getFirst_name());
-		user.setLastname(updateResponseModel.getLast_name());
-		user.setDOB(updateResponseModel.getDOB());
-		user.setAddress(updateResponseModel.getAddress());
-		user.setCity(updateResponseModel.getCity());
-		user.setCountry(updateResponseModel.getCountry());
-		user.setMobile(updateResponseModel.getMobile());
-		user.setBlood_group(updateResponseModel.getBlood_group());
-		
-		return updateResponseModel;
 	}
+	
+	
 
 	// Login Response
 	public ResponseModel convertUserToLoginResponse(User userFromTable) {
 		ResponseModel responseModel = new ResponseModel();
 		responseModel.setEmail(userFromTable.getEmail());
-		responseModel.setFirst_name(userFromTable.getFirstname());
-		responseModel.setLast_name(userFromTable.getLastname());
+		responseModel.setFirstName(userFromTable.getFirstName());
+		responseModel.setLastName(userFromTable.getLastName());
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setRole(userFromTable.getRoles());
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
@@ -141,7 +126,19 @@ public class ConversionUtility {
 				if (permission.getPremissionName() == ("ChangeRole")) {
 					model.setChangeRole(true);
 				}
-
+				if(permission.getPremissionName()=="UpdatePosition") {
+				
+					model.setUpdatePosition(true);
+				}
+			
+				if(permission.getPremissionName()=="ViewPosition"){
+					model.setViewPosition(true);
+				}
+				if(permission.getPremissionName()=="ChangeStatus"){
+					model.setChangeStatus(true);
+				}
+				
+				
 			}
 		}
 		return model;
@@ -156,21 +153,17 @@ public class ConversionUtility {
 	}
 
 	// Method for Update Status
-	public User convertRequestToUser(UpdateRequestModel updateRequestModel) {
+	public User convertRequestToUser(UpdateRequestModel updateRequestModel, User user) {
 
-		System.out.println("firstname : " + updateRequestModel.getFirst_name());
-		User user = new User();
-		user.setFirstname(updateRequestModel.getFirst_name());
-		user.setLastname(updateRequestModel.getLast_name());
-		user.setEmail(updateRequestModel.getEmail());
+		System.out.println("firstname : " + updateRequestModel.getFirstName());
+		user.setFirstName(updateRequestModel.getFirstName());
+		user.setLastName(updateRequestModel.getLastName());
 		user.setAddress(updateRequestModel.getAddress());
 		user.setCity(updateRequestModel.getCity());
 		user.setCountry(updateRequestModel.getCountry());
 		user.setDOB(updateRequestModel.getDateOfBirth());
 		user.setMobile(updateRequestModel.getMobile());
 		user.setBlood_group(updateRequestModel.getBlood_group());
-		// user.setDepartments(updateRequestModel.getDepartment());
-		// user.setEmployee_id(updateRequestModel.getEmployee_id());
 		return user;
 
 	}
@@ -306,8 +299,8 @@ public class ConversionUtility {
 	public UpdateResponseModel convertToUpdateResponseModel(User user) {
 
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
-		updateResponseModel.setFirst_name(user.getFirstname());
-		updateResponseModel.setLast_name(user.getLastname());
+		updateResponseModel.setFirstName(user.getFirstName());
+		updateResponseModel.setLastName(user.getLastName());
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setBlood_group(user.getBlood_group());
 		updateResponseModel.setEmail(user.getEmail());

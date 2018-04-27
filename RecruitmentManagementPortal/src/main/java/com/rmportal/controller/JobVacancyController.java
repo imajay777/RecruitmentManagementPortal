@@ -73,5 +73,19 @@ public class JobVacancyController {
 		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + message,
 				HttpStatusConstants.OK.id, null));
 	}
+	
+	//Update Job Vacancy
+	@RequestMapping(value = "/updateJobVacancy/{id}", method = RequestMethod.POST)
+	@ApiOperation(value = "update Job Vacancies")
+	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,@RequestBody JobVacancyRequestModel jobVacancyRequestModel)
+			throws CustomException {
+        System.out.println("jobVacancyRequestModel: "+jobVacancyRequestModel);
+		AddJobVacancyResponse addJobVacancyResponse = null;
+		addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
+		return ResponseEntity
+				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "  JOB vacancy updated Successfully",
+						HttpStatusConstants.OK.id, addJobVacancyResponse));
+	}
+
 
 }
