@@ -20,6 +20,7 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
@@ -77,13 +78,11 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-	//	updateResponseModel.setDepartment(user.getDepartments());
+		// updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
-	//	updateResponseModel.setRoles(user.getRoles().getRole());
+		// updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
 	}
-	
-	
 
 	// Login Response
 	public ResponseModel convertUserToLoginResponse(User userFromTable) {
@@ -125,19 +124,18 @@ public class ConversionUtility {
 				if (permission.getPremissionName() == ("ChangeRole")) {
 					model.setChangeRole(true);
 				}
-				if(permission.getPremissionName()=="UpdatePosition") {
-				
+				if (permission.getPremissionName() == "UpdatePosition") {
+
 					model.setUpdatePosition(true);
 				}
-			
-				if(permission.getPremissionName()=="ViewPosition"){
+
+				if (permission.getPremissionName() == "ViewPosition") {
 					model.setViewPosition(true);
 				}
-				if(permission.getPremissionName()=="ChangeStatus"){
+				if (permission.getPremissionName() == "ChangeStatus") {
 					model.setChangeStatus(true);
 				}
-				
-				
+
 			}
 		}
 		return model;
@@ -261,7 +259,7 @@ public class ConversionUtility {
 		Date date = new Date();
 		employeeReferal.setDate(date);
 		employeeReferal.setApplication_status("In Progress");
-
+		employeeReferal.setApplicant_email("default@agsft.com");
 		if (!file.isEmpty()) {
 
 			if (!file.getOriginalFilename().equals("")) {
@@ -346,4 +344,14 @@ public class ConversionUtility {
 		return employeeBonusStatusResponse;
 	}
 
+	/*public ChangeReferralStatusResponse setReferralStatus() {
+		employeeReferal.setApplication_status(referralStatusRequestModel.getReferral_status());
+		Date date = new Date();
+		employeeReferal.setDate(date);
+		employeeReferalRepository.save(employeeReferal);
+		ChangeReferralStatusResponse changeReferralResponse = new ChangeReferralStatusResponse();
+		changeReferralResponse.setDate(employeeReferal.getDate());
+		changeReferralResponse.setApplicant_name(employeeReferal.getApplicant_name());
+		return changeReferralResponse;
+	}*/
 }

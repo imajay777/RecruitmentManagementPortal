@@ -1,10 +1,8 @@
 package com.rmportal.utility;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,22 +20,24 @@ public class CronJobSchedular {
 
 	@Autowired
 	EmployeeReferalRepository employeeReferralRepo;
-	
+
 	@Autowired
-	DateCalculator dateCalculator; 
-	
+	DateCalculator dateCalculator;
+
 	private static final Logger log = LoggerFactory.getLogger(CronJobSchedular.class);
 
-    @Scheduled(cron = "${cronjob.daily.time}")
-    public void sendReminderMail() {
-    	
-    	List<EmployeeReferal> employeeReferralList = (List<EmployeeReferal>) employeeReferralRepo.findAll();
-    	
-    	for(EmployeeReferal referralList : employeeReferralList){
-			 Date joinedDate = referralList.getDate();
-			 dateCalculator.calculateDifferenceBetweenDates(referralList,joinedDate);
-    	}
-    }
+	@Scheduled(cron = "${cronjob.daily.time}")
+	public void sendReminderMail() throws CustomException {
 
-	
+		List<EmployeeReferal> employeeReferralList = (List<EmployeeReferal>) employeeReferralRepo.findAll();
+		if(Objects.isNull(employeeReferralList)){
+			throw new CustomException(401, " No single record Found! Empty");
+		}
+		for (EmployeeReferal referralList : employeeReferralList) {
+			if (referralList.getApplication_status().compareTo("Joined")==0) {
+				dateCalculator.calculateDifferenceBetweenDates(referralList);
+			}
+		}
+	}
+
 }
