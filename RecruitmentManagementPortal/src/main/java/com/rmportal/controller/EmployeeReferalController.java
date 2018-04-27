@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,18 +79,12 @@ public class EmployeeReferalController {
 	}
 
 	// Upload Resume
-
-	/**
-	 * @author saurabh
-	 *
-	 */
-
 	@RequestMapping(value = "/uploadResume", method = RequestMethod.POST, consumes = {
 			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Upload Resume")
 	public ResponseEntity<?> uploadResume(
-			@ApiParam("{email, applicant_name, experience, technical_skills}") @RequestParam("details") String details,
-			@RequestParam("file") MultipartFile file) throws CustomException {
+			@ApiParam("{email, applicant_name, experience, technical_skills}") @RequestPart("details") String details,
+			@RequestPart("file") MultipartFile file) throws CustomException {
 
 		UploadResumeRequestModel uploadResumeRequestModel = null;
 
