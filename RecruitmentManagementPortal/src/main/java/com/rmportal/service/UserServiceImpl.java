@@ -198,9 +198,7 @@ public class UserServiceImpl implements UserServices {
 			updatedUser.setMobile(updateRequestModel.getMobile());
 			updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			
-			/*if(updatedUser.getFirstName() !=null && updatedUser.getLastName() !=null){
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already Exits");
-			}*/
+			
 			userRepository.save(updatedUser);	
 			//conversionUtility.convertForUpdateResponse(user);
 		//	userRepository.save(user);
