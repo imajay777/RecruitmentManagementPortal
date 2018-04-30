@@ -101,9 +101,7 @@ public class ConversionUtility {
 		roleResponse.setPermissions(userFromTable.getRoles().getRolePermission());
 
 		responseModel.setRoleResponse(roleResponse);
-
 		String check = userFromTable.toString();
-
 		if (check.matches(".*null.*")) {
 			responseModel.setProfileStatus(false);
 		} else {
