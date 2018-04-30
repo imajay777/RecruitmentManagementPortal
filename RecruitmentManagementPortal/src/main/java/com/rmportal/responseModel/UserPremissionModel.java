@@ -1,5 +1,7 @@
 package com.rmportal.responseModel;
 
+import com.rmportal.model.Permission;
+
 import lombok.Data;
 
 @Data
@@ -16,7 +18,6 @@ public class UserPremissionModel {
 	boolean AddReferral;
 	boolean AddBonusDetails;
 	boolean UpdateBonusDetails;
-	
 	
 	
 	

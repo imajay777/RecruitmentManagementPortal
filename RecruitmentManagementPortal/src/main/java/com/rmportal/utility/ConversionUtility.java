@@ -114,51 +114,60 @@ public class ConversionUtility {
 	// getPermission method for above method(convertUserToLoginResponse)
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
+		
+		//System.out.println("inside model"+model);
 
 		for (Permission permission : list) {
+			
+			//System.out.println("number of permission"+permission);
+			
+			if(permission .getPremissionName().compareTo("AddOpenPosition")==0){
 
-			if (permission.getPremissionName() == "AddOpenPosition") {
 				model.setAddOpenPosition(true);
+				
 			}
-
-			if (permission.getPremissionName() == "UpdateOpenPosition") {
+			
+			if(permission.getPremissionName().compareTo("UpdateOpenPosition")==0){
 				model.setUpdateOpenPosition(true);
 			}
-
-			if (permission.getPremissionName() == "ViewOpenPosition") {
+			
+			if(permission.getPremissionName().compareTo("UpdateOpenPosition")==0){
 				model.setViewOpenPosition(true);
 			}
-
-			if (permission.getPremissionName() == "ChangeApplicationStatus") {
+			
+			if(permission.getPremissionName().compareTo("ChangeApplicationStatus")==0){
 				model.setChangeApplicationStatus(true);
 			}
-
-			if (permission.getPremissionName() == "DeactivateUser") {
+			
+			if(permission.getPremissionName().compareTo("DeactivateUser")==0){
 				model.setDeactivateUser(true);
 			}
-
-			if (permission.getPremissionName() == "AssignRole") {
+			
+			if(permission.getPremissionName().compareTo("AssignRole")==0){
 				model.setAssignRole(true);
 			}
-
-			if (permission.getPremissionName() == "ViewResumeStatus") {
+			
+			if(permission.getPremissionName().compareTo("ViewResumeStatus")==0){
 				model.setViewResumeStatus(true);
 			}
-			if (permission.getPremissionName() == "ViewBonus") {
+			if(permission.getPremissionName().compareTo("ViewBonus")==0){
 				model.setViewBonus(true);
 			}
-
-			if (permission.getPremissionName() == "AddReferral") {
+			
+			if(permission.getPremissionName().compareTo("AddReferral")==0){
 				model.setAddReferral(true);
 			}
-
-			if (permission.getPremissionName() == "AddBonusDetails") {
+			
+			if(permission.getPremissionName().compareTo("AddBonusDetails")==0){
 				model.setAddBonusDetails(true);
 			}
-
-			if (permission.getPremissionName() == "UpdateBonusDetails") {
+			
+			if(permission.getPremissionName().compareTo("UpdateBonusDetails")==0){
 				model.setUpdateBonusDetails(true);
 			}
+				
+			
+
 		}
 		return model;
 	}
