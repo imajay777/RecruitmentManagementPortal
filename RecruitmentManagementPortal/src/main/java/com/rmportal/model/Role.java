@@ -41,12 +41,15 @@ public class Role {
 	@Column(name = "role_name")
 	private String role;
 	
-	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
+	/*@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
 	@JsonBackReference
-	List<User> user;
+	List<User> user;*/
 	
 	
 	/*@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+=======
+/*	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+>>>>>>> e1709ae7747109be759d953b7d00e0ec7f7eff3d
 	@JsonBackReference
 	String userId;*/
 	

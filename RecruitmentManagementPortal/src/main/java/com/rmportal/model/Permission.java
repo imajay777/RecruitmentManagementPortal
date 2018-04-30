@@ -41,4 +41,14 @@ public class Permission {
 	 * 
 	 * @JsonBackReference private String roleId;
 	 */
+	/*
+	 * @ManyToMany(mappedBy = "rolePermission")
+	 * 
+	 * @JsonBackReference private List<Role> roles;
+	 */
+
+/*	@ManyToOne()
+	@JsonBackReference
+	private String roleId;
+*/
 }

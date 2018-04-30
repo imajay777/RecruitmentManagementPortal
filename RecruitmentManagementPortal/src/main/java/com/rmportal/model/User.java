@@ -32,10 +32,6 @@ public class User {
 	@Column(name = "user_id")
 	int id;
 
-	/*
-	 * @Column(name = "user_name") //@NotEmpty(message =
-	 * "*Please provide your user name") String username;
-	 */
 
 	@Column(name = "first_name")
 	// @NotEmpty(message = "*Please provide your first name")
@@ -87,7 +83,7 @@ public class User {
 	// @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "dept_id")
+	@JoinColumn(name = "dept_id")	
 	@JsonManagedReference
 	Department departments;
 
