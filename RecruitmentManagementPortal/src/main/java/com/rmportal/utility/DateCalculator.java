@@ -1,20 +1,17 @@
 package com.rmportal.utility;
 
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.model.EmployeeReferal;
+
 
 @Component
 public class DateCalculator {
@@ -24,7 +21,7 @@ public class DateCalculator {
 	
 //	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
 
-	@Test
+//	@Test
 	public void calculateDifferenceBetweenDates(EmployeeReferal referralList) {
 
 		LocalDate now = LocalDate.now();

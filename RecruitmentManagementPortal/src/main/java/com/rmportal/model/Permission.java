@@ -35,5 +35,7 @@ private String premissionName;
 @JsonBackReference
 private List<Role> roles;
 
-
+/*@ManyToMany(mappedBy = "rolePermission") 
+@JsonBackReference
+private String roleId;*/
 }

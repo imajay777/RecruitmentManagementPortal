@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.model.Role;
 import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;

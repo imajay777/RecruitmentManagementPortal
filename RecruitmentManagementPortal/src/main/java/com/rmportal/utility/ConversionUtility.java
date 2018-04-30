@@ -2,8 +2,10 @@ package com.rmportal.utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
-import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
@@ -91,8 +92,23 @@ public class ConversionUtility {
 		responseModel.setFirstName(userFromTable.getFirstName());
 		responseModel.setLastName(userFromTable.getLastName());
 		responseModel.setUser_id(userFromTable.getId());
-		responseModel.setRole(userFromTable.getRoles());
+		responseModel.setProfileStatus(false);
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
+
+		RoleResponseModel roleResponse = new RoleResponseModel();
+		roleResponse.setId(userFromTable.getRoles().getId());
+		roleResponse.setRole(userFromTable.getRoles().getRole());
+		roleResponse.setPermissions(userFromTable.getRoles().getRolePermission());
+
+		responseModel.setRoleResponse(roleResponse);
+
+		String check = userFromTable.toString();
+
+		if (check.matches(".*null.*")) {
+			responseModel.setProfileStatus(false);
+		} else {
+			responseModel.setProfileStatus(true);
+		}
 		return responseModel;
 
 	}
@@ -102,47 +118,47 @@ public class ConversionUtility {
 		UserPremissionModel model = new UserPremissionModel();
 
 		for (Permission permission : list) {
-			
-			if(permission .getPremissionName()=="AddOpenPosition"){
+
+			if (permission.getPremissionName() == "AddOpenPosition") {
 				model.setAddOpenPosition(true);
 			}
-			
-			if(permission.getPremissionName()=="UpdateOpenPosition"){
+
+			if (permission.getPremissionName() == "UpdateOpenPosition") {
 				model.setUpdateOpenPosition(true);
 			}
-			
-			if(permission.getPremissionName()=="ViewOpenPosition"){
+
+			if (permission.getPremissionName() == "ViewOpenPosition") {
 				model.setViewOpenPosition(true);
 			}
-			
-			if(permission.getPremissionName()=="ChangeApplicationStatus"){
+
+			if (permission.getPremissionName() == "ChangeApplicationStatus") {
 				model.setChangeApplicationStatus(true);
 			}
-			
-			if(permission.getPremissionName()=="DeactivateUser"){
+
+			if (permission.getPremissionName() == "DeactivateUser") {
 				model.setDeactivateUser(true);
 			}
-			
-			if(permission.getPremissionName()=="AssignRole"){
+
+			if (permission.getPremissionName() == "AssignRole") {
 				model.setAssignRole(true);
 			}
-			
-			if(permission.getPremissionName()=="ViewResumeStatus"){
+
+			if (permission.getPremissionName() == "ViewResumeStatus") {
 				model.setViewResumeStatus(true);
 			}
-			if(permission.getPremissionName()=="ViewBonus"){
+			if (permission.getPremissionName() == "ViewBonus") {
 				model.setViewBonus(true);
 			}
-			
-			if(permission.getPremissionName()=="AddReferral"){
+
+			if (permission.getPremissionName() == "AddReferral") {
 				model.setAddReferral(true);
 			}
-			
-			if(permission.getPremissionName()=="AddBonusDetails"){
+
+			if (permission.getPremissionName() == "AddBonusDetails") {
 				model.setAddBonusDetails(true);
 			}
-			
-			if(permission.getPremissionName()=="UpdateBonusDetails"){
+
+			if (permission.getPremissionName() == "UpdateBonusDetails") {
 				model.setUpdateBonusDetails(true);
 			}
 		}

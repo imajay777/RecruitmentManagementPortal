@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.rmportal.model.JobVacancy;
 import com.rmportal.repository.JobVacancyRepository;
-import com.rmportal.repository.UserRepository;
 import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.utility.ConversionUtility;
 

@@ -29,6 +29,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(exclude="user")
+
 public class Role {
 
 	@Id
@@ -42,6 +43,10 @@ public class Role {
 	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
 	@JsonBackReference
 	List<User> user;
+	
+	/*@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+	@JsonBackReference
+	String userId;*/
 	
 	@OneToMany 
 	@JoinTable(name = "permission_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))

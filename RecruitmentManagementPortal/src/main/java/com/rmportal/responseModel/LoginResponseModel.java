@@ -1,7 +1,5 @@
 package com.rmportal.responseModel;
 
-import com.rmportal.model.Role;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,9 +24,11 @@ public class LoginResponseModel {
 
 	boolean profileStatus;
 	
-	Role role;
+	RoleResponseModel roleResponse;
 
 	UserPremissionModel permissions;
+
+	
 
 	// Role roles;
 
