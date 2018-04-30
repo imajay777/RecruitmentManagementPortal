@@ -45,7 +45,11 @@ public class Role {
 	@JsonBackReference
 	List<User> user;*/
 	
+	
+	/*@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+=======
 /*	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+>>>>>>> e1709ae7747109be759d953b7d00e0ec7f7eff3d
 	@JsonBackReference
 	String userId;*/
 	

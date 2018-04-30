@@ -98,6 +98,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
 			}
 			
+		
 			jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
 			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
 			
@@ -114,7 +115,14 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			jobVacancyRepository.save(jobVacancy);
 		}
 		addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
-		addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+		if(jobVacancy.getJob_title()==null){
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job title");
+		}
+		else
+		{
+			addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+		}
+		
 		addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
 		return addJobVacancyResponse;	
 		

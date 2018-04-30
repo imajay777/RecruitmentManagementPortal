@@ -29,7 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * @author saurabh
+ * @author saurabh/tejas
  *
  */
 @RestController
@@ -91,12 +91,18 @@ public class JobVacancyController {
 	@RequestMapping(value = "/updateJobVacancy/{id}", method = RequestMethod.POST)
 	@ApiOperation(value = "update Job Vacancies")
 	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,
-			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
+			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) {
 		System.out.println("jobVacancyRequestModel: " + jobVacancyRequestModel);
 		AddJobVacancyResponse addJobVacancyResponse = null;
-		addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
-		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
-				addJobVacancyResponse));
+		try {
+			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
+			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
+					addJobVacancyResponse));
+			
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(),null));
+		}
+		
 	}
 
 }
