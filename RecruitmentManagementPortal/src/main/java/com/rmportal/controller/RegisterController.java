@@ -70,18 +70,23 @@ public class RegisterController {
 	// UpdateUser API
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST, consumes = "application/json")
 	@ApiOperation(value = "Update User")
-	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody UpdateRequestModel updateRequestModel)
-			throws CustomException {
+	public ResponseEntity<?> updateUser(@PathVariable("id") int id,
+			@RequestBody UpdateRequestModel updateRequestModel) {
 		// System.out.println("ui request model"+updateRequestModel);
 		// User user =
 		// conversionUtility.convertRequestToUser(updateRequestModel);
 		System.out.println("request.." + updateRequestModel);
 
-		User user = userService.updateUser(id, updateRequestModel);
+		User user = null;
+		try {
+			user = userService.updateUser(id, updateRequestModel);
+			UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
+			return ResponseEntity.ok(
+					new HttpResponseModel("User updated successfully", HttpStatusConstants.OK.id, updateUserResponse));
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
+		}
 
-		UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
-		return ResponseEntity
-				.ok(new HttpResponseModel("User updated successfully", HttpStatusConstants.OK.id, updateUserResponse));
 	}
 
 	// Process Activation link while Registration
@@ -106,15 +111,17 @@ public class RegisterController {
 		List<User> users = null;
 		try {
 			users = userService.getAllUsers();
-		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel("List users fetched", HttpStatusConstants.OK.id, users));
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
 		/*
 		 * if (users.isEmpty()) { return
 		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // return
 		 * HttpStatus.NOT_FOUND }
 		 */
-		return ResponseEntity.ok(new HttpResponseModel("Unable to fetch list", HttpStatusConstants.OK.id, users));
+		// return ResponseEntity.ok(new HttpResponseModel("Unable to fetch
+		// list", HttpStatusConstants.OK.id, users));
 	}
 
 	// UserStatus Activation/Deactivation API through page

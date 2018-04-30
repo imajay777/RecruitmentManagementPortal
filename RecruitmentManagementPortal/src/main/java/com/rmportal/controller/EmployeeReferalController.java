@@ -26,6 +26,7 @@ import com.rmportal.model.ReferralStatus;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.CandidateJoinResponseModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.HttpResponseModel;
@@ -163,6 +164,33 @@ public class EmployeeReferalController {
 		return ResponseEntity
 				.ok(new HttpResponseModel("Referral Status list fetched",
 						HttpStatusConstants.OK.id, referralStatusList));
+	}
+	
+	//get list for join candidate
+	@RequestMapping(value = "/getJoinCandidatelist", method = RequestMethod.GET)
+	@ApiOperation(value = "Get Join Candidate list ")
+	public ResponseEntity<?> getJoinCandidateList() throws CustomException {
+
+		List<CandidateJoinResponseModel> candidateJoinResponseModels = null;
+
+		candidateJoinResponseModels = employeeReferalService.getJoinCandidateList();
+		return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
+				candidateJoinResponseModels));
+
+		/*return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
+				candidateJoinResponseModels));*/
+
+		
+		
+		
+		/*try {
+			candidateJoinResponseModels = employeeReferalService.getJoinCandidateList(application_status);
+			return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
+					candidateJoinResponseModels));
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
+					candidateJoinResponseModels));
+		}*/
 	}
 
 }

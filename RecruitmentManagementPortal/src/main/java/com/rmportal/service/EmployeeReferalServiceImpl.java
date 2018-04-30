@@ -17,6 +17,7 @@ import com.rmportal.repository.ReferralStatusRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.CandidateJoinResponseModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
@@ -140,5 +141,15 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 		List<ReferralStatus> referralStatusList = (List<ReferralStatus>) referralStatusRepository.findAll();
 		return referralStatusList;
+	}
+
+	//join candidate list
+	@Override
+	public List<CandidateJoinResponseModel> getJoinCandidateList() {
+		List<EmployeeReferal> joinCandicate = employeeReferalRepository.findByApplicationStatus();
+		
+		
+		
+		return conversionUtility.getJoinCandidateList(joinCandicate);
 	}
 }

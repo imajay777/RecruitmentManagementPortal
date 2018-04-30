@@ -22,6 +22,7 @@ import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.CandidateJoinResponseModel;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
@@ -117,11 +118,9 @@ public class ConversionUtility {
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
 		
-		//System.out.println("inside model"+model);
 
 		for (Permission permission : list) {
 			
-			//System.out.println("number of permission"+permission);
 			
 			if(permission .getPremissionName().compareTo("AddOpenPosition")==0){
 
@@ -133,7 +132,7 @@ public class ConversionUtility {
 				model.setUpdateOpenPosition(true);
 			}
 			
-			if(permission.getPremissionName().compareTo("UpdateOpenPosition")==0){
+			if(permission.getPremissionName().compareTo("ViewOpenPosition")==0){
 				model.setViewOpenPosition(true);
 			}
 			
@@ -375,6 +374,31 @@ public class ConversionUtility {
 			}
 		}
 		return employeeBonusStatusResponse;
+	}
+	
+	// get join candidate list
+	
+	public List<CandidateJoinResponseModel> getJoinCandidateList(List<EmployeeReferal> joinCandidateList){
+		
+		List<CandidateJoinResponseModel> candidateJoinResponselist=new ArrayList<>();
+		for (EmployeeReferal employeeReferal : joinCandidateList) {
+			CandidateJoinResponseModel candidateJoinResponseModel=new CandidateJoinResponseModel();
+			
+			candidateJoinResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
+			candidateJoinResponseModel.setApplication_status(employeeReferal.getApplication_status());
+			candidateJoinResponseModel.setBonous_status(employeeReferal.getBonous_status());
+			candidateJoinResponseModel.setDate(employeeReferal.getDate());
+			candidateJoinResponseModel.setExperience(employeeReferal.getExperience());
+			candidateJoinResponseModel.setJob_id(employeeReferal.getJob_id());
+			candidateJoinResponseModel.setReferal_id(employeeReferal.getReferal_id());
+			candidateJoinResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
+			candidateJoinResponselist.add(candidateJoinResponseModel);
+		
+			
+		}
+		
+		return candidateJoinResponselist;
+		
 	}
 
 }

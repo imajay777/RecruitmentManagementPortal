@@ -8,6 +8,7 @@ import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.ReferralStatus;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
+import com.rmportal.responseModel.CandidateJoinResponseModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
@@ -37,4 +38,6 @@ public interface EmployeeReferalService {
 	
 	public List<ReferralStatus> getReferralStatusList();
 	
+	public List<CandidateJoinResponseModel> getJoinCandidateList()throws CustomException;
+
 }

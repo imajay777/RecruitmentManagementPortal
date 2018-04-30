@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserServices {
 		return null;// userRepository.findByEmail(email);
 	}
 
-	public boolean isValidEmail(String email) {
+/*	public boolean isValidEmail(String email) {
 		Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
 				Pattern.CASE_INSENSITIVE);
 
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserServices {
 
 		return m.matches();
 
-	}
+	}*/
 
 	@Override
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
@@ -95,37 +95,42 @@ public class UserServiceImpl implements UserServices {
 
 		Role userRole = roleRepository.findOne(3);
 
-		Department dept = departmentRepository.findOne(1);
-		registerRequestModel.setDepartments(dept);
+		
 
 		if (userRole == null) {
-			throw new CustomException(500, "Role does not exits");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Role does not exits");
 		}
-		registerRequestModel.setRoles(userRole);
+		
+	
 
-		if (isValidEmail(registerRequestModel.getEmail())) {
+//		if (isValidEmail(registerRequestModel.getEmail())) {
 
 			String str[] = registerRequestModel.getEmail().split("@");
 
-			if (str[1].compareTo("agsft.com") == 0) {
-
+//			if (str[1].compareTo("agsft.com") == 0) {
+			{
 				User user = userRepository.findByEmail(registerRequestModel.getEmail());
 				if (user != null)
-					throw new CustomException(500, "User already exists");
+					throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
 				/* passwordEncryption.hashEncoder(registerRequestModel); */
+				
+				Department dept = departmentRepository.findOne(1);
+				registerRequestModel.setDepartments(dept);
+				
+				registerRequestModel.setRoles(userRole);
 				user = userRepository.save(registerRequestModel);
 				activationEmailUtility.sendMail(user);
 
 				return conversionUtility.convertUserToresponse(user);
-			} else {
-				throw new CustomException(500, "invalid email");
-			}
+			} /*else {
+				throw new CustomException(HttpStatus.BAD_REQUEST.value(), "invalid email address");
+			}*/
 
-		} else {
+		} /*else {
 			throw new CustomException();
-		}
+		}*/
 
-	}
+//	}
 
 	@Override
 	public User FindById(long id) {
@@ -205,7 +210,7 @@ public class UserServiceImpl implements UserServices {
 			//response = "user updated succesfully";
 			
 		} else {
-			throw new CustomException(500, " User already exits");
+			throw new CustomException(HttpStatus.BAD_REQUEST.value(), " User already exits");
 			
 		}
 		/*UpdateResponseModel updateResponseModel = conversionUtility.convertToUpdateResponseModel(user);
@@ -220,7 +225,7 @@ public class UserServiceImpl implements UserServices {
 		List<User> getUsers = (List<User>) userRepository.findAll();
 		if(getUsers==null)
 		{
-			throw new CustomException(500,"no users are presents");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"no users are presents");
 		}
 
 		return getUsers;
