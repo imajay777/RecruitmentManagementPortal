@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -40,11 +41,11 @@ public class Role {
 	@Column(name = "role_name")
 	private String role;
 	
-	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
+	/*@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
 	@JsonBackReference
-	List<User> user;
+	List<User> user;*/
 	
-	/*@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
+/*	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
 	@JsonBackReference
 	String userId;*/
 	

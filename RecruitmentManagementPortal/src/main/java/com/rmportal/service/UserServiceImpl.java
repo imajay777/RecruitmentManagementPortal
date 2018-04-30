@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserServices {
 		Role userRole = roleRepository.findOne(3);
 
 		Department dept = departmentRepository.findOne(1);
-		registerRequestModel.setDepartments(dept);
+		//registerRequestModel.setDepartments(dept);
 
 		if (userRole == null) {
 			throw new CustomException(500, "Role does not exits");
