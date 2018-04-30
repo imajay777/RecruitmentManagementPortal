@@ -1,7 +1,6 @@
 package com.rmportal.responseModel;
 
 import com.rmportal.model.Department;
-import com.rmportal.model.Role;
 
 import lombok.Data;
 

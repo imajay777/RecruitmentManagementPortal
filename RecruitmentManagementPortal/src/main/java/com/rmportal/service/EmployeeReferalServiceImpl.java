@@ -1,12 +1,9 @@
 package com.rmportal.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import javax.mail.Multipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.ReferralStatus;
+import com.rmportal.model.User;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.repository.ReferralStatusRepository;
+import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
@@ -95,12 +94,33 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		// return null;
 	}
 
+	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
+	EmployeeReferalRepository employeeReferralRepo;
+	
 	// Change the Referral Status
 	@Override
 	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel) throws CustomException {
+		
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
 		if (Objects.isNull(employeeReferal)) {
 			throw new CustomException(204, "No Data Found");
+		}
+		
+		if(referralStatusRequestModel.getReferral_status().compareTo("Joined")==0){
+			if(referralStatusRequestModel.getApplicant_email().isEmpty()){
+				throw new CustomException(204, " Email is Mandatory");
+			}
+			User user = userRepo.findByEmail(referralStatusRequestModel.getApplicant_email());
+			if(Objects.isNull(user)){
+				throw new CustomException(204, " User Not yet Registered");
+			}
+			if(!user.isActive()){
+				throw new CustomException(403, " User is not Active");
+			}
+			employeeReferal.setApplicant_email(user.getEmail());
 		}
 
 		employeeReferal.setApplication_status(referralStatusRequestModel.getReferral_status());

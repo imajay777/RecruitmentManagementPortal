@@ -2,8 +2,10 @@ package com.rmportal.utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.JobVacancyResponseModel;
-import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserPremissionModel;
@@ -77,23 +79,36 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-	 updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
 		updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
 	}
-	
-	
 
 	// Login Response
-	public ResponseModel convertUserToLoginResponse(User userFromTable) {
-		ResponseModel responseModel = new ResponseModel();
+	public LoginResponseModel convertUserToLoginResponse(User userFromTable) {
+		LoginResponseModel responseModel = new LoginResponseModel();
 		responseModel.setEmail(userFromTable.getEmail());
 		responseModel.setFirstName(userFromTable.getFirstName());
 		responseModel.setLastName(userFromTable.getLastName());
 		responseModel.setUser_id(userFromTable.getId());
-		responseModel.setRole(userFromTable.getRoles());
+		responseModel.setProfileStatus(false);
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
+
+		RoleResponseModel roleResponse = new RoleResponseModel();
+		roleResponse.setId(userFromTable.getRoles().getId());
+		roleResponse.setRole(userFromTable.getRoles().getRole());
+		roleResponse.setPermissions(userFromTable.getRoles().getRolePermission());
+
+		responseModel.setRoleResponse(roleResponse);
+
+		String check = userFromTable.toString();
+
+		if (check.matches(".*null.*")) {
+			responseModel.setProfileStatus(false);
+		} else {
+			responseModel.setProfileStatus(true);
+		}
 		return responseModel;
 
 	}
@@ -109,6 +124,7 @@ public class ConversionUtility {
 			//System.out.println("number of permission"+permission);
 			
 			if(permission .getPremissionName().compareTo("AddOpenPosition")==0){
+
 				model.setAddOpenPosition(true);
 				
 			}
@@ -153,6 +169,7 @@ public class ConversionUtility {
 			}
 				
 			
+
 		}
 		return model;
 	}
@@ -275,7 +292,7 @@ public class ConversionUtility {
 		Date date = new Date();
 		employeeReferal.setDate(date);
 		employeeReferal.setApplication_status("In Progress");
-
+		employeeReferal.setApplicant_email("default@agsft.com");
 		if (!file.isEmpty()) {
 
 			if (!file.getOriginalFilename().equals("")) {

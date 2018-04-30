@@ -1,7 +1,7 @@
 package com.rmportal.service;
 
 import com.rmportal.requestModel.LoginRequestModel;
-import com.rmportal.responseModel.ResponseModel;
+import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.utility.CustomException;
 
 /**
@@ -10,6 +10,6 @@ import com.rmportal.utility.CustomException;
  */
 public interface LoginServices {
 
-	public ResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException;
+	public LoginResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException;
 
 }

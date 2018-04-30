@@ -12,7 +12,10 @@ import lombok.ToString;
 public class ReferralStatusRequestModel {
 
 	int referal_id;
-	
+
 	String referral_status;
+
 	
+	String applicant_email;
+
 }

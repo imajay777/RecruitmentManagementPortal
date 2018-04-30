@@ -16,5 +16,7 @@ public class ChangeReferralStatusResponse {
 	String applicant_name;
 
 	Date date;
+	
+	
 
 }

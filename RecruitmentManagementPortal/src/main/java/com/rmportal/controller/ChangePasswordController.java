@@ -40,12 +40,12 @@ public class ChangePasswordController {
 		
 		if(userService.changePassword(changePasswordModel)){
 			return ResponseEntity
-					.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Password Changed",
+					.ok(new HttpResponseModel("Password Changed",
 							HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + " Invalid Token or Email",
+				.ok(new HttpResponseModel("Invalid Token or Email",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}

@@ -7,12 +7,10 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -72,9 +70,8 @@ public class EmployeeReferalController {
 					employeeReferalResponseModel));
 		}
 
-		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Data Fetched Successfully",
-						HttpStatusConstants.OK.id, employeeReferalResponseModel));
+		return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
+				employeeReferalResponseModel));
 
 	}
 
@@ -89,12 +86,11 @@ public class EmployeeReferalController {
 		UploadResumeRequestModel uploadResumeRequestModel = null;
 
 		if (file.isEmpty()) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatus.NO_CONTENT.name() + " Please attach the Resume",
-					HttpStatusConstants.OK.id, null));
+			return ResponseEntity
+					.ok(new HttpResponseModel("Please attach the Resume", HttpStatusConstants.OK.id, null));
 		}
 		if (Objects.isNull(details)) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatus.NO_CONTENT.name() + " Please Fill the Details",
-					HttpStatusConstants.OK.id, null));
+			return ResponseEntity.ok(new HttpResponseModel("Please Fill the Details", HttpStatusConstants.OK.id, null));
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -108,8 +104,8 @@ public class EmployeeReferalController {
 		UploadResumeResponseModel uploadResumeResponseModel = employeeReferalService.addResume(uploadResumeRequestModel,
 				file);
 
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatus.OK.name() + " Data Saved Successfully",
-				HttpStatusConstants.OK.id, uploadResumeResponseModel));
+		return ResponseEntity.ok(
+				new HttpResponseModel("Data Saved Successfully", HttpStatusConstants.OK.id, uploadResumeResponseModel));
 	}
 
 	// Fetch File from DB
@@ -134,8 +130,8 @@ public class EmployeeReferalController {
 
 		List<EmployeeReferalResponseModel> employeeReferalList = employeeReferalService.getEmployeeReferalList();
 
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " List of Employee Referal",
-				HttpStatusConstants.OK.id, employeeReferalList));
+		return ResponseEntity
+				.ok(new HttpResponseModel("List of Employee Referal", HttpStatusConstants.OK.id, employeeReferalList));
 
 	}
 
@@ -147,15 +143,13 @@ public class EmployeeReferalController {
 
 		if (Objects.isNull(referralStatusRequestModel)) {
 			return ResponseEntity
-					.ok(new HttpResponseModel(HttpStatusConstants.NO_CONTENT.getStatus() + " No Request Found",
-							HttpStatusConstants.NO_CONTENT.id, null));
+					.ok(new HttpResponseModel("No Request Found", HttpStatusConstants.NO_CONTENT.id, null));
 		}
 
 		ChangeReferralStatusResponse changeReferralStatusResponse = employeeReferalService
 				.setReferralStatus(referralStatusRequestModel);
 		return ResponseEntity.ok(new HttpResponseModel(
-				HttpStatusConstants.OK.getStatus() + "Status Changed for Candidate Name :"
-						+ changeReferralStatusResponse.getApplicant_name(),
+				"Status Changed for Candidate Name : " + changeReferralStatusResponse.getApplicant_name(),
 				HttpStatusConstants.OK.id, changeReferralStatusResponse));
 	}
 
@@ -167,7 +161,7 @@ public class EmployeeReferalController {
 		List<ReferralStatus> referralStatusList = employeeReferalService.getReferralStatusList();
 
 		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Referral Status list fetched",
+				.ok(new HttpResponseModel("Referral Status list fetched",
 						HttpStatusConstants.OK.id, referralStatusList));
 	}
 

@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
  *
  */
 @RestController
-@Api(value="Registration Controller", description="Registration Process")
+@Api(value = "Registration Controller", description = "Registration Process")
 @CrossOrigin("*")
 
 public class RegisterController {
@@ -47,7 +47,7 @@ public class RegisterController {
 
 	// Registration API
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
-	@ApiOperation(value="User Registration")
+	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) {
 
@@ -58,104 +58,96 @@ public class RegisterController {
 			httpResponseModel = userService.saveUser(user);
 		} catch (CustomException e) {
 
-			return ResponseEntity
-					.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + e.getMessage(),
-							HttpStatusConstants.INTERNAL_SERVER_ERROR.id, httpResponseModel));
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
+					httpResponseModel));
 		}
 
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "Register successfully",
-				HttpStatusConstants.OK.id, httpResponseModel));
+		return ResponseEntity
+				.ok(new HttpResponseModel("Register successfully", HttpStatusConstants.OK.id, httpResponseModel));
 
 	}
 
 	// UpdateUser API
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST, consumes = "application/json")
-	@ApiOperation(value="Update User")
+	@ApiOperation(value = "Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id, @RequestBody UpdateRequestModel updateRequestModel)
 			throws CustomException {
-		//System.out.println("ui request model"+updateRequestModel);
-		//User user = conversionUtility.convertRequestToUser(updateRequestModel);
-		System.out.println("request.."+updateRequestModel);
+		// System.out.println("ui request model"+updateRequestModel);
+		// User user =
+		// conversionUtility.convertRequestToUser(updateRequestModel);
+		System.out.println("request.." + updateRequestModel);
 
-          User user= userService.updateUser(id, updateRequestModel);
-         
-          UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
-          return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " User updated successfully",
-				HttpStatusConstants.OK.id, updateUserResponse));
+		User user = userService.updateUser(id, updateRequestModel);
+
+		UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
+		return ResponseEntity
+				.ok(new HttpResponseModel("User updated successfully", HttpStatusConstants.OK.id, updateUserResponse));
 	}
 
 	// Process Activation link while Registration
 	@RequestMapping(value = "/activation/{userId}/{token}", method = RequestMethod.GET)
-	@ApiOperation(value="Validate Token")
+	@ApiOperation(value = "Validate Token")
 	public ResponseEntity<?> validateToken(@PathVariable("token") String token, @PathVariable("userId") int userId)
 			throws CustomException {
 
-
 		if (userService.validateUserToken(userId, token)) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "User Activated",
-					HttpStatusConstants.OK.id, null));
+			return ResponseEntity.ok(new HttpResponseModel("User Activated", HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel(HttpStatusConstants.INTERNAL_SERVER_ERROR.getStatus() + "Invalid Token",
-						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
+				.ok(new HttpResponseModel("Invalid Token", HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}
 
 	// List of Users API
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-	@ApiOperation(value="Get List of Users")
+	@ApiOperation(value = "Get List of Users")
 	public ResponseEntity<?> listAllUsers() {
 		List<User> users = null;
 		try {
 			users = userService.getAllUsers();
 		} catch (CustomException e) {
-			return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "list users fetched",
-					HttpStatusConstants.OK.id, users));
+			return ResponseEntity.ok(new HttpResponseModel("List users fetched", HttpStatusConstants.OK.id, users));
 		}
 		/*
 		 * if (users.isEmpty()) { return
-		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // 
-		 * return HttpStatus.NOT_FOUND }
+		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // return
+		 * HttpStatus.NOT_FOUND }
 		 */
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + "not able to fetch list",
-				HttpStatusConstants.OK.id, users));
+		return ResponseEntity.ok(new HttpResponseModel("Unable to fetch list", HttpStatusConstants.OK.id, users));
 	}
 
 	// UserStatus Activation/Deactivation API through page
 	@RequestMapping(value = "/updateStatus/{status}", method = RequestMethod.GET)
-	@ApiOperation(value="Activation/Deactivation")
+	@ApiOperation(value = "Activation/Deactivation")
 	public ResponseEntity<?> updateStatus(@PathVariable boolean status, @RequestParam(required = true) String email) {
-		
-		try
-		{
-			return ResponseEntity.ok(new HttpResponseModel("user status updated successfully",
+
+		try {
+			return ResponseEntity.ok(new HttpResponseModel("User status updated successfully",
 					HttpStatusConstants.OK.id, userService.updateStatus(status, email)));
-		}
-		catch(CustomException e)
-		{
-		return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(), null));
+		} catch (CustomException e) {
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
 
 	}
-	
+
 	// Get User Details
 	@RequestMapping(value = "/getDetails/{user_id}", method = RequestMethod.GET)
-	@ApiOperation(value="Get User Details")
-	public ResponseEntity<?> getDetails(@PathVariable("user_id") int user_id){
-		
-		UpdateResponseModel updateResponseModel = null; 
-		
+	@ApiOperation(value = "Get User Details")
+	public ResponseEntity<?> getDetails(@PathVariable("user_id") int user_id) {
+
+		UpdateResponseModel updateResponseModel = null;
+
 		try {
 			updateResponseModel = userService.getDetails(user_id);
 		} catch (CustomException e) {
-			return ResponseEntity.ok(
-					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, updateResponseModel));
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
+					updateResponseModel));
 		}
-		
-		return ResponseEntity.ok(new HttpResponseModel(HttpStatusConstants.OK.getStatus() + " Data Fetched Successfully",
-				HttpStatusConstants.OK.id, updateResponseModel));
-		
+
+		return ResponseEntity
+				.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id, updateResponseModel));
+
 	}
-	 
+
 }

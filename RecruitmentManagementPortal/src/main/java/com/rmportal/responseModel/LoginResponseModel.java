@@ -1,7 +1,5 @@
 package com.rmportal.responseModel;
 
-import com.rmportal.model.Role;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @ToString(includeFieldNames = true)
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = false)
-public class ResponseModel {
+public class LoginResponseModel {
 
 	int user_id;
 
@@ -26,9 +24,11 @@ public class ResponseModel {
 
 	boolean profileStatus;
 	
-	Role role;
+	RoleResponseModel roleResponse;
 
 	UserPremissionModel permissions;
+
+	
 
 	// Role roles;
 
