@@ -75,7 +75,7 @@ public class User {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id")
-	@JsonManagedReference
+//	@JsonManagedReference
 	// @JoinTable(name = "user_role", joinColumns = @JoinColumn(name =
 	// "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	Role roles;
@@ -84,7 +84,7 @@ public class User {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dept_id")	
-	@JsonManagedReference
+//	@JsonManagedReference
 	Department departments;
 
 	
