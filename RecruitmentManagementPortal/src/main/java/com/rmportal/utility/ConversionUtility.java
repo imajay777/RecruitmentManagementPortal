@@ -49,7 +49,6 @@ public class ConversionUtility {
 		user.setEmail(registerRequestModel.getEmail());
 		user.setFirstName(registerRequestModel.getFirstName());
 		user.setLastName(registerRequestModel.getLastName());
-		System.out.println(registerRequestModel.getPassword());
 		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
 
 		return user;

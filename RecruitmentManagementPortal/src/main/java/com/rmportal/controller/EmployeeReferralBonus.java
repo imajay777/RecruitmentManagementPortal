@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rmportal.constants.HttpStatusConstants;
+import com.rmportal.requestModel.SetBonusRequestModel;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.service.EmployeeBonusService;
@@ -26,6 +28,7 @@ public class EmployeeReferralBonus {
 	@Autowired
 	EmployeeBonusService employeeBonusService;
 
+	// Get referal bonus for individual candidate
 	@RequestMapping(value = "/getReferralBonus/{referal_id}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get the Referral Bonus Status for the Employee")
 	public ResponseEntity<?> getReferralBonus(@PathVariable int referal_id) {
@@ -43,5 +46,16 @@ public class EmployeeReferralBonus {
 				.ok(new HttpResponseModel(HttpStatus.OK.name(), HttpStatusConstants.OK.id, employeeBonusResponse));
 
 	}
+	
+	// Set Bonus for the candidate
+	@RequestMapping(value = "/setBonus", method = RequestMethod.POST)
+	@ApiOperation(value = "Set Bonus for the individual candidate")
+	public ResponseEntity<?> setBonus(@RequestBody SetBonusRequestModel setBonusRequestModel) throws CustomException{
+		 String message= employeeBonusService.setBonus(setBonusRequestModel);
+		
+		return ResponseEntity
+				.ok(new HttpResponseModel(message, HttpStatusConstants.OK.id, null));
+	}
+	
 
 }

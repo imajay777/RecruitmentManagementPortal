@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserServices {
 
 		registerRequestModel.setActive(false);
 
-		Role userRole = roleRepository.findOne(3);
+		Role userRole = roleRepository.findOne(1);
 
 		
 
