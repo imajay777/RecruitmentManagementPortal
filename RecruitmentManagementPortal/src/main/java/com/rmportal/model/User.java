@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -75,12 +74,8 @@ public class User {
 	private boolean isActive;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "role_id")
-	@JsonManagedReference
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name ="user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinColumn(name = "role_id")
 	Role roles;
-
-	// @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dept_id")	

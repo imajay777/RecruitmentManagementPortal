@@ -61,8 +61,8 @@ public class ConversionUtility {
 		UserResponseDTO userResponseDTO = new UserResponseDTO();
 
 		userResponseDTO.setEmail(user.getEmail());
-		userResponseDTO.setFirstname(user.getFirstName());
-		userResponseDTO.setLastname(user.getLastName());
+		userResponseDTO.setFirstName(user.getFirstName());
+		userResponseDTO.setLastName(user.getLastName());
 
 		return userResponseDTO;
 

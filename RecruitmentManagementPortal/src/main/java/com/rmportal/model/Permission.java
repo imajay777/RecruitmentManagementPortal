@@ -31,10 +31,10 @@ public class Permission {
 	@Column(name = "permission_name")
 	private String premissionName;
 
-	@ManyToMany(mappedBy = "rolePermission")
+/*	@ManyToMany(mappedBy = "rolePermission")
 
 	@JsonBackReference
-	private List<Role> roles;
+	private List<Role> roles;*/
 
 	/*
 	 * @ManyToMany(mappedBy = "rolePermission")
