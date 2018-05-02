@@ -56,4 +56,7 @@ public class EmployeeReferal {
 	@Column(name = "applicant_email")
 	String applicant_email;
 	
+	@Column(name = "bonus_amount")
+	long bonus_amount;
+	
 }

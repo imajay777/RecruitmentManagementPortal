@@ -132,17 +132,17 @@ INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount
 INSERT INTO `RMPortal`.`employee_bonus` (`range_id`, `from`, `to`, `bonus_amount`) VALUES ('3', '5', '15', '15000');
  
  
-UPDATE `RMPortal`.`permission` SET `permission_name`='AddOpenPosition' WHERE `permission_id`='1';
-UPDATE `RMPortal`.`permission` SET `permission_name`='UpdateOpenPosition' WHERE `permission_id`='2';
-UPDATE `RMPortal`.`permission` SET `permission_name`='ViewOpenPosition' WHERE `permission_id`='3';
-UPDATE `RMPortal`.`permission` SET `permission_name`='ChangeApplicationStatus' WHERE `permission_id`='4';
-UPDATE `RMPortal`.`permission` SET `permission_name`='AssignRole' WHERE `permission_id`='6';
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('1', 'AddOpenPosition');
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('2', 'UpdateOpenPosition');
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('3', 'ViewOpenPosition');
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('4', 'ChangeApplicationStatus');
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('5', 'DeactivateUser');
+INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('6', 'AssignRole');
 INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('7', 'ViewResumeStatus');
 INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('8', 'ViewBonus');
 INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('9', 'AddReferral');
 INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('10', 'AddBonusDetails');
 INSERT INTO `RMPortal`.`permission` (`permission_id`, `permission_name`) VALUES ('11', 'UpdateBonusDetails');
-
 
 INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('1', '1', '3');
 INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('2', '1', '7');
@@ -162,5 +162,10 @@ INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `perm
 INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('16', '3', '8');
 INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('17', '3', '10');
 INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('18', '3', '11');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('19', '2', '8');
+INSERT INTO `RMPortal`.`permission_role` (`role_permission_id`, `role_id`, `permission_id`) VALUES ('20', '2', '9');
 
+INSERT INTO `RMPortal`.`role` (`role_id`, `role_name`) VALUES ('1', 'END_USER');
+INSERT INTO `RMPortal`.`role` (`role_id`, `role_name`) VALUES ('2', 'ADMIN');
+INSERT INTO `RMPortal`.`role` (`role_id`, `role_name`) VALUES ('3', 'HR');
 

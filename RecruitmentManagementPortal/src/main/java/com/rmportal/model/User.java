@@ -75,12 +75,7 @@ public class User {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "role_id")
-//	@JsonManagedReference
-	// @JoinTable(name = "user_role", joinColumns = @JoinColumn(name =
-	// "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	Role roles;
-
-	// @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "dept_id")	
