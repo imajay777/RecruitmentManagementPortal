@@ -56,15 +56,18 @@ public class RegisterController {
 
 		try {
 			httpResponseModel = userService.saveUser(user);
+			return ResponseEntity
+					.ok(new HttpResponseModel("Register successfully Please Cheak your email", HttpStatusConstants.OK.id, httpResponseModel));
+
 		} catch (CustomException e) {
 
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
 					httpResponseModel));
 		}
 
-		return ResponseEntity
-				.ok(new HttpResponseModel("Register successfully", HttpStatusConstants.OK.id, httpResponseModel));
-
+		/*return ResponseEntity
+				.ok(new HttpResponseModel("Register successfully Please Cheak your email", HttpStatusConstants.OK.id, httpResponseModel));
+*/
 	}
 
 	// UpdateUser API

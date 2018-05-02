@@ -11,9 +11,10 @@ import com.rmportal.utility.CustomException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	ExceptionResponse response = new ExceptionResponse();
+	
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<?> handleNullPointer(NullPointerException e) {
+		ExceptionResponse response = new ExceptionResponse();
 		response.setErrorCode(500);
 		response.setErrorMessage(e.getMessage());
 		return new ResponseEntity(response, HttpStatus.NOT_FOUND);
@@ -21,6 +22,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleAnyException(Exception e) {
+		ExceptionResponse response = new ExceptionResponse();
 		response.setErrorCode(204);
 		response.setErrorMessage(e.getMessage());
 		return new ResponseEntity(response, HttpStatus.NOT_FOUND);
@@ -28,6 +30,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(CustomException.class)
 	public ResponseEntity<?> handleCustomException(CustomException e) {
+		ExceptionResponse response = new ExceptionResponse();
 		response.setErrorCode(e.getId());
 		response.setErrorMessage(e.getMessage());
 		return new ResponseEntity(response, HttpStatus.BAD_GATEWAY);
