@@ -20,6 +20,7 @@ import com.rmportal.model.User;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.requestModel.RegisterRequestModel;
+import com.rmportal.requestModel.SetBonusRequestModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.CandidateJoinResponseModel;
@@ -41,6 +42,9 @@ public class ConversionUtility {
 
 	@Autowired
 	PasswordEncryption passwordEncryption;
+
+	@Autowired
+	CalculateDifferenceInDate calculateDifferenceInDate;
 
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
@@ -130,8 +134,8 @@ public class ConversionUtility {
 			if (permission.getPremissionName().compareTo("UpdateOpenPosition") == 0) {
 				model.setUpdateOpenPosition(true);
 			}
-			
-			if(permission.getPremissionName().compareTo("ViewOpenPosition")==0){
+
+			if (permission.getPremissionName().compareTo("ViewOpenPosition") == 0) {
 				model.setViewOpenPosition(true);
 			}
 
@@ -334,7 +338,7 @@ public class ConversionUtility {
 		updateResponseModel.setCountry(user.getCountry());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
-	//	updateResponseModel.setDepartment(user.getDepartments());
+		// updateResponseModel.setDepartment(user.getDepartments());
 		// updateResponseModel.setRole(user.getRoles());
 
 		return updateResponseModel;
@@ -372,15 +376,15 @@ public class ConversionUtility {
 		}
 		return employeeBonusStatusResponse;
 	}
-	
+
 	// get join candidate list
-	
-	public List<CandidateJoinResponseModel> getJoinCandidateList(List<EmployeeReferal> joinCandidateList){
-		
-		List<CandidateJoinResponseModel> candidateJoinResponselist=new ArrayList<>();
+
+	public List<CandidateJoinResponseModel> getJoinCandidateList(List<EmployeeReferal> joinCandidateList) {
+
+		List<CandidateJoinResponseModel> candidateJoinResponselist = new ArrayList<>();
 		for (EmployeeReferal employeeReferal : joinCandidateList) {
-			CandidateJoinResponseModel candidateJoinResponseModel=new CandidateJoinResponseModel();
-			
+			CandidateJoinResponseModel candidateJoinResponseModel = new CandidateJoinResponseModel();
+
 			candidateJoinResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			candidateJoinResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			candidateJoinResponseModel.setBonous_status(employeeReferal.getBonous_status());
@@ -389,13 +393,60 @@ public class ConversionUtility {
 			candidateJoinResponseModel.setJob_id(employeeReferal.getJob_id());
 			candidateJoinResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			candidateJoinResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
+			candidateJoinResponseModel.setApplicant_email(employeeReferal.getApplicant_email());
 			candidateJoinResponselist.add(candidateJoinResponseModel);
-		
-			
+
 		}
-		
+
 		return candidateJoinResponselist;
-		
+
 	}
 
+	public String setBonusConversion(EmployeeReferal employeeReferal, SetBonusRequestModel setBonusRequestModel)
+			throws CustomException {
+		long difference = calculateDifferenceInDate.differenceCalculator(employeeReferal);
+		Range<Integer> beginner = Range.between(0, 2);
+		Range<Integer> senior = Range.between(3, 5);
+		Range<Integer> superSenior = Range.between(6, 15);
+
+		if (setBonusRequestModel.getBonus_status().compareTo("1stStage") == 0 && difference >= 45) {
+
+			if (beginner.contains(employeeReferal.getExperience())) {
+				return " No Bonus Applicant";
+			}
+			if (senior.contains(employeeReferal.getExperience())) {
+				long basic_amount = 10000;
+				employeeReferal.setBonus_amount(basic_amount/2);
+				return " 1st stage Bonus Updated Successfully";
+			}
+			if (superSenior.contains(employeeReferal.getExperience())) {
+				long basic_amount = 15000;
+				employeeReferal.setBonus_amount(basic_amount/2);
+				return " 1st stage Bonus Updated Successfully";
+			}
+
+		} else {
+			throw new CustomException(202, " Employee has not yet completed 45 days");
+		}
+		
+		if (setBonusRequestModel.getBonus_status().compareTo("2ndStage") == 0 && difference >= 100) {
+
+			if (beginner.contains(employeeReferal.getExperience())) {
+				return " No Bonus Applicant";
+			}
+			if (senior.contains(employeeReferal.getExperience())) {
+				long basic_amount = 10000;
+				employeeReferal.setBonus_amount(basic_amount);
+				return " Total Bonus amount Updated";
+			}
+			if (superSenior.contains(employeeReferal.getExperience())) {
+				long basic_amount = 15000;
+				employeeReferal.setBonus_amount(basic_amount);
+				return " Total Bonus amount Updated";
+			}
+		} else {
+			throw new CustomException(202, " Employee has not yet completed 100 days");
+		}
+		return "No Bonus";
+	}
 }

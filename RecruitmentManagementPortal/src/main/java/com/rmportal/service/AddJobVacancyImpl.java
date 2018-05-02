@@ -55,7 +55,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		{
 			if(jobVacancy.getJob_title()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"job title cannot be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value()," Job title cannot be null");
 			}
 			else
 			{

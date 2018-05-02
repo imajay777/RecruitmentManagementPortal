@@ -15,6 +15,7 @@ import lombok.ToString;
 public class CandidateJoinResponseModel {
 
 	int referal_id;
+	
 	String applicant_name;
 
 	int experience;
@@ -29,4 +30,5 @@ public class CandidateJoinResponseModel {
 
 	String bonous_status;
 
+	String applicant_email;
 }
