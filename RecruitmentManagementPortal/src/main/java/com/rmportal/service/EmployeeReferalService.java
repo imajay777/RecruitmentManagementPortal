@@ -36,7 +36,7 @@ public interface EmployeeReferalService {
 	
 	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel) throws CustomException;
 	
-	public List<ReferralStatus> getReferralStatusList();
+	public List<ReferralStatus> getReferralStatusList() throws CustomException ;
 	
 	public List<CandidateJoinResponseModel> getJoinCandidateList()throws CustomException;
 

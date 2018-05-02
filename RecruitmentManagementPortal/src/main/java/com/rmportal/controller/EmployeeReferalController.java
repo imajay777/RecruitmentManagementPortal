@@ -159,38 +159,43 @@ public class EmployeeReferalController {
 	@RequestMapping(value = "/getReferralStatusList", method = RequestMethod.GET)
 	@ApiOperation(value = "Get List of Referral Status")
 	public ResponseEntity<?> getReferralStatusList() {
-		List<ReferralStatus> referralStatusList = employeeReferalService.getReferralStatusList();
-
-		return ResponseEntity
-				.ok(new HttpResponseModel("Referral Status list fetched",
-						HttpStatusConstants.OK.id, referralStatusList));
+		List<ReferralStatus> referralStatusList;
+		try {
+			referralStatusList = employeeReferalService.getReferralStatusList();
+			return ResponseEntity.ok(
+					new HttpResponseModel("Referral Status list fetched", HttpStatusConstants.OK.id, referralStatusList));
+		} catch (CustomException e) {
+			
+			return ResponseEntity.ok(new HttpResponseModel());
+			
+		}
+		
+		/*return ResponseEntity.ok(
+				new HttpResponseModel("Referral Status list fetched", HttpStatusConstants.OK.id, referralStatusList));*/
 	}
-	
-	//get list for join candidate
+
+	// get list for join candidate
 	@RequestMapping(value = "/getJoinCandidatelist", method = RequestMethod.GET)
 	@ApiOperation(value = "Get Join Candidate list ")
-	public ResponseEntity<?> getJoinCandidateList() throws CustomException {
+	public ResponseEntity<?> getJoinCandidateList() {
 
 		List<CandidateJoinResponseModel> candidateJoinResponseModels = null;
 
-		candidateJoinResponseModels = employeeReferalService.getJoinCandidateList();
-		return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
-				candidateJoinResponseModels));
-
-		/*return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
-				candidateJoinResponseModels));*/
-
-		
-		
-		
-		/*try {
-			candidateJoinResponseModels = employeeReferalService.getJoinCandidateList(application_status);
-			return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
-					candidateJoinResponseModels));
+		try {
+			candidateJoinResponseModels = employeeReferalService.getJoinCandidateList();
+			return ResponseEntity.ok(new HttpResponseModel("list of join candidate Fetched Successfully",
+					HttpStatusConstants.OK.id, candidateJoinResponseModels));
 		} catch (CustomException e) {
+
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
 					candidateJoinResponseModels));
-		}*/
+		}
+		/*
+		 * return ResponseEntity.ok(new
+		 * HttpResponseModel("list of join candidate",
+		 * HttpStatusConstants.OK.id, candidateJoinResponseModels));
+		 */
+
 	}
 
 }
