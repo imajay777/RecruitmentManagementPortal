@@ -39,6 +39,9 @@ public class LoginController {
 
 	@Autowired
 	UserServices userService;
+	
+	@Autowired
+	GlobalExceptionHandler globalException;
 
 	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -51,8 +54,7 @@ public class LoginController {
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
 		} catch (CustomException e) {
-			return ResponseEntity.ok(
-					new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, responseModel));
+			return globalException.handleCustomException(e);
 		}
 		return ResponseEntity.ok(new HttpResponseModel("Login Successful",
 				HttpStatusConstants.OK.id, responseModel));
