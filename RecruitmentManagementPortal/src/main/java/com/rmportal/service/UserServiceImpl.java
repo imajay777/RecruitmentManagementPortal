@@ -75,10 +75,11 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public User findUserByEmail(String email) {
-		return null;// userRepository.findByEmail(email);
+		return null;
+		// userRepository.findByEmail(email);
 	}
 
-/*	public boolean isValidEmail(String email) {
+	public boolean isValidEmail(String email) {
 		Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
 				Pattern.CASE_INSENSITIVE);
 
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserServices {
 
 		return m.matches();
 
-	}*/
+	}
 
 	@Override
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
@@ -103,12 +104,12 @@ public class UserServiceImpl implements UserServices {
 		
 	
 
-//		if (isValidEmail(registerRequestModel.getEmail())) {
+	if (isValidEmail(registerRequestModel.getEmail())) {
 
 			String str[] = registerRequestModel.getEmail().split("@");
 
-//			if (str[1].compareTo("agsft.com") == 0) {
-			{
+		if (str[1].compareTo("agsft.com") == 0) {
+			
 				User user = userRepository.findByEmail(registerRequestModel.getEmail());
 				if (user != null)
 					throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
@@ -122,15 +123,15 @@ public class UserServiceImpl implements UserServices {
 				activationEmailUtility.sendMail(user);
 
 				return conversionUtility.convertUserToresponse(user);
-			} /*else {
+		} else {
 				throw new CustomException(HttpStatus.BAD_REQUEST.value(), "invalid email address");
-			}*/
+			}
 
-		} /*else {
+		} else {
 			throw new CustomException();
-		}*/
+		}
 
-//	}
+	}
 
 	@Override
 	public User FindById(long id) {

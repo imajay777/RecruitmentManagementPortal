@@ -80,7 +80,7 @@ public class ConversionUtility {
 		updateResponseModel.setDOB(user.getDOB());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmail(user.getEmail());
-//		updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setDepartment(user.getDepartments());
 		updateResponseModel.setBlood_group(user.getBlood_group());
 		updateResponseModel.setRoles(user.getRoles().getRole());
 		return updateResponseModel;
