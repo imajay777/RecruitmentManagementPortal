@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +40,12 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	@Autowired
 	ReferralStatusRepository referralStatusRepository;
+	
+	@Autowired
+	UserRepository userRepo;
+
+	@Autowired
+	EmployeeReferalRepository employeeReferralRepo;
 
 	// Upload Resume
 	@Override
@@ -95,30 +102,27 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		// return null;
 	}
 
-	@Autowired
-	UserRepository userRepo;
 	
-	@Autowired
-	EmployeeReferalRepository employeeReferralRepo;
-	
+
 	// Change the Referral Status
 	@Override
-	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel) throws CustomException {
-		
+	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel)
+			throws CustomException {
+
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
 		if (Objects.isNull(employeeReferal)) {
 			throw new CustomException(204, "No Data Found");
 		}
-		
-		if(referralStatusRequestModel.getReferral_status().compareTo("Joined")==0){
-			if(referralStatusRequestModel.getApplicant_email().isEmpty()){
+
+		if (referralStatusRequestModel.getReferral_status().compareTo("Joined") == 0) {
+			if (referralStatusRequestModel.getApplicant_email().isEmpty()) {
 				throw new CustomException(204, " Email is Mandatory");
 			}
 			User user = userRepo.findByEmail(referralStatusRequestModel.getApplicant_email());
-			if(Objects.isNull(user)){
+			if (Objects.isNull(user)) {
 				throw new CustomException(204, " User Not yet Registered");
 			}
-			if(!user.isActive()){
+			if (!user.isActive()) {
 				throw new CustomException(403, " User is not Active");
 			}
 			employeeReferal.setApplicant_email(user.getEmail());
@@ -134,22 +138,26 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		return changeReferralResponse;
 	}
 
-	
 	// Get Referral Status List
 	@Override
-	public List<ReferralStatus> getReferralStatusList() {
+	public List<ReferralStatus> getReferralStatusList() throws CustomException {
 
 		List<ReferralStatus> referralStatusList = (List<ReferralStatus>) referralStatusRepository.findAll();
+		if(referralStatusList==null){
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"not candidate are refered");
+		}
+		
 		return referralStatusList;
 	}
 
-	//join candidate list
+	// join candidate list
 	@Override
-	public List<CandidateJoinResponseModel> getJoinCandidateList() {
+	public List<CandidateJoinResponseModel> getJoinCandidateList() throws CustomException {
 		List<EmployeeReferal> joinCandicate = employeeReferalRepository.findByApplicationStatus();
-		
-		
-		
+		if(joinCandicate==null){
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No candidate are joined");
+		}
+
 		return conversionUtility.getJoinCandidateList(joinCandicate);
 	}
 }

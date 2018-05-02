@@ -115,10 +115,13 @@ public class UserServiceImpl implements UserServices {
 					throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
 				/* passwordEncryption.hashEncoder(registerRequestModel); */
 				
+				
+				
+				registerRequestModel.setRoles(userRole);
+				
 				Department dept = departmentRepository.findOne(1);
 				registerRequestModel.setDepartments(dept);
 				
-				registerRequestModel.setRoles(userRole);
 				user = userRepository.save(registerRequestModel);
 				activationEmailUtility.sendMail(user);
 
