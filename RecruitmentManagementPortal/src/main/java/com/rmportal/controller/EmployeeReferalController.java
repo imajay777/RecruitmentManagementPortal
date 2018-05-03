@@ -122,8 +122,7 @@ public class EmployeeReferalController {
 	@RequestMapping(value = "/retrieveFile", method = RequestMethod.GET)
 	@ApiOperation(value = "Retrieve Resume")
 	public ResponseEntity<?> retriveFile(@RequestParam int referal_id, HttpServletResponse httpServletResponse)
-			throws IOException {
-		employeeReferalService.fetchResume(referal_id);
+			throws IOException, CustomException {
 
 		EmployeeReferal resumeFile = employeeReferalService.fetchResume(referal_id);
 		httpServletResponse.setContentType("application/pdf");
@@ -141,7 +140,7 @@ public class EmployeeReferalController {
 		List<EmployeeReferalResponseModel> employeeReferalList = employeeReferalService.getEmployeeReferalList();
 
 		return ResponseEntity
-				.ok(new HttpResponseModel("List of Employee Referal", HttpStatusConstants.OK.id, employeeReferalList));
+				.ok(new HttpResponseModel("Employee Referral list fetched successfully", HttpStatusConstants.OK.id, employeeReferalList));
 
 	}
 
@@ -172,7 +171,7 @@ public class EmployeeReferalController {
 		try {
 			referralStatusList = employeeReferalService.getReferralStatusList();
 			return ResponseEntity.ok(
-					new HttpResponseModel("Referral Status list fetched", HttpStatusConstants.OK.id, referralStatusList));
+					new HttpResponseModel("Referral Status list fetched Successfully", HttpStatusConstants.OK.id, referralStatusList));
 		} catch (CustomException e) {
 			
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(),referralStatusList));
@@ -192,7 +191,7 @@ public class EmployeeReferalController {
 
 		try {
 			candidateJoinResponseModels = employeeReferalService.getJoinCandidateList();
-			return ResponseEntity.ok(new HttpResponseModel("list of join candidate Fetched Successfully",
+			return ResponseEntity.ok(new HttpResponseModel("Joined Candidate list featched Successfully",
 					HttpStatusConstants.OK.id, candidateJoinResponseModels));
 		} catch (CustomException e) {
 

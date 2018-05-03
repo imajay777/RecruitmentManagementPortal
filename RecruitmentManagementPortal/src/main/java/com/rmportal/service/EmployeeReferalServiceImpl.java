@@ -80,17 +80,20 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
 		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty()) {
-			throw new CustomException(500, " Unable to fetch Details");
+			throw new CustomException(500, " Invalid email id");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);
 	}
 
 	// Retrieve the Resume from database
 	@Override
-	public EmployeeReferal fetchResume(int job_vacancy_id) {
+	public EmployeeReferal fetchResume(int job_vacancy_id) throws CustomException {
 
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(job_vacancy_id);
-
+		if(Objects.isNull(employeeReferal)){
+			throw new CustomException(204, "Invalid job vacancy id");
+		}
+		
 		return employeeReferal;
 	}
 
@@ -114,6 +117,14 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel)
 			throws CustomException {
 
+		if(referralStatusRequestModel.getReferal_id()==0)
+			throw new CustomException(413, "Invalid referral id");
+		if(referralStatusRequestModel.getApplicant_email().isEmpty())
+			throw new CustomException(413, "Invalid email id");
+		if(referralStatusRequestModel.getReferral_status().isEmpty())
+			throw new CustomException(413, "Status is invalid");
+		
+		
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
 		if (Objects.isNull(employeeReferal)) {
 			throw new CustomException(204, "No Data Found");

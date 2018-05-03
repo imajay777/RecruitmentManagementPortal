@@ -263,16 +263,16 @@ public class UserServiceImpl implements UserServices {
 	public boolean validateUserToken(int userId, String token) throws CustomException {
 
 		if (StringUtils.isEmpty(token)) {
-			throw new CustomException(500, "Token is not found");
+			throw new CustomException(500, "Activation Token can't be empty");
 		} else {
 			UserToken tokenObj = userTokenRepository.findByTokenValue(token);
 			if (Objects.isNull(tokenObj)) {
-				throw new CustomException(500, "Token is Null");
+				throw new CustomException(500, " Invalid token");
 			}
 
-			if (tokenObj.getTokenType().compareTo(UserTokenType.ADD_USER.name()) != 0) {
-				throw new CustomException(500, "Token Type Mismatch");
-			}
+			/*if (tokenObj.getTokenType().compareTo(UserTokenType.ADD_USER.name()) != 0) {
+				throw new CustomException(500, "Activation Token Mismatch or Expired. Please contact Admin");
+			}*/
 
 			User user = userRepository.findByUserId(userId);
 			user.setActive(true);
@@ -289,7 +289,7 @@ public class UserServiceImpl implements UserServices {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		} else {
-			throw new CustomException(213, "User is Not Available");
+			throw new CustomException(213, " User is not yet registered. Please register");
 		}
 	}
 
@@ -302,9 +302,9 @@ public class UserServiceImpl implements UserServices {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
 			if (user == null)
-				throw new CustomException(500, "Token Not Found OR Invalid TokenType");
+				throw new CustomException(500, "Invalid Reset Token");
 
-			if (resetPasswordModel.getPassword().length() > 15)
+			if (resetPasswordModel.getPassword().length() > 16)
 				throw new CustomException(413, "Password Length too Long");
 
 			user.setPassword(passwordEncryption.hashEncoder(resetPasswordModel.getPassword()));
