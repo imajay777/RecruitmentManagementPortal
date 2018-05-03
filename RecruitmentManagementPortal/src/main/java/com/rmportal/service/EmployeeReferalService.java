@@ -30,7 +30,7 @@ public interface EmployeeReferalService {
 	public UploadResumeResponseModel addResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
 			throws CustomException;
 
-	public EmployeeReferal fetchResume(int job_vacancy_id);
+	public EmployeeReferal fetchResume(int job_vacancy_id) throws CustomException;
 
 	public List<EmployeeReferalResponseModel> getEmployeeReferalList() throws CustomException;
 	

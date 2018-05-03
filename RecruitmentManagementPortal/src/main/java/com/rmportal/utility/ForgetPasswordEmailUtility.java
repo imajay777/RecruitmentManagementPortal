@@ -42,7 +42,6 @@ public class ForgetPasswordEmailUtility {
 			mailMessage.setSubject(subject);
 			mailMessage.setText(message + resetPasswordLink + "/" + user.getId() + "/" + token + thanksText);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
-			System.out.println("Email Sender : " +emailSender);
 			emailSender.send(mailMessage);
 
 			UserToken userToken = new UserToken();
