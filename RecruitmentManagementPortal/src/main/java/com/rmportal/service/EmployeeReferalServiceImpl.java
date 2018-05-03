@@ -102,6 +102,10 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public List<EmployeeReferalResponseModel> getEmployeeReferalList() throws CustomException {
 		// TODO Auto-generated method stub
 		List<EmployeeReferal> empReferal = (List<EmployeeReferal>) employeeReferalRepository.findAll();
+		if(Objects.isNull(empReferal))
+		{
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No Candidate are Referred");
+		}
 		return conversionUtility.getAllEmployeeReferal(empReferal);
 		// return null;
 	}
@@ -155,7 +159,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public List<ReferralStatus> getReferralStatusList() throws CustomException {
 
 		List<ReferralStatus> referralStatusList = (List<ReferralStatus>) referralStatusRepository.findAll();
-		if(referralStatusList==null){
+		if(Objects.isNull(referralStatusList)){
 			throw new CustomException(HttpStatus.NOT_FOUND.value(),"not candidate are refered");
 		}
 		
@@ -166,7 +170,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	@Override
 	public List<CandidateJoinResponseModel> getJoinCandidateList() throws CustomException {
 		List<EmployeeReferal> joinCandicate = employeeReferalRepository.findByApplicationStatus();
-		if(joinCandicate==null){
+		if(Objects.isNull(joinCandicate)){
 			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No candidate are joined");
 		}
 

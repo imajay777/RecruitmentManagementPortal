@@ -198,11 +198,7 @@ public class EmployeeReferalController {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
 					candidateJoinResponseModels));
 		}
-		/*
-		 * return ResponseEntity.ok(new
-		 * HttpResponseModel("list of join candidate",
-		 * HttpStatusConstants.OK.id, candidateJoinResponseModels));
-		 */
+		
 
 	}
 
