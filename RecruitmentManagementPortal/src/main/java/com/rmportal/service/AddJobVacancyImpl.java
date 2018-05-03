@@ -53,7 +53,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		JobVacancy jobVacancy = jobVacancyRepository.findByJobVacancyId(job_vacancy_id);
 		if (jobVacancy != null) {
 			if (jobVacancy.getJob_title() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), " Job title cannot be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
 			} else {
 				jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 			}
@@ -111,9 +111,5 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		return addJobVacancyResponse;
 
 	}
-
-	
-	
-	
 
 }
