@@ -17,7 +17,11 @@ public class JobVacancyResponseModel {
 
 	int number_of_openings;
 
-	String experience_required;
+//	String experience_required;
+	
+	int exp_to;
+	
+	int exp_from;
 
 	String job_description;
 

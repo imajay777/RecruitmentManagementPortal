@@ -40,11 +40,9 @@ public class JobVacancyRequestModel {
 
 	String salary_ctc;
 
-	@Size(min = 2, max = 50, message = "Education must contain atleast 2 characters")
-	@NotNull(message = "Mandatory field cannot be Empty")
+
 	String education;
 
-	@NotNull(message = "Mandatory field cannot be Empty")
 	String job_type;
 
 	@Min(value = 1, message = "Mandatory field cannot be Empty")

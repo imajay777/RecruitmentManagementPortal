@@ -33,13 +33,14 @@ public class ForgetPasswordEmailUtility {
 		if (user != null) {
 			String subject = "Reset Password Link for Recruitment Management Portal";
 			String message = "Hi " + user.getFirstName() + ", \n"
-					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the Reset Password link below to reset your password \n";
+					+ "\n Welcome to AGSFT Recruitment Management Portal...! \n\n Please click on the Reset Password link below to reset your password, \n";
+			String thanksText = "\n \n Thanks, \n AGSFT Support Team";
 			String token = String.valueOf(UUID.randomUUID());
 
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(user.getEmail());
 			mailMessage.setSubject(subject);
-			mailMessage.setText(message + resetPasswordLink + "/" + user.getId() + "/" + token);
+			mailMessage.setText(message + resetPasswordLink + "/" + user.getId() + "/" + token + thanksText);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
 			System.out.println("Email Sender : " +emailSender);
 			emailSender.send(mailMessage);

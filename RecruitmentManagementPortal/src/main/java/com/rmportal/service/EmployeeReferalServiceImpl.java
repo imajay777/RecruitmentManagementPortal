@@ -76,9 +76,10 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	// Get details of Referred Candidate
 	@Override
 	public List<EmployeeReferalResponseModel> getEmployeeDetails(String referance_email) throws CustomException {
+		
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
-		if (Objects.isNull(employeeReferal)) {
+		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty()) {
 			throw new CustomException(500, " Unable to fetch Details");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);

@@ -44,11 +44,11 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 
 		EmployeeReferal employeeReferal = employeeReferalRepo.findOne(referal_id);
 		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, " No Content Found of Specified Referral Id");
+			throw new CustomException(204, " No Content Found for Specified Referral Id");
 		}
 
 		if (employeeReferal.getApplication_status().compareTo("Joined") != 0) {
-			throw new CustomException(206, " Bonus Cannot be applicable");
+			throw new CustomException(206, " Bonus is not applicable");
 		}
 		EmployeeBonusStatusResponseModel bonusResponse = conversionUtility.calculateBonus(employeeReferal);
 		return bonusResponse;
@@ -61,7 +61,7 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 
 		EmployeeReferal employeeReferal = employeeReferalRepo.findOne(setBonusRequestModel.getReferral_id());
 		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, " No Content Found of Specified Referral Id");
+			throw new CustomException(204, " No Details Found for Specified Referral Id");
 		}
 		/*
 		 * if (employeeReferal.getApplication_status().compareTo("Joined") != 0)
@@ -70,12 +70,10 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 
 		User user = userRepository.findByEmail(setBonusRequestModel.getApplicant_email());
 		if (Objects.isNull(user)) {
-			throw new CustomException(204, " No Data Found of Specified Applicant Email");
+			throw new CustomException(204, " No Data Found Found for Specified Applicant Email");
 		}
 		if (!user.isActive()) {
-
-			throw new CustomException(403, " User is inActive");
-
+			throw new CustomException(401, " User is inActive");
 		} 
 		
 		return conversionUtility.setBonusConversion(employeeReferal, setBonusRequestModel); 

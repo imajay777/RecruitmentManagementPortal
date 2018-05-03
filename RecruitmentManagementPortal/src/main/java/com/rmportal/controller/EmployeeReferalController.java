@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
 import com.rmportal.service.EmployeeReferalService;
+import com.rmportal.utility.ApplicationUtils;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
@@ -56,6 +58,9 @@ public class EmployeeReferalController {
 
 	@Autowired
 	EmployeeReferalService employeeReferalService;
+	
+	@Autowired
+	ApplicationUtils applicationUtils;
 
 	// Get Employee Details -- For the employee
 	@RequestMapping(value = "/getEmployeeReferalList", method = RequestMethod.GET)
@@ -68,7 +73,7 @@ public class EmployeeReferalController {
 			employeeReferalResponseModel = employeeReferalService.getEmployeeDetails(referance_email);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
-					employeeReferalResponseModel));
+					null));
 		}
 
 		return ResponseEntity.ok(new HttpResponseModel("list of employee referals Fetched Successfully", HttpStatusConstants.OK.id,
@@ -82,13 +87,13 @@ public class EmployeeReferalController {
 	@ApiOperation(value = "Upload Resume")
 	public ResponseEntity<?> uploadResume(
 			@ApiParam("{email, applicant_name, experience, technical_skills}") @RequestPart("details") String details,
-			@RequestPart("file") MultipartFile file) throws CustomException {
+			@RequestPart("file") MultipartFile file, BindingResult bindingResult) throws CustomException {
 
 		UploadResumeRequestModel uploadResumeRequestModel = null;
 
 		if (file.isEmpty()) {
 			return ResponseEntity
-					.ok(new HttpResponseModel("Please attach the Resume", HttpStatusConstants.OK.id, null));
+					.ok(new HttpResponseModel("Please attach the File", HttpStatusConstants.OK.id, null));
 		}
 		if (Objects.isNull(details)) {
 			return ResponseEntity.ok(new HttpResponseModel("Please Fill the Details", HttpStatusConstants.OK.id, null));
@@ -96,10 +101,14 @@ public class EmployeeReferalController {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		
 		try {
 			uploadResumeRequestModel = mapper.readValue(details, UploadResumeRequestModel.class);
-		} catch (Throwable e) {
-			e.printStackTrace();
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(uploadResumeRequestModel, bindingResult);
+		} catch (Exception e) {
+			e.getMessage();
 		}
 
 		UploadResumeResponseModel uploadResumeResponseModel = employeeReferalService.addResume(uploadResumeRequestModel,
@@ -144,13 +153,13 @@ public class EmployeeReferalController {
 
 		if (Objects.isNull(referralStatusRequestModel)) {
 			return ResponseEntity
-					.ok(new HttpResponseModel("No Request Found", HttpStatusConstants.NO_CONTENT.id, null));
+					.ok(new HttpResponseModel(" Sorry. Unable to proceed the request", HttpStatusConstants.NO_CONTENT.id, null));
 		}
 
 		ChangeReferralStatusResponse changeReferralStatusResponse = employeeReferalService
 				.setReferralStatus(referralStatusRequestModel);
 		return ResponseEntity.ok(new HttpResponseModel(
-				"Status Changed for Candidate Name : " + changeReferralStatusResponse.getApplicant_name(),
+				"Status Changed for Candidate : " + changeReferralStatusResponse.getApplicant_name(),
 				HttpStatusConstants.OK.id, changeReferralStatusResponse));
 	}
 

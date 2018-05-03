@@ -53,8 +53,10 @@ public class JobVacancyController {
 			BindingResult binding) throws CustomException {
 
 		try {
-			if (binding.hasErrors())
+			if (binding.hasErrors()) {
+				System.out.println("Inside IF");
 				throw new CustomException(204, binding.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(jobVacancyRequestModel, binding);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
@@ -90,20 +92,24 @@ public class JobVacancyController {
 	// Update Job Vacancy
 	@RequestMapping(value = "/updateJobVacancy/{id}", method = RequestMethod.POST)
 	@ApiOperation(value = "update Job Vacancies")
-	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,
-			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) {
-		// System.out.println("jobVacancyRequestModel: " +
-		// jobVacancyRequestModel);
+	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int job_vacancy_id,
+			@Valid @RequestBody JobVacancyRequestModel jobVacancyRequestModel, BindingResult bindingResult)
+			throws CustomException {
 		AddJobVacancyResponse addJobVacancyResponse = null;
+
 		try {
-			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
-			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully",
-					HttpStatusConstants.OK.id, addJobVacancyResponse));
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(jobVacancyRequestModel, bindingResult);
+
+			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(job_vacancy_id, jobVacancyRequestModel);
 
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
 
+		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
+				addJobVacancyResponse));
 	}
 
 }
