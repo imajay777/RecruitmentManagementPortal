@@ -295,7 +295,6 @@ public class UserServiceImpl implements UserServices {
 		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserId(),
 				resetPasswordModel.getToken());
 
-		System.out.println(userToken);
 		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
@@ -318,9 +317,12 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
-		if (Objects.isNull(user) || !user.isActive())
-			throw new CustomException(500, "User is InActive");
+		if (Objects.isNull(user))
+			throw new CustomException(500, " No response. Please check mandatory fields");
 
+		if(!user.isActive())
+			throw new CustomException(202, " No response. Password Cannot be changed due to Bad Request");
+			
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
 			throw new CustomException(500, "Old Password did not match");
 

@@ -215,12 +215,14 @@ public class ConversionUtility {
 		JobVacancy jobVacancy = new JobVacancy();
 		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-		jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
+//		jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
+		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
 		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
 		if (jobVacancyRequestModel.getSalary_ctc() == "" || jobVacancyRequestModel.getSalary_ctc() == " ") {
-			jobVacancy.setSalary_ctc("Not Disclosed");
+			jobVacancy.setSalary_ctc("Disclosed");
 		} else {
 			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
 		}
@@ -312,7 +314,7 @@ public class ConversionUtility {
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
-			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name() + " Resume");
+			employeeReferalResponseModel.setResume("Download ");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
 			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());

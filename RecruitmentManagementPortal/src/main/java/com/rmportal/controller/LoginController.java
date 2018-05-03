@@ -54,7 +54,8 @@ public class LoginController {
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
 		} catch (CustomException e) {
-			return globalException.handleCustomException(e);
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),
+					e.getId(), null));
 		}
 		return ResponseEntity.ok(new HttpResponseModel("Login Successful",
 				HttpStatusConstants.OK.id, responseModel));

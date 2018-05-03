@@ -92,17 +92,18 @@ public class JobVacancyController {
 	@ApiOperation(value = "update Job Vacancies")
 	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,
 			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) {
-//		System.out.println("jobVacancyRequestModel: " + jobVacancyRequestModel);
+		// System.out.println("jobVacancyRequestModel: " +
+		// jobVacancyRequestModel);
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		try {
 			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
-			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
-					addJobVacancyResponse));
-			
+			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully",
+					HttpStatusConstants.OK.id, addJobVacancyResponse));
+
 		} catch (CustomException e) {
-			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(),null));
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
-		
+
 	}
 
 }
