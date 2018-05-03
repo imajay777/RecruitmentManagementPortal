@@ -46,7 +46,7 @@ public class JobVacancyController {
 
 	@Autowired
 	ApplicationUtils applicationUtils;
-
+	
 	// Add Job Vacancies
 	@RequestMapping(value = "/addJobVacancy", method = RequestMethod.POST)
 	@ApiOperation(value = "Add Job Vacancies")
@@ -96,21 +96,30 @@ public class JobVacancyController {
 	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int job_vacancy_id,
 			@Valid @RequestBody JobVacancyRequestModel jobVacancyRequestModel, BindingResult bindingResult)
 			throws CustomException {
-			AddJobVacancyResponse addJobVacancyResponse = null;
+		AddJobVacancyResponse addJobVacancyResponse = null;
 
-			try {
+		try {
 			if (bindingResult.hasErrors())
-			throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
 			applicationUtils.validateEntity(jobVacancyRequestModel, bindingResult);
 
 			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(job_vacancy_id, jobVacancyRequestModel);
 
-			} catch (CustomException e) {
+		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
-			}
+		}
 
-			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
-			addJobVacancyResponse));
-			}
+		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
+				addJobVacancyResponse));
+	}
+	
+	// Get row from job vacancy table for JOB Update
+	@RequestMapping(value = "/getDetailsOfJob/{job_vacancy_id}", method = RequestMethod.POST)
+	@ApiOperation(value = "Get job vacancy details for update job vacancy")
+	public ResponseEntity<?> addJobVacancy(@PathVariable("job_vacancy_id") int job_vacancy_id){
+		JobVacancyResponseModel jobVacancyResponseModel = listJobVacancyService.getJobDetails(job_vacancy_id);
+		return ResponseEntity.ok(new HttpResponseModel("Detais of the job_vacancy id fetched Successfully", HttpStatusConstants.OK.id,
+				jobVacancyResponseModel));
+	}
 
 }

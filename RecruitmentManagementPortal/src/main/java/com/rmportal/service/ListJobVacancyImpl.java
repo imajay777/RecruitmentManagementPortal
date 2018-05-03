@@ -48,5 +48,11 @@ public class ListJobVacancyImpl implements ListJobVacancyService{
 		return "Status Changed";
 	}
 	
+	@Override
+	public JobVacancyResponseModel getJobDetails(int job_vacancy_id) {
+		 JobVacancy jobVacancy = jobVacancyRepository.findOne(job_vacancy_id);
+		 conversionUtility.getDetailJobVacancy(jobVacancy);
+		return conversionUtility.getDetailJobVacancy(jobVacancy);
+	}
 
 }

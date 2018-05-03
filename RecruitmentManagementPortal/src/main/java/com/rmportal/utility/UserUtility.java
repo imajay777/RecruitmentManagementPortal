@@ -15,7 +15,7 @@ public class UserUtility {
 	}
 
 	public static boolean isInvalidValue(String value) {
-		return Objects.isNull(value) || value.isEmpty();
+		return (Objects.isNull(value) || value.isEmpty());
 	}
 	
 	public static boolean isInvalidMobile(long mobile) {

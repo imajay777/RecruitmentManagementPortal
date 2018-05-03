@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.JobVacancy;
 import com.rmportal.model.Permission;
@@ -47,21 +48,24 @@ public class ConversionUtility {
 	CalculateDifferenceInDate calculateDifferenceInDate;
 
 	// Registration
-	public User convertRequestToUser(RegisterRequestModel registerRequestModel) {
+	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
+		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
+				|| UserUtility.isInvalidValue(registerRequestModel.getLastName())
+				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
+				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
+
+			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
+		}
 
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
 		user.setFirstName(registerRequestModel.getFirstName());
 		user.setLastName(registerRequestModel.getLastName());
 		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
-	
-		
 
 		return user;
 	}
 
-	
-	
 	// Registration Response
 	public UserResponseDTO convertUserToresponse(User user) {
 
@@ -219,9 +223,9 @@ public class ConversionUtility {
 		JobVacancy jobVacancy = new JobVacancy();
 		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-//	jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
-//		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
-	//	jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
+		// jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
+		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
 		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
@@ -246,13 +250,12 @@ public class ConversionUtility {
 				jobVacancyResponse.setJob_vacancy_id(jobVacancy.getJob_vacancy_id());
 				jobVacancyResponse.setJob_title(jobVacancy.getJob_title());
 				jobVacancyResponse.setNumber_of_openings(jobVacancy.getNumber_of_openings());
-//				jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
+				// jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
 				jobVacancyResponse.setExp_to(jobVacancy.getExp_to());
 				jobVacancyResponse.setExp_from(jobVacancy.getExp_from());
 				jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
 				jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
 				jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
-				// System.out.println(jobVacancy.getSalary_ctc());
 				if (jobVacancy.getSalary_ctc() == null || jobVacancy.getSalary_ctc() == "") {
 					jobVacancyResponse.setSalary_ctc("Not Disclosed");
 				} else {
@@ -424,19 +427,19 @@ public class ConversionUtility {
 			}
 			if (senior.contains(employeeReferal.getExperience())) {
 				long basic_amount = 10000;
-				employeeReferal.setBonus_amount(basic_amount/2);
+				employeeReferal.setBonus_amount(basic_amount / 2);
 				return " 1st stage Bonus Updated Successfully";
 			}
 			if (superSenior.contains(employeeReferal.getExperience())) {
 				long basic_amount = 15000;
-				employeeReferal.setBonus_amount(basic_amount/2);
+				employeeReferal.setBonus_amount(basic_amount / 2);
 				return " 1st stage Bonus Updated Successfully";
 			}
 
 		} else {
 			throw new CustomException(202, " Employee has not yet completed 45 days");
 		}
-		
+
 		if (setBonusRequestModel.getBonus_status().compareTo("2ndStage") == 0 && difference >= 100) {
 
 			if (beginner.contains(employeeReferal.getExperience())) {
@@ -457,23 +460,48 @@ public class ConversionUtility {
 		}
 		return "No Bonus";
 	}
-	
-	/*// Update JOB vacancy 
-	public JobVacancy updateJobVacancy(JobVacancy jobVacancy, JobVacancyRequestModel jobVacancyRequestModel){
-		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
-		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
-		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
-		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
-		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
-		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
-		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
-		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
-		if (jobVacancy.getSalary_ctc().isEmpty()) {
-			jobVacancy.setSalary_ctc("Disclosed");
-		} else {
-			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
-		}
-		return jobVacancy;
-	}*/
+
+	/*
+	 * // Update JOB vacancy public JobVacancy updateJobVacancy(JobVacancy
+	 * jobVacancy, JobVacancyRequestModel jobVacancyRequestModel){
+	 * jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
+	 * jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
+	 * jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+	 * jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description()
+	 * ); jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
+	 * jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
+	 * jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
+	 * jobVacancy.setNumber_of_openings(jobVacancyRequestModel.
+	 * getNumber_of_openings());
+	 * jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills
+	 * ()); if (jobVacancy.getSalary_ctc().isEmpty()) {
+	 * jobVacancy.setSalary_ctc("Disclosed"); } else {
+	 * jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc()); }
+	 * return jobVacancy; }
+	 */
+
+	// Get row from job vacancy table for JOB Update
+	public JobVacancyResponseModel getDetailJobVacancy(JobVacancy jobVacancy) {
+
+			JobVacancyResponseModel jobVacancyResponse = new JobVacancyResponseModel();
+			jobVacancyResponse.setJob_vacancy_id(jobVacancy.getJob_vacancy_id());
+			jobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+			jobVacancyResponse.setNumber_of_openings(jobVacancy.getNumber_of_openings());
+			// jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
+			jobVacancyResponse.setExp_to(jobVacancy.getExp_to());
+			jobVacancyResponse.setExp_from(jobVacancy.getExp_from());
+			jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
+			jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
+			jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
+			if (jobVacancy.getSalary_ctc() == null || jobVacancy.getSalary_ctc() == "") {
+				jobVacancyResponse.setSalary_ctc("Disclosed");
+			} else {
+				jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
+			}
+			jobVacancyResponse.setEducation(jobVacancy.getEducation());
+			jobVacancyResponse.setJob_type(jobVacancy.getJob_type());
+			jobVacancyResponse.setJob_location(jobVacancy.getJob_location());
+		
+		return jobVacancyResponse;
+	}
 }

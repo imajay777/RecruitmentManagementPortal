@@ -11,5 +11,5 @@ public interface ListJobVacancyService {
 	
 	public String updateJobStatus(int job_vacancy_id, boolean is_active);
 	
-
+	public JobVacancyResponseModel getJobDetails(int job_vacancy_id);
 }

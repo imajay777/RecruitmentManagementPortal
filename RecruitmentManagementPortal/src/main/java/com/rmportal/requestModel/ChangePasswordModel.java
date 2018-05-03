@@ -29,8 +29,8 @@ public class ChangePasswordModel {
 	@NotNull(message = "Mandatory field cannot be Empty")
 	String newPassword;
 	
-	@Size(min = 8, max = 16, message= "Password must contain atleast 8-16 characters")
+	/*@Size(min = 8, max = 16, message= "Password must contain atleast 8-16 characters")
 	@NotNull(message = "Mandatory field cannot be Empty")
-	String confirmNewPassword;
+	String confirmNewPassword;*/
 	
 }

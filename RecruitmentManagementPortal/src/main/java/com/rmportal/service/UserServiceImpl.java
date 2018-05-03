@@ -111,14 +111,15 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
 
-		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
+		System.out.println("First Name : " +registerRequestModel.getFirstName() +", " +"Last NAme : "+registerRequestModel.getLastName()+"," +registerRequestModel.getEmail()+registerRequestModel.getPassword());
+		/*if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
 				|| UserUtility.isInvalidValue(registerRequestModel.getLastName())
 				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
-				|| UserUtility.isInvalidValue(registerRequestModel.getPassword()))
-		{
+				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())){
+		
 			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
-		}
-
+		}*/
+		
 		/*
 		 * if (isValidEmail(registerRequestModel.getEmail())) {
 		 * 
@@ -143,9 +144,14 @@ public class UserServiceImpl implements UserServices {
 
 		return conversionUtility.convertUserToresponse(user);
 	} /*
-		 * else { throw new CustomException(HttpStatus.BAD_REQUEST.value(),
-		 * "invalid email address"); }
-		 */
+															 * else { throw new
+															 * CustomException(
+															 * HttpStatus.
+															 * BAD_REQUEST.value
+															 * (),
+															 * "invalid email address"
+															 * ); }
+															 */
 
 	/*
 	 * } else { throw new CustomException(); }
@@ -270,9 +276,12 @@ public class UserServiceImpl implements UserServices {
 				throw new CustomException(500, " Invalid token");
 			}
 
-			/*if (tokenObj.getTokenType().compareTo(UserTokenType.ADD_USER.name()) != 0) {
-				throw new CustomException(500, "Activation Token Mismatch or Expired. Please contact Admin");
-			}*/
+			/*
+			 * if
+			 * (tokenObj.getTokenType().compareTo(UserTokenType.ADD_USER.name())
+			 * != 0) { throw new CustomException(500,
+			 * "Activation Token Mismatch or Expired. Please contact Admin"); }
+			 */
 
 			User user = userRepository.findByUserId(userId);
 			user.setActive(true);
@@ -321,21 +330,21 @@ public class UserServiceImpl implements UserServices {
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
 		if (Objects.isNull(user))
-		throw new CustomException(500, " Please check mandatory fields");
+			throw new CustomException(500, " Please check mandatory fields");
 
-		if(!user.isActive())
-		throw new CustomException(202, " Password Cannot be changed please contact to Admin");
-		
+		if (!user.isActive())
+			throw new CustomException(202, " Password Cannot be changed please contact to Admin");
+
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
-		throw new CustomException(500, "Old Password did not match");
-		
-		if (!changePasswordModel.getNewPassword().equals(changePasswordModel.getConfirmNewPassword()))
-		throw new CustomException(500, "New Password mismatch. Cannot reset Password");
+			throw new CustomException(500, "Old Password did not match");
+
+		/*if (!changePasswordModel.getNewPassword().equals(changePasswordModel.getConfirmNewPassword()))
+			throw new CustomException(500, "New Password mismatch. Cannot reset Password");*/
 
 		user.setPassword(passwordEncryption.hashEncoder(changePasswordModel.getNewPassword()));
 		return true;
 
-		}
+	}
 
 	@Override
 	public UpdateResponseModel getDetails(int user_id) throws CustomException {
