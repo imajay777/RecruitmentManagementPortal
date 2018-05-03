@@ -49,15 +49,32 @@ public class RegisterController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
-			BindingResult bindingResult) {
+			BindingResult bindingResult) throws CustomException {
 
+		if (registerRequestModel.getFirstName() == null) {
+			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
+		}
+
+		if (registerRequestModel.getLastName() == null) {
+			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
+		}
+
+		if (registerRequestModel.getEmail() == null) {
+			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
+		}
+
+		if (registerRequestModel.getPassword() == null) {
+			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
+		}
+		
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
+
 		UserResponseDTO httpResponseModel = null;
 
 		try {
 			httpResponseModel = userService.saveUser(user);
-			return ResponseEntity
-					.ok(new HttpResponseModel("Register successfully Please Cheak your email", HttpStatusConstants.OK.id, httpResponseModel));
+			return ResponseEntity.ok(new HttpResponseModel("Register successfully Please Cheak your email",
+					HttpStatusConstants.OK.id, httpResponseModel));
 
 		} catch (CustomException e) {
 
@@ -65,9 +82,11 @@ public class RegisterController {
 					httpResponseModel));
 		}
 
-		/*return ResponseEntity
-				.ok(new HttpResponseModel("Register successfully Please Cheak your email", HttpStatusConstants.OK.id, httpResponseModel));
-*/
+		/*
+		 * return ResponseEntity .ok(new
+		 * HttpResponseModel("Register successfully Please Cheak your email",
+		 * HttpStatusConstants.OK.id, httpResponseModel));
+		 */
 	}
 
 	// UpdateUser API

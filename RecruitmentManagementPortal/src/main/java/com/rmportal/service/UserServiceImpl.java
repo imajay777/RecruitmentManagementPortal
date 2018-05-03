@@ -24,6 +24,7 @@ import com.rmportal.repository.UserTokenRepository;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.requestModel.UpdateRequestModel;
+import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserServices {
 		// userRepository.findByEmail(email);
 	}
 
-	public boolean isValidEmail(String email) {
+	/*public boolean isValidEmail(String email) {
 		Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
 				Pattern.CASE_INSENSITIVE);
 
@@ -88,9 +89,15 @@ public class UserServiceImpl implements UserServices {
 		return m.matches();
 
 	}
-
+*/
 	@Override
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
+		
+		/*if(registerRequestModel.getFirstName()==null){
+			throw new CustomException(HttpStatus.BAD_REQUEST.value(),"FirstName Cannot be Null");
+		}*/
+		
+		
 
 		registerRequestModel.setActive(false);
 
@@ -99,16 +106,16 @@ public class UserServiceImpl implements UserServices {
 		
 
 		if (userRole == null) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Role does not exits");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
 		
 	
 
-	if (isValidEmail(registerRequestModel.getEmail())) {
+	/*if (isValidEmail(registerRequestModel.getEmail())) {
 
 			String str[] = registerRequestModel.getEmail().split("@");
 
-		if (str[1].compareTo("agsft.com") == 0) {
+		if (str[1].compareTo("agsft.com") == 0) {*/
 			
 				User user = userRepository.findByEmail(registerRequestModel.getEmail());
 				if (user != null)
@@ -126,15 +133,15 @@ public class UserServiceImpl implements UserServices {
 				activationEmailUtility.sendMail(user);
 
 				return conversionUtility.convertUserToresponse(user);
-		} else {
+		} /*else {
 				throw new CustomException(HttpStatus.BAD_REQUEST.value(), "invalid email address");
-			}
+			}*/
 
-		} else {
+		/*} else {
 			throw new CustomException();
 		}
 
-	}
+	}*/
 
 	@Override
 	public User FindById(long id) {
@@ -152,7 +159,7 @@ public class UserServiceImpl implements UserServices {
 
 			if(updateRequestModel.getFirstName()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), " First name can not be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "This Feild is Mandatory");
 				//throw new CustomException(500, " First name can not be null");
 			}
 			else
@@ -161,7 +168,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getLastName()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), " last name can not be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "This Feild is Mandatory");
 			}
 			else
 			{
@@ -174,7 +181,7 @@ public class UserServiceImpl implements UserServices {
 		//	updatedUser.setDepartments(updateRequestModel.getDepartment());
 			if(updateRequestModel.getAddress()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the proper address");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"This Feild is Mandatory");
 			}
 			else
 			{
@@ -182,7 +189,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getBlood_group()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the blood group");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"This Feild is Mandatory");
 			}
 			else
 			{
@@ -190,7 +197,7 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getCity()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the city");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"This Feild is Mandatory");
 			}
 			else
 			{
@@ -198,12 +205,14 @@ public class UserServiceImpl implements UserServices {
 			}
 			if(updateRequestModel.getCountry()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"mension the country");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"This Feild is Mandatory");
 			}
 			else
 			{
 			updatedUser.setCountry(updateRequestModel.getCountry());
 			}
+		
+			
 			updatedUser.setMobile(updateRequestModel.getMobile());
 			updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			
