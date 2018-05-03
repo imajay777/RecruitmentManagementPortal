@@ -2,6 +2,7 @@ package com.rmportal.controller;
 
 import java.util.List;
 
+import javax.naming.Binding;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,11 +92,12 @@ public class JobVacancyController {
 	@RequestMapping(value = "/updateJobVacancy/{id}", method = RequestMethod.POST)
 	@ApiOperation(value = "update Job Vacancies")
 	public ResponseEntity<?> addJobVacancy(@PathVariable("id") int id,
-			@RequestBody JobVacancyRequestModel jobVacancyRequestModel) {
+			 @RequestBody JobVacancyRequestModel jobVacancyRequestModel) {
 		// System.out.println("jobVacancyRequestModel: " +
 		// jobVacancyRequestModel);
 		AddJobVacancyResponse addJobVacancyResponse = null;
 		try {
+			
 			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(id, jobVacancyRequestModel);
 			return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully",
 					HttpStatusConstants.OK.id, addJobVacancyResponse));

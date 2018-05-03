@@ -54,10 +54,14 @@ public class ConversionUtility {
 		user.setFirstName(registerRequestModel.getFirstName());
 		user.setLastName(registerRequestModel.getLastName());
 		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
+	
+		
 
 		return user;
 	}
 
+	
+	
 	// Registration Response
 	public UserResponseDTO convertUserToresponse(User user) {
 
@@ -215,9 +219,9 @@ public class ConversionUtility {
 		JobVacancy jobVacancy = new JobVacancy();
 		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-//		jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
-		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
-		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
+//	jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
+//		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+	//	jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
 		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());

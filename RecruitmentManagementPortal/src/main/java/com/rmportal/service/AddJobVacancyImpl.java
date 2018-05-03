@@ -61,7 +61,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			{
 			jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 			}
-			if(jobVacancy.getExp_to()==0)
+			/*if(jobVacancy.getExp_to()==0)
 			{
 				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job expreience");
 			}
@@ -74,7 +74,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job expreience");
 			}else{
 				jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
-			}
+			}*/
 			
 			if(jobVacancy.getEducation()==null)
 			{

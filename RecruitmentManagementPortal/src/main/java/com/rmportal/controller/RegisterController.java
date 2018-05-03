@@ -1,6 +1,7 @@
 package com.rmportal.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -50,25 +51,11 @@ public class RegisterController {
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) throws CustomException {
+		
 
-		if (registerRequestModel.getFirstName() == null) {
-			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
-		}
-
-		if (registerRequestModel.getLastName() == null) {
-			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
-		}
-
-		if (registerRequestModel.getEmail() == null) {
-			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
-		}
-
-		if (registerRequestModel.getPassword() == null) {
-			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "This Feild is Mandatory");
-		}
+	
 		
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
-
 		UserResponseDTO httpResponseModel = null;
 
 		try {
@@ -79,14 +66,10 @@ public class RegisterController {
 		} catch (CustomException e) {
 
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
-					httpResponseModel));
+					null));
 		}
 
-		/*
-		 * return ResponseEntity .ok(new
-		 * HttpResponseModel("Register successfully Please Cheak your email",
-		 * HttpStatusConstants.OK.id, httpResponseModel));
-		 */
+		
 	}
 
 	// UpdateUser API
