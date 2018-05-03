@@ -2,6 +2,8 @@ package com.rmportal.service;
 
 import java.util.Objects;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,7 +49,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 
 
 	@Override
-	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id, JobVacancyRequestModel jobVacancyRequestModel)
+	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id,@Valid JobVacancyRequestModel jobVacancyRequestModel)
 			throws CustomException {
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		JobVacancy jobVacancy = jobVacancyRepository.findByJobVacancyId(job_vacancy_id);
@@ -132,6 +134,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
 		return addJobVacancyResponse;	
 		
+
 	}
 
 

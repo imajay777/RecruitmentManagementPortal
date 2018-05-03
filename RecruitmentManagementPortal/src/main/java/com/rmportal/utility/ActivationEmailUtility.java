@@ -34,14 +34,14 @@ public class ActivationEmailUtility {
 		if (user != null) {
 			String subject = "Activation Link for Recruitment Management Portal";
 			String message = "Hi " + user.getFirstName() + ", \n"
-					+ "\n Welcome to AGSFT Recruitment Management Portal \n Please click on the activation link below to activate your account \n";
-			// String token = RandomStringUtils.randomAlphabetic(8);
+					+ "\n Welcome to AGSFT Recruitment Management Portal...! \n\n Please click on the activation link below to activate your account, \n";
+			String thanksText = "\n \n Thanks, \n AGSFT Support Team";
 			String token = String.valueOf(UUID.randomUUID());
 
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo(user.getEmail());
 			mailMessage.setSubject(subject);
-			mailMessage.setText(message + activationLink + "/" + user.getId() + "/" + token);
+			mailMessage.setText(message + activationLink + "/" + user.getId() + "/" + token + thanksText);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
 			emailSender.send(mailMessage);
 

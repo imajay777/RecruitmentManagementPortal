@@ -16,12 +16,23 @@ public class EmailReminder {
 	public void sendMail(EmployeeReferal referralList, long diff) {
 
 		if (diff != 0) {
-			String subject = "Reminder Mail to Transfer Bonus";
-			String message = "Hi " + ", \n"
-					+ "\n This is the mail from AGSFT Recruitment Management Portal to remind you that "
+			String subject = "Reminder to Transfer Bonus Amount";
+			String thanksText = "\n \n Thanks, \n AGSFT Support Team";
+			/*
+			 * String message = "Hi " + ", \n" +
+			 * "\n This is the mail from AGSFT Recruitment Management Portal to remind you that "
+			 * + referralList.getApplicant_name() + "(" +
+			 * referralList.getApplicant_email() + ")" +
+			 * " \n have completed his " + diff +
+			 * " of duration. \n Transfer the bonus to referee " +
+			 * referralList.getReferance_email();
+			 */
+			String message = "Hello Sir/Madam " + ", \n" + "\n This is to remind you that "
 					+ referralList.getApplicant_name() + "(" + referralList.getApplicant_email() + ")"
-					+ " \n have completed his " + diff + " of duration. \n Transfer the bonus to referee "
-					+ referralList.getReferance_email();
+					+ " has completed his/her " + diff
+					+ " days of duration. \n \n Please transfer the bonus amount to the referee("
+					+ referralList.getReferance_email() + ") of "+referralList.getApplicant_name()+"." 
+					+ thanksText;
 
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setTo("jsourabh@agsft.com");
@@ -29,7 +40,7 @@ public class EmailReminder {
 			mailMessage.setText(message);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
 			emailSender.send(mailMessage);
-System.out.println("Email Send");
+			System.out.println("Email Send");
 		}
 
 	}

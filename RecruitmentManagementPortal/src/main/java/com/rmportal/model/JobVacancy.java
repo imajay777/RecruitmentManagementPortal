@@ -49,9 +49,9 @@ public class JobVacancy {
 	@Column(name = "is_active")
 	boolean isActive;
 	
-	/*@Column(name = "exp_to")
+	@Column(name = "exp_to")
 	int exp_to;
 	
 	@Column(name = "exp_from")
-	int exp_from;*/
+	int exp_from;
 }

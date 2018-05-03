@@ -246,7 +246,9 @@ public class ConversionUtility {
 				jobVacancyResponse.setJob_vacancy_id(jobVacancy.getJob_vacancy_id());
 				jobVacancyResponse.setJob_title(jobVacancy.getJob_title());
 				jobVacancyResponse.setNumber_of_openings(jobVacancy.getNumber_of_openings());
-				jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
+//				jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
+				jobVacancyResponse.setExp_to(jobVacancy.getExp_to());
+				jobVacancyResponse.setExp_from(jobVacancy.getExp_from());
 				jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
 				jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
 				jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
@@ -455,4 +457,23 @@ public class ConversionUtility {
 		}
 		return "No Bonus";
 	}
+	
+	/*// Update JOB vacancy 
+	public JobVacancy updateJobVacancy(JobVacancy jobVacancy, JobVacancyRequestModel jobVacancyRequestModel){
+		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
+		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
+		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
+		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
+		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
+		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
+		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
+		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
+		if (jobVacancy.getSalary_ctc().isEmpty()) {
+			jobVacancy.setSalary_ctc("Disclosed");
+		} else {
+			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
+		}
+		return jobVacancy;
+	}*/
 }

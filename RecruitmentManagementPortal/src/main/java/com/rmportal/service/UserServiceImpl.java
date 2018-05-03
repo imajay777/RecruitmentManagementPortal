@@ -321,18 +321,21 @@ public class UserServiceImpl implements UserServices {
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
 		if (Objects.isNull(user))
-			throw new CustomException(500, " No response. Please check mandatory fields");
+		throw new CustomException(500, " Please check mandatory fields");
 
-		if (!user.isActive())
-			throw new CustomException(202, " No response. Password Cannot be changed due to Bad Request");
-
+		if(!user.isActive())
+		throw new CustomException(202, " Password Cannot be changed please contact to Admin");
+		
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
-			throw new CustomException(500, "Old Password did not match");
+		throw new CustomException(500, "Old Password did not match");
+		
+		if (!changePasswordModel.getNewPassword().equals(changePasswordModel.getConfirmNewPassword()))
+		throw new CustomException(500, "New Password mismatch. Cannot reset Password");
 
 		user.setPassword(passwordEncryption.hashEncoder(changePasswordModel.getNewPassword()));
 		return true;
 
-	}
+		}
 
 	@Override
 	public UpdateResponseModel getDetails(int user_id) throws CustomException {

@@ -35,10 +35,11 @@ public class EmployeeReferralBonus {
 
 		EmployeeBonusStatusResponseModel employeeBonusResponse;
 		try {
+			if (referal_id <= 0)
+				throw new CustomException(401, "Request cannot be proceeded");
 			employeeBonusResponse = employeeBonusService.getReferralBonus(referal_id);
 		} catch (CustomException e) {
-			return ResponseEntity
-					.ok(new HttpResponseModel(e.getMessage(), 204, "No Bonus"));
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), 204, "No Bonus"));
 
 		}
 
@@ -46,16 +47,14 @@ public class EmployeeReferralBonus {
 				.ok(new HttpResponseModel(HttpStatus.OK.name(), HttpStatusConstants.OK.id, employeeBonusResponse));
 
 	}
-	
+
 	// Set Bonus for the candidate
 	@RequestMapping(value = "/setBonus", method = RequestMethod.POST)
 	@ApiOperation(value = "Set Bonus for the individual candidate")
-	public ResponseEntity<?> setBonus(@RequestBody SetBonusRequestModel setBonusRequestModel) throws CustomException{
-		 String message= employeeBonusService.setBonus(setBonusRequestModel);
-		
-		return ResponseEntity
-				.ok(new HttpResponseModel(message, HttpStatusConstants.OK.id, null));
+	public ResponseEntity<?> setBonus(@RequestBody SetBonusRequestModel setBonusRequestModel) throws CustomException {
+		String message = employeeBonusService.setBonus(setBonusRequestModel);
+
+		return ResponseEntity.ok(new HttpResponseModel(message, HttpStatusConstants.OK.id, null));
 	}
-	
 
 }
