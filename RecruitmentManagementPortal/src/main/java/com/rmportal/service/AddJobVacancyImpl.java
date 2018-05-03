@@ -57,7 +57,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		{
 			if(jobVacancy.getJob_title()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value()," Job title cannot be null");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 			}
 			else
 			{
@@ -80,7 +80,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			
 			if(jobVacancy.getEducation()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the required education");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 			}
 			else
 			{
@@ -91,7 +91,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 			if(jobVacancy.getJob_location()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job location");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 			}
 			else
 			{
@@ -99,7 +99,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			}
 			if(jobVacancy.getJob_type()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job type");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 			}
 			else
 			{
@@ -112,7 +112,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			
 			if(jobVacancy.getTechnical_skills()==null)
 			{
-				throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the required skill for job");
+				throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 			}
 			else
 			{
@@ -124,7 +124,7 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		}
 		addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
 		if(jobVacancy.getJob_title()==null){
-			throw new CustomException(HttpStatus.NOT_FOUND.value(),"specify the job title");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"Mandatory fields canot be Empty");
 		}
 		else
 		{
