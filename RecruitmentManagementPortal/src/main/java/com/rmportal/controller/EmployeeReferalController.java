@@ -71,7 +71,7 @@ public class EmployeeReferalController {
 					employeeReferalResponseModel));
 		}
 
-		return ResponseEntity.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id,
+		return ResponseEntity.ok(new HttpResponseModel("list of employee referals Fetched Successfully", HttpStatusConstants.OK.id,
 				employeeReferalResponseModel));
 
 	}
@@ -159,14 +159,14 @@ public class EmployeeReferalController {
 	@RequestMapping(value = "/getReferralStatusList", method = RequestMethod.GET)
 	@ApiOperation(value = "Get List of Referral Status")
 	public ResponseEntity<?> getReferralStatusList() {
-		List<ReferralStatus> referralStatusList;
+		List<ReferralStatus> referralStatusList = null;
 		try {
 			referralStatusList = employeeReferalService.getReferralStatusList();
 			return ResponseEntity.ok(
 					new HttpResponseModel("Referral Status list fetched", HttpStatusConstants.OK.id, referralStatusList));
 		} catch (CustomException e) {
 			
-			return ResponseEntity.ok(new HttpResponseModel());
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),e.getId(),referralStatusList));
 			
 		}
 		
