@@ -115,7 +115,7 @@ public class JobVacancyController {
 	// Get row from job vacancy table for JOB Update
 	@RequestMapping(value = "/getDetailsOfJob/{job_vacancy_id}", method = RequestMethod.POST)
 	@ApiOperation(value = "Get job vacancy details for update job vacancy")
-	public ResponseEntity<?> addJobVacancy(@PathVariable("job_vacancy_id") int job_vacancy_id){
+	public ResponseEntity<?> addJobVacancy(@PathVariable("job_vacancy_id") int job_vacancy_id) throws CustomException{
 		JobVacancyResponseModel jobVacancyResponseModel = listJobVacancyService.getJobDetails(job_vacancy_id);
 		return ResponseEntity.ok(new HttpResponseModel("Detais of the job_vacancy id fetched Successfully", HttpStatusConstants.OK.id,
 				jobVacancyResponseModel));

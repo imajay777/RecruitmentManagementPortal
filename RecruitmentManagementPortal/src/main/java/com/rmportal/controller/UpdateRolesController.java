@@ -32,6 +32,7 @@ public class UpdateRolesController {
 	@Autowired
 	UpdateRoles updateRoles;
 
+	// Get user Roles
 	@RequestMapping(value = "/getRoles", method = RequestMethod.GET)
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> getRoles() throws CustomException {
@@ -41,6 +42,7 @@ public class UpdateRolesController {
 
 	}
 
+	// Update User Role
 	@RequestMapping(value = "/updateUserRole", method = RequestMethod.POST)
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> updateUserRole(@RequestBody UpdateRoleRequestModel updateRoleRequestModel)

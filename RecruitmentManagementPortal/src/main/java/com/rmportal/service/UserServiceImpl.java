@@ -297,7 +297,7 @@ public class UserServiceImpl implements UserServices {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		} else {
-			throw new CustomException(213, "User does not exits. Please register");
+			throw new CustomException(213, "User does not exist, please register.");
 		}
 	}
 
@@ -314,16 +314,17 @@ public class UserServiceImpl implements UserServices {
 		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
-			if (user == null)
+			if (user == null){
 				throw new CustomException(500, "Invalid token or user id");
+			}
 
-			if (resetPasswordModel.getPassword().length() > 16)
+			if (resetPasswordModel.getPassword().length() > 16){
 				throw new CustomException(413, "Password Length too Long");
+			}
 
 			user.setPassword(passwordEncryption.hashEncoder(resetPasswordModel.getPassword()));
 			userTokenRepository.delete(userToken);
 			return true;
-
 		} else {
 			return false;
 		}

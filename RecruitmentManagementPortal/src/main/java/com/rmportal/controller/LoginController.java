@@ -42,10 +42,10 @@ public class LoginController {
 
 	@Autowired
 	UserServices userService;
-	
+
 	@Autowired
 	GlobalExceptionHandler globalException;
-	
+
 	@Autowired
 	ApplicationUtils applicationUtils;
 
@@ -53,11 +53,9 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(value = "Login Controller")
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
-			@Valid @RequestBody LoginRequestModel loginRequestModel, BindingResult bindingResult) throws CustomException {
+			@Valid @RequestBody LoginRequestModel loginRequestModel, BindingResult bindingResult)
+			throws CustomException {
 
-		System.out.println(loginRequestModel.getEmail());
-		System.out.println(loginRequestModel.getPassword());
-		 
 		try {
 			if (bindingResult.hasErrors())
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
@@ -65,17 +63,15 @@ public class LoginController {
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-		
+
 		LoginResponseModel responseModel = null;
 
 		try {
 			responseModel = loginService.validateUser(loginRequestModel);
 		} catch (CustomException e) {
-			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),
-					e.getId(), null));
+			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
-		return ResponseEntity.ok(new HttpResponseModel("Login Successfully",
-				HttpStatusConstants.OK.id, responseModel));
+		return ResponseEntity.ok(new HttpResponseModel("Login Successfully", HttpStatusConstants.OK.id, responseModel));
 
 		/*
 		 * HttpStatus httpStatus = HttpStatus.BAD_REQUEST; return
@@ -89,14 +85,12 @@ public class LoginController {
 	public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) throws CustomException {
 
 		if (userService.forgetPassword(email)) {
-			return ResponseEntity
-					.ok(new HttpResponseModel("Reset password link sent, please check your email",
-							HttpStatusConstants.OK.id, null));
+			return ResponseEntity.ok(new HttpResponseModel("Reset password link sent, please check your email",
+					HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel("Invalid Email",
-						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
+				.ok(new HttpResponseModel("Invalid Email", HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 	}
 
 	// Reset Password Controller
@@ -106,13 +100,12 @@ public class LoginController {
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
 		if (userService.resetPassword(resetPasswordModel)) {
-			return ResponseEntity.ok(new HttpResponseModel("Password changes successfully",
-					HttpStatusConstants.OK.id, null));
+			return ResponseEntity
+					.ok(new HttpResponseModel("Password changes successfully", HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity.ok(
-				new HttpResponseModel("Invalid token or user id",
-						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
+				new HttpResponseModel("Invalid token or user id", HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}
 }

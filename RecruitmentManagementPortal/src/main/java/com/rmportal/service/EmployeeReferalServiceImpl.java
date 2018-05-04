@@ -117,20 +117,23 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel)
 			throws CustomException {
 
-		if(referralStatusRequestModel.getReferal_id()==0)
+		if(referralStatusRequestModel.getReferal_id()==0){
 			throw new CustomException(413, "Invalid referral id");
-		if(referralStatusRequestModel.getApplicant_email().isEmpty())
+		}
+		/*if(referralStatusRequestModel.getApplicant_email().isEmpty()){
 			throw new CustomException(413, "Invalid email id");
-		if(referralStatusRequestModel.getReferral_status().isEmpty())
+		}*/
+		if(referralStatusRequestModel.getReferral_status().isEmpty()){
 			throw new CustomException(413, "Status is invalid");
+		}
 		
 		
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
 		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, "No Data Found");
+			throw new CustomException(204, " Invalid Referral id");
 		}
 
-		if (referralStatusRequestModel.getReferral_status().compareTo("Joined") == 0) {
+		/*if (referralStatusRequestModel.getReferral_status().compareTo("Joined") == 0) {
 			if (referralStatusRequestModel.getApplicant_email().isEmpty()) {
 				throw new CustomException(204, " Email is Mandatory");
 			}
@@ -142,7 +145,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 				throw new CustomException(403, " User is not Active");
 			}
 			employeeReferal.setApplicant_email(user.getEmail());
-		}
+		}*/
 
 		employeeReferal.setApplication_status(referralStatusRequestModel.getReferral_status());
 		Date date = new Date();
