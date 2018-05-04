@@ -56,11 +56,11 @@ public class UpdateRolesImpl implements UpdateRoles {
 		Role role = roleRepository.findOne(updateRoleRequestModel.getRole_id());
 		
 		if(Objects.isNull(user)){
-			throw new CustomException(203, "User Not found");
+			throw new CustomException(203, "No user found");
 		}
 		
 		if(Objects.isNull(role)){
-			throw new CustomException(203, " Invalid RoleId.");
+			throw new CustomException(203, "RoleId is invalid");
 		}
 		user.setRoles(role);
 		return "Role Updated Successfully";

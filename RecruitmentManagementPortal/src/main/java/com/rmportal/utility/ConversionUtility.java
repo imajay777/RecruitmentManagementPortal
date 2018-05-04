@@ -278,7 +278,7 @@ public class ConversionUtility {
 			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
 			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
-			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
+			employeeReferalResponseModel.setWork_experience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
 			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name() + " Resume");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
@@ -321,7 +321,7 @@ public class ConversionUtility {
 			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
 			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
-			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
+			employeeReferalResponseModel.setWork_experience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
 			employeeReferalResponseModel.setResume("Download ");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());

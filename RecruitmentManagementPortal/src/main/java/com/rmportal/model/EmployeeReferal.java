@@ -25,7 +25,7 @@ public class EmployeeReferal {
 	@Column(name = "applicant_name")
 	String applicant_name;
 
-	@Column(name = "experience")
+	@Column(name = "work_experience")
 	int experience;
 
 	@Column(name = "technical_skill")

@@ -57,7 +57,7 @@ public class LoginController {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(),
 					e.getId(), null));
 		}
-		return ResponseEntity.ok(new HttpResponseModel("Login Successful",
+		return ResponseEntity.ok(new HttpResponseModel("Login Successfully",
 				HttpStatusConstants.OK.id, responseModel));
 
 		/*
@@ -73,7 +73,7 @@ public class LoginController {
 
 		if (userService.forgetPassword(email)) {
 			return ResponseEntity
-					.ok(new HttpResponseModel("Link Sent to your Email Address",
+					.ok(new HttpResponseModel("Reset password link sent, please check your email",
 							HttpStatusConstants.OK.id, null));
 		}
 
@@ -89,12 +89,12 @@ public class LoginController {
 			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
 
 		if (userService.resetPassword(resetPasswordModel)) {
-			return ResponseEntity.ok(new HttpResponseModel("Password Reset",
+			return ResponseEntity.ok(new HttpResponseModel("Password changes successfully",
 					HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity.ok(
-				new HttpResponseModel("Invalid Token or Email",
+				new HttpResponseModel("Invalid token or user id",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}
