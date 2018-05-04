@@ -278,7 +278,7 @@ public class ConversionUtility {
 			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
 			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
-			employeeReferalResponseModel.setWork_experience(employeeReferal.getExperience());
+			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
 			employeeReferalResponseModel.setResume(employeeReferal.getApplicant_name() + " Resume");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
@@ -321,7 +321,7 @@ public class ConversionUtility {
 			EmployeeReferalResponseModel employeeReferalResponseModel = new EmployeeReferalResponseModel();
 			employeeReferalResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			employeeReferalResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
-			employeeReferalResponseModel.setWork_experience(employeeReferal.getExperience());
+			employeeReferalResponseModel.setExperience(employeeReferal.getExperience());
 			employeeReferalResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
 			employeeReferalResponseModel.setResume("Download ");
 			employeeReferalResponseModel.setApplication_status(employeeReferal.getApplication_status());
@@ -362,7 +362,7 @@ public class ConversionUtility {
 	public EmployeeBonusStatusResponseModel calculateBonus(EmployeeReferal employeeReferal) {
 
 		Date joinedDate = employeeReferal.getDate();
-		int experience = employeeReferal.getExperience();
+		int experience = (int) employeeReferal.getExperience();
 
 		List<EmployeeReferal> employeeReferalBonus = (List<EmployeeReferal>) employeeReferalBonusrepo.findAll();
 		Range<Integer> beginner = Range.between(0, 2);
@@ -400,7 +400,7 @@ public class ConversionUtility {
 			candidateJoinResponseModel.setApplication_status(employeeReferal.getApplication_status());
 			candidateJoinResponseModel.setBonous_status(employeeReferal.getBonous_status());
 			candidateJoinResponseModel.setDate(employeeReferal.getDate());
-			candidateJoinResponseModel.setExperience(employeeReferal.getExperience());
+			candidateJoinResponseModel.setExperience((int) employeeReferal.getExperience());
 			candidateJoinResponseModel.setJob_id(employeeReferal.getJob_id());
 			candidateJoinResponseModel.setReferal_id(employeeReferal.getReferal_id());
 			candidateJoinResponseModel.setTechnical_skill(employeeReferal.getTechnical_skill());
@@ -422,15 +422,15 @@ public class ConversionUtility {
 
 		if (setBonusRequestModel.getBonus_status().compareTo("1stStage") == 0 && difference >= 45) {
 
-			if (beginner.contains(employeeReferal.getExperience())) {
+			if (beginner.contains((int) employeeReferal.getExperience())) {
 				return " No Bonus Applicant";
 			}
-			if (senior.contains(employeeReferal.getExperience())) {
+			if (senior.contains((int) employeeReferal.getExperience())) {
 				long basic_amount = 10000;
 				employeeReferal.setBonus_amount(basic_amount / 2);
 				return " 1st stage Bonus Updated Successfully";
 			}
-			if (superSenior.contains(employeeReferal.getExperience())) {
+			if (superSenior.contains((int) employeeReferal.getExperience())) {
 				long basic_amount = 15000;
 				employeeReferal.setBonus_amount(basic_amount / 2);
 				return " 1st stage Bonus Updated Successfully";
@@ -442,15 +442,15 @@ public class ConversionUtility {
 
 		if (setBonusRequestModel.getBonus_status().compareTo("2ndStage") == 0 && difference >= 100) {
 
-			if (beginner.contains(employeeReferal.getExperience())) {
+			if (beginner.contains((int) employeeReferal.getExperience())) {
 				return " No Bonus Applicant";
 			}
-			if (senior.contains(employeeReferal.getExperience())) {
+			if (senior.contains((int) employeeReferal.getExperience())) {
 				long basic_amount = 10000;
 				employeeReferal.setBonus_amount(basic_amount);
 				return " Total Bonus amount Updated";
 			}
-			if (superSenior.contains(employeeReferal.getExperience())) {
+			if (superSenior.contains((int) employeeReferal.getExperience())) {
 				long basic_amount = 15000;
 				employeeReferal.setBonus_amount(basic_amount);
 				return " Total Bonus amount Updated";
