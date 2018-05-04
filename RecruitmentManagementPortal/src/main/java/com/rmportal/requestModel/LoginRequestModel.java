@@ -24,10 +24,10 @@ public class LoginRequestModel {
 	
 
 	@NotEmpty
-	@Email
+//	@Email
 	String email;
 
-	@Size(max=16, min=8, message="Length of password must be atleast 8-16 characters" )
+	@Size(max=16, min=8, message="Length of password must be at least 8-16 characters" )
 	@NotEmpty
 	String password;
 

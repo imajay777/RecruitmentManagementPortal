@@ -55,6 +55,9 @@ public class LoginController {
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
 			@Valid @RequestBody LoginRequestModel loginRequestModel, BindingResult bindingResult) throws CustomException {
 
+		System.out.println(loginRequestModel.getEmail());
+		System.out.println(loginRequestModel.getPassword());
+		 
 		try {
 			if (bindingResult.hasErrors())
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
