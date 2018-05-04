@@ -126,7 +126,7 @@ public class RegisterController {
 		List<User> users = null;
 		try {
 			users = userService.getAllUsers();
-			return ResponseEntity.ok(new HttpResponseModel("List users fetched", HttpStatusConstants.OK.id, users));
+			return ResponseEntity.ok(new HttpResponseModel("User list fetch successfully", HttpStatusConstants.OK.id, users));
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}

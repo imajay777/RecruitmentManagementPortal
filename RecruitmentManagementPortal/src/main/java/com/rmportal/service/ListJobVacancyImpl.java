@@ -45,7 +45,7 @@ public class ListJobVacancyImpl implements ListJobVacancyService{
 		}
 		
 		jobVacancyRepository.save(jobVacancy);
-		return "Status Changed";
+		return " Job Status Changed Successfully";
 	}
 	
 	@Override

@@ -55,7 +55,6 @@ public class JobVacancyController {
 
 		try {
 			if (binding.hasErrors()) {
-				System.out.println("Inside IF");
 				throw new CustomException(204, binding.getAllErrors().get(0).getDefaultMessage());
 			}
 			applicationUtils.validateEntity(jobVacancyRequestModel, binding);
@@ -76,7 +75,7 @@ public class JobVacancyController {
 	public ResponseEntity<?> getJobVacancy() throws CustomException {
 		List<JobVacancyResponseModel> jobVacancy = listJobVacancyService.getAllJobs();
 
-		return ResponseEntity.ok(new HttpResponseModel("List of Job Vacancies", HttpStatusConstants.OK.id, jobVacancy));
+		return ResponseEntity.ok(new HttpResponseModel("Job Vacancies list fetched successfully", HttpStatusConstants.OK.id, jobVacancy));
 
 	}
 

@@ -251,7 +251,7 @@ public class UserServiceImpl implements UserServices {
 		System.out.println("email" + email);
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User doesn't exits");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email id");
 		}
 		if (user.isActive() && status) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User alerady activated");
@@ -315,7 +315,7 @@ public class UserServiceImpl implements UserServices {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
 			if (user == null)
-				throw new CustomException(500, "Invalid Reset Token");
+				throw new CustomException(500, "Invalid token or user id");
 
 			if (resetPasswordModel.getPassword().length() > 16)
 				throw new CustomException(413, "Password Length too Long");
@@ -357,7 +357,7 @@ public class UserServiceImpl implements UserServices {
 	public UpdateResponseModel getDetails(int user_id) throws CustomException {
 		User user = userRepository.findByUserId(user_id);
 		if (Objects.isNull(user)) {
-			throw new CustomException(500, "Invalid Email ID. Unable to fetch Details");
+			throw new CustomException(500, "Invalid user id ,unable to fetch user details");
 		}
 		return conversionUtility.convertForUpdateResponse(user);
 	}

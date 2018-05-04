@@ -17,7 +17,7 @@ public class EmployeeReferalResponseModel {
 
 	String applicant_name;
 
-	int experience;
+	int work_experience;
 
 	String technical_skill;
 

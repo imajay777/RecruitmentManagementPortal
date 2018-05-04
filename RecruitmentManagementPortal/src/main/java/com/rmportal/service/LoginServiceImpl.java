@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginServices {
 
 		User user = userRepository.findByEmail(loginRequestModel.getEmail());
 		if (user == null) {
-			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, " Email is not valid");
+			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, "Invalid Email id or Password");
 		}
 		
 		if (user.isActive()) {
@@ -50,7 +50,7 @@ public class LoginServiceImpl implements LoginServices {
 				return responseModel;
 
 			} else {
-				throw new CustomException(401, "Invalid Password");
+				throw new CustomException(401, "Invalid Email id or Password");
 			}
 		} else {
 			throw new CustomException(406, "User is Inactive");
