@@ -48,7 +48,7 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 		}
 
 		if (employeeReferal.getApplication_status().compareTo("Joined") != 0) {
-			throw new CustomException(206, " Bonus is not applicable");
+			throw new CustomException(206, "Bonus is not applicable as candidate not yet joined the organization");
 		}
 		EmployeeBonusStatusResponseModel bonusResponse = conversionUtility.calculateBonus(employeeReferal);
 		return bonusResponse;
