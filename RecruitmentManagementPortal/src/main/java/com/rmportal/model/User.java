@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -62,6 +64,8 @@ public class User {
 	String country;
 
 	@Column(name = "mobile")
+	@Min(value=10, message = "Mobile number is Invalid")
+	@Max(value=10, message = "Mobile number is Invalid")
 	long mobile;
 
 	@Column(name = "blood_group")

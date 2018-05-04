@@ -51,7 +51,14 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			@Valid JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		JobVacancy jobVacancy = jobVacancyRepository.findByJobVacancyId(job_vacancy_id);
-		if (jobVacancy != null) {
+
+		if (!jobVacancy.isActive()) {
+			throw new CustomException(401, " Sorry. Cannot update Job as it is Inactive");
+		}
+
+		if (Objects.isNull(jobVacancy)) {
+			throw new CustomException(204, " Invalid Job id. Job does not exists");
+		} else {
 			if (jobVacancy.getJob_title() == null) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
 			} else {
@@ -96,20 +103,17 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 			} else {
 				jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 			}
-
-			jobVacancy.setActive(true);
+			if (jobVacancy.getJob_title() == null) {
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
+			} else {
+				addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+			}
 			jobVacancyRepository.save(jobVacancy);
-		}
-		addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
-		if (jobVacancy.getJob_title() == null) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-		} else {
-			addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
-		}
 
-		addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
-		return addJobVacancyResponse;
+			addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
+			addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
+			return addJobVacancyResponse;
 
+		}
 	}
-
 }
