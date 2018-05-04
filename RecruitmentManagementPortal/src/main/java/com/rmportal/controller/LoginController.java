@@ -2,9 +2,11 @@ package com.rmportal.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.service.LoginServices;
 import com.rmportal.service.UserServices;
+import com.rmportal.utility.ApplicationUtils;
 import com.rmportal.utility.CustomException;
 
 import io.swagger.annotations.Api;
@@ -42,13 +45,24 @@ public class LoginController {
 	
 	@Autowired
 	GlobalExceptionHandler globalException;
+	
+	@Autowired
+	ApplicationUtils applicationUtils;
 
 	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ApiOperation(value = "Login Controller")
 	public ResponseEntity<?> login(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody LoginRequestModel loginRequestModel) {
+			@Valid @RequestBody LoginRequestModel loginRequestModel, BindingResult bindingResult) throws CustomException {
 
+		try {
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(loginRequestModel, bindingResult);
+		} catch (Exception e) {
+			throw new CustomException(201, e.getMessage());
+		}
+		
 		LoginResponseModel responseModel = null;
 
 		try {

@@ -111,15 +111,19 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
 
-		System.out.println("First Name : " +registerRequestModel.getFirstName() +", " +"Last NAme : "+registerRequestModel.getLastName()+"," +registerRequestModel.getEmail()+registerRequestModel.getPassword());
-		/*if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
-				|| UserUtility.isInvalidValue(registerRequestModel.getLastName())
-				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
-				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())){
-		
-			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
-		}*/
-		
+		System.out.println("First Name : " + registerRequestModel.getFirstName() + ", " + "Last NAme : "
+				+ registerRequestModel.getLastName() + "," + registerRequestModel.getEmail()
+				+ registerRequestModel.getPassword());
+		/*
+		 * if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
+		 * || UserUtility.isInvalidValue(registerRequestModel.getLastName()) ||
+		 * UserUtility.isInvalidValue(registerRequestModel.getEmail()) ||
+		 * UserUtility.isInvalidValue(registerRequestModel.getPassword())){
+		 * 
+		 * throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(),
+		 * "Mandatory Feilds Cannot be Empty"); }
+		 */
+
 		/*
 		 * if (isValidEmail(registerRequestModel.getEmail())) {
 		 * 
@@ -144,14 +148,9 @@ public class UserServiceImpl implements UserServices {
 
 		return conversionUtility.convertUserToresponse(user);
 	} /*
-															 * else { throw new
-															 * CustomException(
-															 * HttpStatus.
-															 * BAD_REQUEST.value
-															 * (),
-															 * "invalid email address"
-															 * ); }
-															 */
+		 * else { throw new CustomException( HttpStatus. BAD_REQUEST.value (),
+		 * "invalid email address" ); }
+		 */
 
 	/*
 	 * } else { throw new CustomException(); }
@@ -304,9 +303,14 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
+		
+		if(UserUtility.isInvalidValue(resetPasswordModel.getPassword())){
+			throw new CustomException(401, "Mandatory fields cannot be empty");
+		}
+		
 		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserId(),
 				resetPasswordModel.getToken());
-
+		
 		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
@@ -338,8 +342,11 @@ public class UserServiceImpl implements UserServices {
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
 			throw new CustomException(500, "Old Password did not match");
 
-		/*if (!changePasswordModel.getNewPassword().equals(changePasswordModel.getConfirmNewPassword()))
-			throw new CustomException(500, "New Password mismatch. Cannot reset Password");*/
+		/*
+		 * if (!changePasswordModel.getNewPassword().equals(changePasswordModel.
+		 * getConfirmNewPassword())) throw new CustomException(500,
+		 * "New Password mismatch. Cannot reset Password");
+		 */
 
 		user.setPassword(passwordEncryption.hashEncoder(changePasswordModel.getNewPassword()));
 		return true;

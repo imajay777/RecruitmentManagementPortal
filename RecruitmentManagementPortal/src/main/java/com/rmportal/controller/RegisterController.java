@@ -24,6 +24,7 @@ import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.service.UserServices;
+import com.rmportal.utility.ApplicationUtils;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
@@ -45,6 +46,9 @@ public class RegisterController {
 
 	@Autowired
 	ConversionUtility conversionUtility;
+	
+	@Autowired
+	ApplicationUtils applicationUtils;
 
 	// Registration API
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
@@ -52,7 +56,13 @@ public class RegisterController {
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) throws CustomException {
 		
-
+		try {
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(registerRequestModel, bindingResult);
+		} catch (Exception e) {
+			throw new CustomException(201, e.getMessage());
+		}
 	
 		
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
