@@ -297,7 +297,7 @@ public class UserServiceImpl implements UserServices {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		} else {
-			throw new CustomException(213, " User is not yet registered. Please register");
+			throw new CustomException(213, "User does not exits. Please register");
 		}
 	}
 
