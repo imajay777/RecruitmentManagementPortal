@@ -111,9 +111,7 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
 
-		System.out.println("First Name : " + registerRequestModel.getFirstName() + ", " + "Last NAme : "
-				+ registerRequestModel.getLastName() + "," + registerRequestModel.getEmail()
-				+ registerRequestModel.getPassword());
+		
 		/*
 		 * if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
 		 * || UserUtility.isInvalidValue(registerRequestModel.getLastName()) ||
@@ -297,7 +295,7 @@ public class UserServiceImpl implements UserServices {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		} else {
-			throw new CustomException(213, "User does not exits. Please register");
+			throw new CustomException(213, "User does not exist, Please register.");
 		}
 	}
 

@@ -64,8 +64,8 @@ public class User {
 	String country;
 
 	@Column(name = "mobile")
-	@Min(value=10, message = "Mobile number is Invalid")
-	@Max(value=10, message = "Mobile number is Invalid")
+	//@Min(value=10, message = "Mobile number is Invalid")
+	//@Max(value=12, message = "Mobile number is Invalid")
 	long mobile;
 
 	@Column(name = "blood_group")

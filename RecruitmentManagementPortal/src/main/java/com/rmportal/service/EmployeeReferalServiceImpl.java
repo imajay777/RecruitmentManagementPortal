@@ -119,9 +119,9 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 		if(referralStatusRequestModel.getReferal_id()==0)
 			throw new CustomException(413, "Invalid referral id");
-		if(referralStatusRequestModel.getApplicant_email().isEmpty())
+	if(referralStatusRequestModel.getApplicant_email().isEmpty())
 			throw new CustomException(413, "Invalid email id");
-		if(referralStatusRequestModel.getReferral_status().isEmpty())
+	if(referralStatusRequestModel.getReferral_status().isEmpty())
 			throw new CustomException(413, "Status is invalid");
 		
 		

@@ -26,7 +26,7 @@ public class RegisterRequestModel {
 	@Size(max=16, min=8, message="Length of password must be atleast 8-16 characters" )
 	@NotEmpty
 	String password;
-	@Email
+//	@Email
 	String email;
 
 }
