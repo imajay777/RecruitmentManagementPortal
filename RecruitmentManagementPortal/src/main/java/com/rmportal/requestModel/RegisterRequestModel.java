@@ -19,14 +19,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequestModel {
 
-	@NotEmpty
+	@NotEmpty(message = "Mandatory fields cannot be empty")
 	String firstName;
-	@NotEmpty
+
+	@NotEmpty(message = "Mandatory fields cannot be empty")
 	String lastName;
-	@Size(max=16, min=8, message="Length of password must be atleast 8-16 characters" )
-	@NotEmpty
+
+	@Size(max = 16, min = 8, message = "Length of password must be atleast 8-16 characters")
+	@NotEmpty(message = "Mandatory fields cannot be empty")
 	String password;
 //	@Email
+
 	String email;
 
 }

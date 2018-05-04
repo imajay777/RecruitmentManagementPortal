@@ -52,15 +52,15 @@ public class UpdateRolesImpl implements UpdateRoles {
 	public String changeRole(UpdateRoleRequestModel updateRoleRequestModel) throws CustomException {
 
 		User user = userRepository.findByEmail(updateRoleRequestModel.getEmail());
+		if(Objects.isNull(user)){
+			throw new CustomException(203, "Invalid email id");
+		}
 		
 		Role role = roleRepository.findOne(updateRoleRequestModel.getRole_id());
 		
-		if(Objects.isNull(user)){
-			throw new CustomException(203, "No user found");
-		}
 		
 		if(Objects.isNull(role)){
-			throw new CustomException(203, "RoleId is invalid");
+			throw new CustomException(203, "Invalid role id");
 		}
 		user.setRoles(role);
 		return "Role Updated Successfully";

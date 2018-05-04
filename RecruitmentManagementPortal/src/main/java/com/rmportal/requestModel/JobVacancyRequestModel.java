@@ -38,6 +38,7 @@ public class JobVacancyRequestModel {
 	@NotNull(message = "Mandatory field cannot be Empty")
 	String job_location;
 
+	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	String salary_ctc;
 
 
@@ -45,11 +46,11 @@ public class JobVacancyRequestModel {
 
 	String job_type;
 
-	@Min(value = 1, message = "Mandatory field cannot be Empty")
+	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	@Max(value = 100, message = "Mandatory field cannot be Empty")
 	int exp_to;
 	
-	@Min(value = 1, message = "Mandatory field cannot be Empty")
+	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	@Max(value = 100, message = "Mandatory field cannot be Empty")
 	int exp_from;
 	
