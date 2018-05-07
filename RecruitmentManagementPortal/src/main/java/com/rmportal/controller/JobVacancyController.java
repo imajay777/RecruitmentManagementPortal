@@ -82,7 +82,7 @@ public class JobVacancyController {
 	// Update Job Status
 	@RequestMapping(value = "/jobStatus", method = RequestMethod.GET)
 	@ApiOperation(value = "Activate or Deactivate the jobs")
-	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id, @RequestParam boolean is_active) {
+	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id, @RequestParam boolean is_active) throws CustomException {
 
 		String message = listJobVacancyService.updateJobStatus(job_vacancy_id, is_active);
 		return ResponseEntity.ok(

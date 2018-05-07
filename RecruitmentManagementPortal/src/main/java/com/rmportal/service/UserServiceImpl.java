@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserServices {
 		 */
 
 	
-		  if (UserUtility.isValidEmail(registerRequestModel.getEmail())) {
+		  if (!UserUtility.isValidEmail(registerRequestModel.getEmail())) {
 			  
 		  
 		  String str[] = registerRequestModel.getEmail().split("@");
@@ -266,10 +266,18 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public boolean updateStatus(boolean status, String email) throws CustomException {
-		System.out.println("email" + email);
+		
+		
 		User user = userRepository.findByEmail(email);
+		if(!UserUtility.isValidEmail(email))
+		{
+			throw new CustomException(204,"Invalid email address");
+		}
+		
 		if (user == null) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exist");
+			//throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exist");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email address");
+
 		}
 		if (user.isActive() && status) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User alerady activated");
@@ -315,6 +323,9 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
+		if(!UserUtility.isValidEmail(email)){
+			throw new CustomException(204,"Invalid email address");
+		}
 		if (user != null && user.isActive()) {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
@@ -358,7 +369,13 @@ public class UserServiceImpl implements UserServices {
 	// Change Password from Profile
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
+		
+		String changepassword=changePasswordModel.getEmail();
+		if(!UserUtility.isValidEmail(changepassword)){
+			throw new CustomException(204,"Invalid email address");
+		}
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
+		
 		if (Objects.isNull(user))
 			throw new CustomException(500, "Please check mandatory fields");
 

@@ -69,7 +69,7 @@ public class RegisterController {
 
 		try {
 			httpResponseModel = userService.saveUser(user);
-			return ResponseEntity.ok(new HttpResponseModel("Register successfully Please Cheak your email",
+			return ResponseEntity.ok(new HttpResponseModel("Register successfully Please Check your email",
 					HttpStatusConstants.OK.id, httpResponseModel));
 
 		} catch (CustomException e) {

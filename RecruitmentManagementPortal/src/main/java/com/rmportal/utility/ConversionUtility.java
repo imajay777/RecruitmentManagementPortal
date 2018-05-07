@@ -49,6 +49,8 @@ public class ConversionUtility {
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
 		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
+				|| UserUtility.isValidfullName(registerRequestModel.getFirstName())
+				|| UserUtility.isValidfullName(registerRequestModel.getLastName())
 				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
 				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
 
@@ -290,7 +292,6 @@ public class ConversionUtility {
 
 	}
 
-
 	// Add Resume
 	public EmployeeReferal addEmployeeResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
 			throws IOException, CustomException {
@@ -309,10 +310,10 @@ public class ConversionUtility {
 		if (!file.isEmpty()) {
 			if (!file.getOriginalFilename().equals("")) {
 				employeeReferal.setResume(file.getBytes());
-			}else{
+			} else {
 				throw new CustomException(204, "File Name is empty");
 			}
-		}else{
+		} else {
 			throw new CustomException(204, "Please Attatch File");
 		}
 
@@ -339,6 +340,7 @@ public class ConversionUtility {
 		return employeeReferalResponselist;
 
 	}
+
 
 /*	// Response model for Update Profile
 	public UpdateResponseModel convertToUpdateResponseModel(User user) {

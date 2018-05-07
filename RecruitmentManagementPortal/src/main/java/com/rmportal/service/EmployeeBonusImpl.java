@@ -16,6 +16,7 @@ import com.rmportal.utility.CalculateDifferenceInDate;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CronJobSchedular;
 import com.rmportal.utility.CustomException;
+import com.rmportal.utility.UserUtility;
 
 @Service
 public class EmployeeBonusImpl implements EmployeeBonusService {
@@ -61,19 +62,24 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 
 		EmployeeReferal employeeReferal = employeeReferalRepo.findOne(setBonusRequestModel.getReferral_id());
 		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, " Invalid Selection or Referral Id");
+			throw new CustomException(204, "Invalid Selection or Referral Id");
 		}
 		/*
 		 * if (employeeReferal.getApplication_status().compareTo("Joined") != 0)
 		 * { throw new CustomException(206, " Candidate is Still not Joined"); }
 		 */
-
+		
+		String applicantEmail=setBonusRequestModel.getApplicant_email();
+		if(!UserUtility.isValidEmail(applicantEmail)){
+			throw new CustomException(204,"Invalid Applicant Email or User not yet Regeistered");
+		}
+		
 		User user = userRepository.findByEmail(setBonusRequestModel.getApplicant_email());
 		if (Objects.isNull(user)) {
-			throw new CustomException(204, " Invalid Applicant Email or User not yet Regeistered");
+			throw new CustomException(204, "Invalid Applicant Email or User not yet Regeistered");
 		}
 		if (!user.isActive()) {
-			throw new CustomException(401, " User is inActive");
+			throw new CustomException(401, "User is inActive");
 		} 
 		
 		return conversionUtility.setBonusConversion(employeeReferal, setBonusRequestModel); 

@@ -10,7 +10,7 @@ public interface ListJobVacancyService {
 	
 	public List<JobVacancyResponseModel> getAllJobs();
 	
-	public String updateJobStatus(int job_vacancy_id, boolean is_active);
+	public String updateJobStatus(int job_vacancy_id, boolean is_active) throws CustomException;
 	
 	public JobVacancyResponseModel getJobDetails(int job_vacancy_id) throws CustomException;
 }
