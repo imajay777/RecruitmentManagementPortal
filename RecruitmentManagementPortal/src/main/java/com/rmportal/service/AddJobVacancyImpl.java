@@ -32,15 +32,17 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 	@Override
 	public AddJobVacancyResponse addVacancy(JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
 
+		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		if(Objects.isNull(jobVacancyRequestModel)){
 			throw new CustomException(204, "Mandatory fields must not be empty");
 		}
-		
-		if(jobVacancyRequestModel.getExp_from()>=jobVacancyRequestModel.getExp_to()){
+		if(jobVacancyRequestModel.getExp_from() == 0 && jobVacancyRequestModel.getExp_to() == 0){
+			addJobVacancyResponse.setStatus("Fresher");
+		}
+		else if(jobVacancyRequestModel.getExp_from()>=jobVacancyRequestModel.getExp_to()){
 			throw new CustomException(205, "Value for experience from should be less than experience to");
 		}
 		
-		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
 		JobVacancy jobVacancy = conversionUtility.addJobVacancy(jobVacancyRequestModel);
 		if (Objects.isNull(jobVacancy)) {
 			throw new CustomException(501, "Error in JOB Posting.");

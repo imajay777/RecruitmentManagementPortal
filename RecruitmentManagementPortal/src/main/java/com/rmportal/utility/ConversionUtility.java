@@ -49,8 +49,6 @@ public class ConversionUtility {
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
 		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
-				|| UserUtility.isValidfullName(registerRequestModel.getFirstName())
-				|| UserUtility.isValidfullName(registerRequestModel.getLastName())
 				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
 				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
 
@@ -304,7 +302,7 @@ public class ConversionUtility {
 		employeeReferal.setDate(date);
 		employeeReferal.setApplication_status("In Process");
 		employeeReferal.setApplicant_email("default@agsft.com");
-		
+
 		employeeReferal.setFile_name(file.getOriginalFilename());
 		employeeReferal.setFile_extension(FilenameUtils.getExtension(file.getOriginalFilename()));
 		if (!file.isEmpty()) {
@@ -341,27 +339,26 @@ public class ConversionUtility {
 
 	}
 
-
-/*	// Response model for Update Profile
-	public UpdateResponseModel convertToUpdateResponseModel(User user) {
-
-		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
-		updateResponseModel.setFirstName(user.getFirstName());
-		updateResponseModel.setLastName(user.getLastName());
-		updateResponseModel.setDOB(user.getDOB());
-		updateResponseModel.setBlood_group(user.getBlood_group());
-		updateResponseModel.setEmail(user.getEmail());
-		updateResponseModel.setAddress(user.getAddress());
-		updateResponseModel.setCity(user.getCity());
-		updateResponseModel.setCountry(user.getCountry());
-		updateResponseModel.setMobile(user.getMobile());
-		updateResponseModel.setEmployee_id(user.getEmployee_id());
-		updateResponseModel.setDepartment(user.getDepartments());
-		// updateResponseModel.setRole(user.getRoles());
-
-		return updateResponseModel;
-	}
-*/
+	/*
+	 * // Response model for Update Profile public UpdateResponseModel
+	 * convertToUpdateResponseModel(User user) {
+	 * 
+	 * UpdateResponseModel updateResponseModel = new UpdateResponseModel();
+	 * updateResponseModel.setFirstName(user.getFirstName());
+	 * updateResponseModel.setLastName(user.getLastName());
+	 * updateResponseModel.setDOB(user.getDOB());
+	 * updateResponseModel.setBlood_group(user.getBlood_group());
+	 * updateResponseModel.setEmail(user.getEmail());
+	 * updateResponseModel.setAddress(user.getAddress());
+	 * updateResponseModel.setCity(user.getCity());
+	 * updateResponseModel.setCountry(user.getCountry());
+	 * updateResponseModel.setMobile(user.getMobile());
+	 * updateResponseModel.setEmployee_id(user.getEmployee_id());
+	 * updateResponseModel.setDepartment(user.getDepartments()); //
+	 * updateResponseModel.setRole(user.getRoles());
+	 * 
+	 * return updateResponseModel; }
+	 */
 	@Autowired
 	EmployeeReferalRepository employeeReferalBonusrepo;
 
