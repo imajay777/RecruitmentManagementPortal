@@ -19,4 +19,7 @@ public class UploadResumeResponseModel {
 	
 	Date date;
 	
+	String fileName;
+	
+	String fileExtension;
 }

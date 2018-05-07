@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 			uploadResumeResponseModel.setReference_id(employeeReferal.getReferal_id());
 			uploadResumeResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			uploadResumeResponseModel.setDate(employeeReferal.getDate());
+			uploadResumeResponseModel.setFileName(file.getOriginalFilename());
+			uploadResumeResponseModel.setFileExtension(FilenameUtils.getExtension(file.getOriginalFilename()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -98,10 +101,9 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		return employeeReferal;
 	}
 
-	// Get List of All Application candidate
+	// Get List of All Applied candidate
 	@Override
 	public List<EmployeeReferalResponseModel> getEmployeeReferalList() throws CustomException {
-		// TODO Auto-generated method stub
 		List<EmployeeReferal> empReferal = (List<EmployeeReferal>) employeeReferalRepository.findAll();
 		if(Objects.isNull(empReferal))
 		{

@@ -180,7 +180,6 @@ public class UserServiceImpl implements UserServices {
 		}
 
 		if (Objects.nonNull(updateRequestModel)) {
-			// System.out.println("user details"+user);
 
 			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
@@ -228,6 +227,7 @@ public class UserServiceImpl implements UserServices {
 			} else {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
+			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
 			userRepository.save(updatedUser);
 			// conversionUtility.convertForUpdateResponse(user);
 			// userRepository.save(user);
@@ -279,7 +279,7 @@ public class UserServiceImpl implements UserServices {
 		} else {
 			UserToken tokenObj = userTokenRepository.findByTokenValue(token);
 			if (Objects.isNull(tokenObj)) {
-				throw new CustomException(500, " Invalid token");
+				throw new CustomException(500, "Invalid token or user id");
 			}
 
 			/*
@@ -290,6 +290,9 @@ public class UserServiceImpl implements UserServices {
 			 */
 
 			User user = userRepository.findByUserId(userId);
+			if (Objects.isNull(user)) {
+				throw new CustomException(500, "Invalid token or user id");
+			}
 			user.setActive(true);
 			userTokenRepository.delete(tokenObj);
 			return true;
@@ -297,6 +300,7 @@ public class UserServiceImpl implements UserServices {
 
 	}
 
+	// Forget Password
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
@@ -309,6 +313,7 @@ public class UserServiceImpl implements UserServices {
 		}
 	}
 
+	// Reset Password 
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
 		
@@ -339,14 +344,15 @@ public class UserServiceImpl implements UserServices {
 
 	}
 
+	// Change Password from Profile
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
 		if (Objects.isNull(user))
-			throw new CustomException(500, " Please check mandatory fields");
+			throw new CustomException(500, "Please check mandatory fields");
 
 		if (!user.isActive())
-			throw new CustomException(202, " Password Cannot be changed please contact to Admin");
+			throw new CustomException(202, "Password Cannot be changed please contact to Admin");
 
 		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
 			throw new CustomException(500, "Old Password did not match");

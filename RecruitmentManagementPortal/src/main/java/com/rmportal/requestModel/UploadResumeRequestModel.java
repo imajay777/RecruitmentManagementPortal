@@ -1,5 +1,7 @@
 package com.rmportal.requestModel;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class UploadResumeRequestModel {
 	String applicant_name;
 
 	@NotNull(message = "Mandatory fields cannot be null")
-	int experience;
+	float experience;
 
 	@NotNull(message = "Mandatory fields cannot be null")
 	String technical_skills;

@@ -90,7 +90,6 @@ public class RegisterController {
 		// System.out.println("ui request model"+updateRequestModel);
 		// User user =
 		// conversionUtility.convertRequestToUser(updateRequestModel);
-		System.out.println("request.." + updateRequestModel);
 
 		User user = null;
 		try {

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.responseModel.HttpResponseModel;
-import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.service.UserServices;
 import com.rmportal.utility.ApplicationUtils;
 import com.rmportal.utility.CustomException;
@@ -45,10 +44,8 @@ public class ChangePasswordController {
 	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel, BindingResult bingingResult)
 			throws CustomException {
 		
-		UserResponseDTO httpResponseModel = null;
-		
 		if(Objects.isNull(changePasswordModel))
-			throw new CustomException(205, " Mandatory fields cannot left Empty");
+			throw new CustomException(205, "Mandatory fields can't be Empty");
 		
 		try {
 			if (bingingResult.hasErrors())
