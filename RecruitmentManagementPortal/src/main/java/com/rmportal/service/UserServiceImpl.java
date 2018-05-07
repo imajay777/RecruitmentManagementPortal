@@ -291,6 +291,7 @@ public class UserServiceImpl implements UserServices {
 
 	}
 
+	// Forget Password
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
@@ -303,6 +304,7 @@ public class UserServiceImpl implements UserServices {
 		}
 	}
 
+	// Reset Password 
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
 		
@@ -333,6 +335,7 @@ public class UserServiceImpl implements UserServices {
 
 	}
 
+	// Change Password from Profile
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
