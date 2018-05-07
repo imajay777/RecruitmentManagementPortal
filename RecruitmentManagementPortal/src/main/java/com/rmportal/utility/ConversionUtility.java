@@ -2,10 +2,8 @@ package com.rmportal.utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -291,9 +289,10 @@ public class ConversionUtility {
 
 	}
 
+
 	// Add Resume
 	public EmployeeReferal addEmployeeResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
-			throws IOException {
+			throws IOException, CustomException {
 		EmployeeReferal employeeReferal = new EmployeeReferal();
 		employeeReferal.setApplicant_name(uploadResumeRequestModel.getApplicant_name());
 		employeeReferal.setExperience(uploadResumeRequestModel.getExperience());
@@ -304,10 +303,13 @@ public class ConversionUtility {
 		employeeReferal.setApplication_status("In Progress");
 		employeeReferal.setApplicant_email("default@agsft.com");
 		if (!file.isEmpty()) {
-
 			if (!file.getOriginalFilename().equals("")) {
 				employeeReferal.setResume(file.getBytes());
+			}else{
+				throw new CustomException(204, "File Name is empty");
 			}
+		}else{
+			throw new CustomException(204, "Please Attatch File");
 		}
 
 		return employeeReferal;

@@ -45,10 +45,8 @@ public class ChangePasswordController {
 	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel, BindingResult bingingResult)
 			throws CustomException {
 		
-		UserResponseDTO httpResponseModel = null;
-		
 		if(Objects.isNull(changePasswordModel))
-			throw new CustomException(205, " Mandatory fields cannot left Empty");
+			throw new CustomException(205, "Mandatory fields can't be Empty");
 		
 		try {
 			if (bingingResult.hasErrors())

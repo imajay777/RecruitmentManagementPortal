@@ -81,6 +81,7 @@ public class EmployeeReferalController {
 
 	}
 
+	
 	// Upload Resume
 	@RequestMapping(value = "/uploadResume", method = RequestMethod.POST, consumes = {
 			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
@@ -128,7 +129,6 @@ public class EmployeeReferalController {
 		httpServletResponse.setContentType("application/pdf");
 
 		FileCopyUtils.copy(resumeFile.getResume(), httpServletResponse.getOutputStream());
-
 		return null;
 	}
 
