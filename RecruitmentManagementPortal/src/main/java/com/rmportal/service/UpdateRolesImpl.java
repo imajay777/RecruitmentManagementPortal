@@ -16,6 +16,7 @@ import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.RoleResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
+import com.rmportal.utility.UserUtility;
 
 /**
  * @author saurabh
@@ -30,13 +31,13 @@ public class UpdateRolesImpl implements UpdateRoles {
 
 	@Autowired
 	ConversionUtility conversionUtility;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Override
 	public List<RoleResponseModel> getAllRoles() throws CustomException {
-		
+
 		List<Role> roles = (List<Role>) roleRepository.findAll();
 		return conversionUtility.convertToRoleResponseModel(roles);
 
@@ -52,14 +53,13 @@ public class UpdateRolesImpl implements UpdateRoles {
 	public String changeRole(UpdateRoleRequestModel updateRoleRequestModel) throws CustomException {
 
 		User user = userRepository.findByEmail(updateRoleRequestModel.getEmail());
-		if(Objects.isNull(user)){
+		if (Objects.isNull(user)) {
 			throw new CustomException(203, "Invalid email id");
 		}
-		
+
 		Role role = roleRepository.findOne(updateRoleRequestModel.getRole_id());
-		
-		
-		if(Objects.isNull(role)){
+
+		if (Objects.isNull(role)) {
 			throw new CustomException(203, "Invalid role id");
 		}
 		user.setRoles(role);
