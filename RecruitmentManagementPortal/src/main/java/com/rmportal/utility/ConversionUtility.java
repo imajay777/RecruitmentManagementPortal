@@ -348,7 +348,7 @@ public class ConversionUtility {
 		updateResponseModel.setCountry(user.getCountry());
 		updateResponseModel.setMobile(user.getMobile());
 		updateResponseModel.setEmployee_id(user.getEmployee_id());
-		// updateResponseModel.setDepartment(user.getDepartments());
+		updateResponseModel.setDepartment(user.getDepartments());
 		// updateResponseModel.setRole(user.getRoles());
 
 		return updateResponseModel;

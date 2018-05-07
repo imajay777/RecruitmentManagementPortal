@@ -24,6 +24,7 @@ import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
+import com.rmportal.utility.UserUtility;
 
 /**
  * @author saurabh
@@ -79,8 +80,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
-		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty()) {
-			throw new CustomException(500, " Invalid email id");
+		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() ||UserUtility.isValidEmail(referance_email)) {
+			throw new CustomException(500, "Invalid email id");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);
 	}

@@ -46,14 +46,14 @@ public class ListJobVacancyImpl implements ListJobVacancyService {
 		}
 
 		jobVacancyRepository.save(jobVacancy);
-		return " Job Status Changed Successfully";
+		return "Job Status Changed Successfully";
 	}
 
 	@Override
 	public JobVacancyResponseModel getJobDetails(int job_vacancy_id) throws CustomException {
 		JobVacancy jobVacancy = jobVacancyRepository.findOne(job_vacancy_id);
 		if (Objects.isNull(jobVacancy)) {
-			throw new CustomException(204, " Invalid job vacancy id");
+			throw new CustomException(204, "Invalid job vacancy id");
 		}
 
 		conversionUtility.getDetailJobVacancy(jobVacancy);

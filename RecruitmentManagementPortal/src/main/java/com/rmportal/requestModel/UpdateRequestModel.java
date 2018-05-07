@@ -1,5 +1,7 @@
 package com.rmportal.requestModel;
 
+import com.rmportal.model.Department;
+
 import lombok.Data;
 
 @Data
@@ -17,6 +19,7 @@ public class UpdateRequestModel {
 	String employee_id;
 	long mobile;
 	String blood_group;
-//	Department department;
+	//String dept_name;
+	Department department;
 
 }
