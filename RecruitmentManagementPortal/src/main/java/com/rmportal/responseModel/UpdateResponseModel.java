@@ -20,6 +20,7 @@ public class UpdateResponseModel {
 	String email;
 //	Role role;
 	String roles;
+	//String dept_name;
 
 	
 

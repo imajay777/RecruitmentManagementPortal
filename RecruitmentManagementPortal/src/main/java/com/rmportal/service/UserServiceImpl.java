@@ -82,17 +82,17 @@ public class UserServiceImpl implements UserServices {
 		// userRepository.findByEmail(email);
 	}
 
-	/*
-	 * public boolean isValidEmail(String email) { Pattern emailPattern =
-	 * Pattern.compile(
-	 * "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
-	 * Pattern.CASE_INSENSITIVE);
-	 * 
-	 * Matcher m = emailPattern.matcher(email);
-	 * 
-	 * return m.matches();
-	 * 
-	 * }
+	
+	/*  public boolean isValidEmail(String email) { Pattern emailPattern =
+	  Pattern.compile(
+	  "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
+	  Pattern.CASE_INSENSITIVE);
+	  
+	  Matcher m = emailPattern.matcher(email);
+	  
+	  return m.matches();
+	  
+	  }
 	 */
 	@Override
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserServices {
 		if (userRole == null) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
-
+      
 		
 		/*
 		 * if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
@@ -122,16 +122,24 @@ public class UserServiceImpl implements UserServices {
 		 * "Mandatory Feilds Cannot be Empty"); }
 		 */
 
-		/*
-		 * if (isValidEmail(registerRequestModel.getEmail())) {
-		 * 
-		 * String str[] = registerRequestModel.getEmail().split("@");
-		 * 
-		 * if (str[1].compareTo("agsft.com") == 0) {
-		 */
+	
+		  if (UserUtility.isValidEmail(registerRequestModel.getEmail())) {
+			  
+		  
+		  String str[] = registerRequestModel.getEmail().split("@");
+		  
+		 if (str[1].compareTo("yopmail.com") == 0) {
+		 
 
 		User user = userRepository.findByEmail(registerRequestModel.getEmail());
-
+		
+		/*String email=null;
+		if(UserUtility.isValidEmail(email)){
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email address");
+		}
+	*/
+		
+		
 		if (Objects.nonNull(user)) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
 		}
@@ -145,16 +153,18 @@ public class UserServiceImpl implements UserServices {
 		activationEmailUtility.sendMail(user);
 
 		return conversionUtility.convertUserToresponse(user);
-	} /*
-		 * else { throw new CustomException( HttpStatus. BAD_REQUEST.value (),
-		 * "invalid email address" ); }
-		 */
+	} 
+		 else { throw new CustomException( HttpStatus. BAD_REQUEST.value (),
+		 "Invalid email address" ); 
+		 
+		 }
+		 
 
-	/*
-	 * } else { throw new CustomException(); }
-	 * 
-	 * }
-	 */
+	
+	  } else { throw new CustomException(); }
+	  
+	  }
+	 
 
 	@Override
 	public User FindById(long id) {
@@ -165,6 +175,9 @@ public class UserServiceImpl implements UserServices {
 	public User updateUser(int id, UpdateRequestModel updateRequestModel) throws CustomException {
 
 		User updatedUser = userRepository.findByUserId(id);
+		if(Objects.isNull(updatedUser)){
+			throw new CustomException(HttpStatus.NOT_FOUND.value(),"Invalid user id");
+		}
 
 		if (Objects.nonNull(updateRequestModel)) {
 
@@ -224,11 +237,7 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(HttpStatus.BAD_REQUEST.value(), " User already exits");
 
 		}
-		/*
-		 * UpdateResponseModel updateResponseModel =
-		 * conversionUtility.convertToUpdateResponseModel(user); return
-		 * updateResponseModel;
-		 */
+		
 		return updatedUser;
 	}
 
@@ -249,7 +258,7 @@ public class UserServiceImpl implements UserServices {
 		System.out.println("email" + email);
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email id");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exist");
 		}
 		if (user.isActive() && status) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User alerady activated");
@@ -363,7 +372,7 @@ public class UserServiceImpl implements UserServices {
 	public UpdateResponseModel getDetails(int user_id) throws CustomException {
 		User user = userRepository.findByUserId(user_id);
 		if (Objects.isNull(user)) {
-			throw new CustomException(500, "Invalid user id ,unable to fetch user details");
+			throw new CustomException(500, "Invalid user id, unable to fetch user details");
 		}
 		return conversionUtility.convertForUpdateResponse(user);
 	}

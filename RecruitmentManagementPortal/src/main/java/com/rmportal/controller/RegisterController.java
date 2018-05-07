@@ -75,7 +75,7 @@ public class RegisterController {
 
 		} catch (CustomException e) {
 
-			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
+			return ResponseEntity.ok(new HttpResponseModel("Invalid email address", HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
 					null));
 		}
 
