@@ -35,9 +35,13 @@ public class ListJobVacancyImpl implements ListJobVacancyService {
 
 	// Update the job Status
 	@Override
-	public String updateJobStatus(int job_vacancy_id, boolean is_active) {
+	public String updateJobStatus(int job_vacancy_id, boolean is_active) throws CustomException {
 
 		JobVacancy jobVacancy = jobVacancyRepository.findOne(job_vacancy_id);
+		if(Objects.isNull(jobVacancy))
+		{
+			throw new CustomException(204,"Invalid job vacancy id");
+		}
 
 		if (is_active) {
 			jobVacancy.setActive(true);

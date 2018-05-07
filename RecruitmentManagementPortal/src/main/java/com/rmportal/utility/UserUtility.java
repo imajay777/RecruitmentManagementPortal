@@ -34,5 +34,25 @@ public class UserUtility {
 		return m.matches();
 
 	}
+	
+	
+	public static boolean isValidfullName(String fullName){
+		Pattern fullName1=Pattern.compile("[a-zA-Z]+([ '-][a-zA-Z])*",Pattern.CASE_INSENSITIVE);
+		
+		Matcher m=fullName1.matcher(fullName);
+		return m.matches();
+		
+	}
+	
+	 /*public static boolean validateFirstName( String firstName )
+	   {
+	      return firstName.matches( "[A-Z][a-zA-Z]*" );
+	   } // end method validateFirstName
 
+	   // validate last name
+	   public static boolean validateLastName( String lastName )
+	   {
+	      return lastName.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" );
+	   } // end method valida
+*/
 }

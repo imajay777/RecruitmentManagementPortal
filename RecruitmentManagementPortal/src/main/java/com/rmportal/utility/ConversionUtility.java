@@ -48,6 +48,8 @@ public class ConversionUtility {
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
 		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
+				|| UserUtility.isValidfullName(registerRequestModel.getFirstName())
+				|| UserUtility.isValidfullName(registerRequestModel.getLastName())
 				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
 				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
 
@@ -289,7 +291,6 @@ public class ConversionUtility {
 
 	}
 
-
 	// Add Resume
 	public EmployeeReferal addEmployeeResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)
 			throws IOException, CustomException {
@@ -305,10 +306,10 @@ public class ConversionUtility {
 		if (!file.isEmpty()) {
 			if (!file.getOriginalFilename().equals("")) {
 				employeeReferal.setResume(file.getBytes());
-			}else{
+			} else {
 				throw new CustomException(204, "File Name is empty");
 			}
-		}else{
+		} else {
 			throw new CustomException(204, "Please Attatch File");
 		}
 
@@ -337,25 +338,25 @@ public class ConversionUtility {
 	}
 
 	// Response model for Update Profile
-	public UpdateResponseModel convertToUpdateResponseModel(User user) {
-
-		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
-		updateResponseModel.setFirstName(user.getFirstName());
-		updateResponseModel.setLastName(user.getLastName());
-		updateResponseModel.setDOB(user.getDOB());
-		updateResponseModel.setBlood_group(user.getBlood_group());
-		updateResponseModel.setEmail(user.getEmail());
-		updateResponseModel.setAddress(user.getAddress());
-		updateResponseModel.setCity(user.getCity());
-		updateResponseModel.setCountry(user.getCountry());
-		updateResponseModel.setMobile(user.getMobile());
-		updateResponseModel.setEmployee_id(user.getEmployee_id());
-		updateResponseModel.setDepartment(user.getDepartments());
-		// updateResponseModel.setRole(user.getRoles());
-
-		return updateResponseModel;
-	}
-
+	/*
+	 * public UpdateResponseModel convertToUpdateResponseModel(User user) {
+	 * 
+	 * UpdateResponseModel updateResponseModel = new UpdateResponseModel();
+	 * updateResponseModel.setFirstName(user.getFirstName());
+	 * updateResponseModel.setLastName(user.getLastName());
+	 * updateResponseModel.setDOB(user.getDOB());
+	 * updateResponseModel.setBlood_group(user.getBlood_group());
+	 * updateResponseModel.setEmail(user.getEmail());
+	 * updateResponseModel.setAddress(user.getAddress());
+	 * updateResponseModel.setCity(user.getCity());
+	 * updateResponseModel.setCountry(user.getCountry());
+	 * updateResponseModel.setMobile(user.getMobile());
+	 * updateResponseModel.setEmployee_id(user.getEmployee_id());
+	 * updateResponseModel.setDepartment(user.getDepartments()); //
+	 * updateResponseModel.setRole(user.getRoles());
+	 * 
+	 * return updateResponseModel; }
+	 */
 	@Autowired
 	EmployeeReferalRepository employeeReferalBonusrepo;
 

@@ -83,7 +83,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
-		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() ||UserUtility.isValidEmail(referance_email)) {
+		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() ||!UserUtility.isValidEmail(referance_email)) {
 			throw new CustomException(500, "Invalid email id");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);
