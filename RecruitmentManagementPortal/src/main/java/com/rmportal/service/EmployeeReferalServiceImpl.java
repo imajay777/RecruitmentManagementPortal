@@ -69,8 +69,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 			uploadResumeResponseModel.setReference_id(employeeReferal.getReferal_id());
 			uploadResumeResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			uploadResumeResponseModel.setDate(employeeReferal.getDate());
-			uploadResumeResponseModel.setFileName(file.getOriginalFilename());
-			uploadResumeResponseModel.setFileExtension(FilenameUtils.getExtension(file.getOriginalFilename()));
+		/*	uploadResumeResponseModel.setFileName(file.getOriginalFilename());
+			uploadResumeResponseModel.setFileExtension(FilenameUtils.getExtension(file.getOriginalFilename()));*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
-		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() ||UserUtility.isValidEmail(referance_email)) {
+		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() || (!UserUtility.isValidEmail(referance_email))) {
 			throw new CustomException(500, "Invalid email id");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);
@@ -97,6 +97,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 		if(Objects.isNull(employeeReferal)){
 			throw new CustomException(204, "Invalid job vacancy id");
 		}
+		
+		
 		
 		return employeeReferal;
 	}

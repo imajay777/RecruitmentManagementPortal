@@ -52,6 +52,9 @@ public class UserServiceImpl implements UserServices {
 
 	@Autowired
 	ConversionUtility conversionUtility;
+	
+	@Autowired
+	DepartmentRepository departmentRepo;
 
 	/*
 	 * @Autowired PasswordEncryption passwordEncryption;
@@ -175,6 +178,8 @@ public class UserServiceImpl implements UserServices {
 	public User updateUser(int id, UpdateRequestModel updateRequestModel) throws CustomException {
 
 		User updatedUser = userRepository.findByUserId(id);
+		Department department = departmentRepo.findByName(updateRequestModel.getDept_name());
+		
 		if(Objects.isNull(updatedUser)){
 			throw new CustomException(HttpStatus.NOT_FOUND.value(),"Invalid user id");
 		}
@@ -216,7 +221,7 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setCountry(updateRequestModel.getCountry());
 			}
 
-			if (UserUtility.isInvalidMobile(updateRequestModel.getMobile())) {
+			if (!UserUtility.isValidMobile(updateRequestModel.getMobile())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			}
 			updatedUser.setMobile(updateRequestModel.getMobile());
@@ -228,6 +233,12 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
 			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
+			
+			if(Objects.isNull(department)){
+				throw new CustomException(204, "Invalid Department");
+			}
+			updatedUser.setDepartments(department);
+			
 			userRepository.save(updatedUser);
 			// conversionUtility.convertForUpdateResponse(user);
 			// userRepository.save(user);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -300,8 +301,11 @@ public class ConversionUtility {
 		employeeReferal.setReferance_email(uploadResumeRequestModel.getEmail());
 		Date date = new Date();
 		employeeReferal.setDate(date);
-		employeeReferal.setApplication_status("In Progress");
+		employeeReferal.setApplication_status("In Process");
 		employeeReferal.setApplicant_email("default@agsft.com");
+		
+		employeeReferal.setFile_name(file.getOriginalFilename());
+		employeeReferal.setFile_extension(FilenameUtils.getExtension(file.getOriginalFilename()));
 		if (!file.isEmpty()) {
 			if (!file.getOriginalFilename().equals("")) {
 				employeeReferal.setResume(file.getBytes());
@@ -336,7 +340,7 @@ public class ConversionUtility {
 
 	}
 
-	// Response model for Update Profile
+/*	// Response model for Update Profile
 	public UpdateResponseModel convertToUpdateResponseModel(User user) {
 
 		UpdateResponseModel updateResponseModel = new UpdateResponseModel();
@@ -355,7 +359,7 @@ public class ConversionUtility {
 
 		return updateResponseModel;
 	}
-
+*/
 	@Autowired
 	EmployeeReferalRepository employeeReferalBonusrepo;
 

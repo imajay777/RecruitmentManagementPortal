@@ -19,8 +19,8 @@ public class UserUtility {
 		return (Objects.isNull(value) || value.isEmpty());
 	}
 
-	public static boolean isInvalidMobile(long mobile) {
-		return Objects.isNull(Long.valueOf(mobile));
+	public static boolean isValidMobile(String mobile) {
+		return mobile.matches("^[0-9]{10}$");
 	}
 
 	

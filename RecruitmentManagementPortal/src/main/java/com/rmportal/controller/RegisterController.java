@@ -38,7 +38,6 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Registration Controller", description = "Registration Process")
 @CrossOrigin("*")
-
 public class RegisterController {
 
 	@Autowired
@@ -86,11 +85,16 @@ public class RegisterController {
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST, consumes = "application/json")
 	@ApiOperation(value = "Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id,
-			@RequestBody UpdateRequestModel updateRequestModel) {
-		// System.out.println("ui request model"+updateRequestModel);
-		// User user =
-		// conversionUtility.convertRequestToUser(updateRequestModel);
-
+			@Valid @RequestBody UpdateRequestModel updateRequestModel, BindingResult bindingResult) throws CustomException {
+	
+		
+		try {
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(updateRequestModel, bindingResult);
+		} catch (Exception e) {
+			throw new CustomException(201, e.getMessage());
+		}
 		User user = null;
 		try {
 			user = userService.updateUser(id, updateRequestModel);
