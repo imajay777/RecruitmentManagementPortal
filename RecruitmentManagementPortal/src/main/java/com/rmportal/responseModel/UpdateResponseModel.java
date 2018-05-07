@@ -15,7 +15,7 @@ public class UpdateResponseModel {
 	String DOB;
 	String city;
 	String country;
-	long mobile;
+	String mobile;
 	String blood_group;
 	String email;
 //	Role role;

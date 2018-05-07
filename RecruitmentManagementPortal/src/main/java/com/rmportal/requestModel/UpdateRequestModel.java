@@ -1,5 +1,7 @@
 package com.rmportal.requestModel;
 
+import javax.validation.constraints.Size;
+
 import com.rmportal.model.Department;
 
 import lombok.Data;
@@ -17,9 +19,13 @@ public class UpdateRequestModel {
 	String city;
 	String country;
 	String employee_id;
-	long mobile;
+	@Size(max=10, message="Mobile Number cannot be greater than 10 digits.")
+	String mobile;
 	String blood_group;
 	//String dept_name;
-	Department department;
+	
+	
+//	Department department;
 
+	String dept_name;
 }

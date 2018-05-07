@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -65,8 +66,8 @@ public class User {
 
 	@Column(name = "mobile")
 //	@Min(value=10, message = "Mobile number is Invalid")
-	@Max(value=10, message = "Mobile number is Invalid")
-	long mobile;
+	@Size(max=10, message = "Mobile number is Invalid")
+	String mobile;
 
 	@Column(name = "blood_group")
 	String blood_group;

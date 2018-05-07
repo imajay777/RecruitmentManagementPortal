@@ -59,4 +59,10 @@ public class EmployeeReferal {
 	@Column(name = "bonus_amount")
 	long bonus_amount;
 	
+	
+	@Column(name = "file_name")
+	String file_name;
+	
+	@Column(name = "file_extension")
+	String file_extension;
 }
