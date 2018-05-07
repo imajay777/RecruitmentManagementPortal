@@ -63,7 +63,7 @@ public class ChangePasswordController {
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel("The",
+				.ok(new HttpResponseModel("Unable to change the password, please try again.",
 						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}
