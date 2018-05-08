@@ -59,7 +59,7 @@ public class UpdateRolesImpl implements UpdateRoles {
 		
 		User user = userRepository.findByEmail(updateRoleRequestModel.getEmail());
 		if (Objects.isNull(user)) {
-			throw new CustomException(203, "Invalid email id");
+			throw new CustomException(203, "Email id does not exist");
 		}
 
 		Role role = roleRepository.findOne(updateRoleRequestModel.getRole_id());

@@ -81,10 +81,13 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	@Override
 	public List<EmployeeReferalResponseModel> getEmployeeDetails(String referance_email) throws CustomException {
 		
+		if(!UserUtility.isValidEmail(referance_email)){
+			throw new CustomException(204, "Invalid email id");
+		}
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
 
-		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty() || (!UserUtility.isValidEmail(referance_email))) {
-			throw new CustomException(500, "Invalid email id");
+		if (Objects.isNull(employeeReferal) || employeeReferal.isEmpty()) {
+			throw new CustomException(500, "Reference user does not exists");
 		}
 		return conversionUtility.convertTOGetEmployees(employeeReferal);
 	}

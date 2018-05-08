@@ -57,11 +57,11 @@ public class ConversionUtility {
 		}
 		
 		if(!UserUtility.isValidName(registerRequestModel.getFirstName())){
-			throw new CustomException(204, "Invalid firstName");
+			throw new CustomException(204, "Invalid First Name");
 		}
 		
 		if(!UserUtility.isValidName(registerRequestModel.getLastName())){
-			throw new CustomException(204, "Invalid lastName");
+			throw new CustomException(204, "Invalid Last Name");
 		}
 
 		/*

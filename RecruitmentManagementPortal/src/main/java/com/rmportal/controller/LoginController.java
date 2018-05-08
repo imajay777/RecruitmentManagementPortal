@@ -97,11 +97,19 @@ public class LoginController {
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	@ApiOperation(value = "Reset Password")
 	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody ResetPasswordModel resetPasswordModel) throws CustomException {
+			@Valid @RequestBody ResetPasswordModel resetPasswordModel,BindingResult bindingResult) throws CustomException {
 
+		try {
+			if (bindingResult.hasErrors())
+				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			applicationUtils.validateEntity(resetPasswordModel, bindingResult);
+		} catch (Exception e) {
+			throw new CustomException(201, e.getMessage());
+		}
+		
 		if (userService.resetPassword(resetPasswordModel)) {
 			return ResponseEntity
-					.ok(new HttpResponseModel("Password changes successfully", HttpStatusConstants.OK.id, null));
+					.ok(new HttpResponseModel("Password changed successfully", HttpStatusConstants.OK.id, null));
 		}
 
 		return ResponseEntity.ok(

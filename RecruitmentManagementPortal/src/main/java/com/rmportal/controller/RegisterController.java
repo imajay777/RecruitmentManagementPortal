@@ -69,7 +69,7 @@ public class RegisterController {
 
 		try {
 			httpResponseModel = userService.saveUser(user);
-			return ResponseEntity.ok(new HttpResponseModel("Register successfully Please Check your email",
+			return ResponseEntity.ok(new HttpResponseModel("Registered successfully, please check your email",
 					HttpStatusConstants.OK.id, httpResponseModel));
 
 		} catch (CustomException e) {
@@ -129,7 +129,7 @@ public class RegisterController {
 		List<User> users = null;
 		try {
 			users = userService.getAllUsers();
-			return ResponseEntity.ok(new HttpResponseModel("User list fetch successfully", HttpStatusConstants.OK.id, users));
+			return ResponseEntity.ok(new HttpResponseModel("User list fetched successfully", HttpStatusConstants.OK.id, users));
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
@@ -171,7 +171,7 @@ public class RegisterController {
 		}
 
 		return ResponseEntity
-				.ok(new HttpResponseModel("Data Fetched Successfully", HttpStatusConstants.OK.id, updateResponseModel));
+				.ok(new HttpResponseModel("User details fetched successfully", HttpStatusConstants.OK.id, updateResponseModel));
 
 	}
 
