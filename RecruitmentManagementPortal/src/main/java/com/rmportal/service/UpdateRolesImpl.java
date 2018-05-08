@@ -54,7 +54,7 @@ public class UpdateRolesImpl implements UpdateRoles {
 
 		String email=updateRoleRequestModel.getEmail();
 		if(!UserUtility.isValidEmail(email)){
-			throw new CustomException(203,"Invalidd email id");
+			throw new CustomException(203,"Invalid email id");
 		}
 		
 		User user = userRepository.findByEmail(updateRoleRequestModel.getEmail());

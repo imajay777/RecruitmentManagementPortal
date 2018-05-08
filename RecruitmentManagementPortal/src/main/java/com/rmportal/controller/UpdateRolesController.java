@@ -38,7 +38,7 @@ public class UpdateRolesController {
 	public ResponseEntity<?> getRoles() throws CustomException {
 		List<RoleResponseModel> roles = updateRoles.getAllRoles();
 
-		return ResponseEntity.ok(new HttpResponseModel("Role list fetch successfully", HttpStatusConstants.OK.id, roles));
+		return ResponseEntity.ok(new HttpResponseModel("Role list fetched successfully", HttpStatusConstants.OK.id, roles));
 
 	}
 

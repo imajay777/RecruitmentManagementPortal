@@ -95,7 +95,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(job_vacancy_id);
 		if(Objects.isNull(employeeReferal)){
-			throw new CustomException(204, "Invalid job vacancy id");
+			throw new CustomException(204, "Reference id does not exist");
 		}
 		
 		
