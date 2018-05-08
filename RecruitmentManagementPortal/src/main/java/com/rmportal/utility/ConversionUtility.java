@@ -49,12 +49,25 @@ public class ConversionUtility {
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
 		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
-				|| UserUtility.isInvalidValue(registerRequestModel.getEmail())
-				|| UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
+				&& UserUtility.isInvalidValue(registerRequestModel.getLastName())
+				&& UserUtility.isInvalidValue(registerRequestModel.getEmail())
+				&& UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
 
 			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
 		}
+		
+		if(!UserUtility.isValidName(registerRequestModel.getFirstName())){
+			throw new CustomException(204, "Invalid firstName");
+		}
+		
+		if(!UserUtility.isValidName(registerRequestModel.getLastName())){
+			throw new CustomException(204, "Invalid lastName");
+		}
 
+		/*
+		 * && UserUtility.isValidfullName(registerRequestModel.getFirstName())
+		 * && UserUtility.isValidfullName(registerRequestModel.getLastName())
+		 */
 		User user = new User();
 		user.setEmail(registerRequestModel.getEmail());
 		user.setFirstName(registerRequestModel.getFirstName());

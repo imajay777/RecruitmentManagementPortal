@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserServices {
 
 	@Autowired
 	ConversionUtility conversionUtility;
-	
+
 	@Autowired
 	DepartmentRepository departmentRepo;
 
@@ -85,17 +85,17 @@ public class UserServiceImpl implements UserServices {
 		// userRepository.findByEmail(email);
 	}
 
-	
-	/*  public boolean isValidEmail(String email) { Pattern emailPattern =
-	  Pattern.compile(
-	  "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
-	  Pattern.CASE_INSENSITIVE);
-	  
-	  Matcher m = emailPattern.matcher(email);
-	  
-	  return m.matches();
-	  
-	  }
+	/*
+	 * public boolean isValidEmail(String email) { Pattern emailPattern =
+	 * Pattern.compile(
+	 * "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
+	 * Pattern.CASE_INSENSITIVE);
+	 * 
+	 * Matcher m = emailPattern.matcher(email);
+	 * 
+	 * return m.matches();
+	 * 
+	 * }
 	 */
 	@Override
 	public UserResponseDTO saveUser(User registerRequestModel) throws CustomException {
@@ -113,8 +113,7 @@ public class UserServiceImpl implements UserServices {
 		if (userRole == null) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
-      
-		
+
 		/*
 		 * if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
 		 * || UserUtility.isInvalidValue(registerRequestModel.getLastName()) ||
@@ -125,49 +124,43 @@ public class UserServiceImpl implements UserServices {
 		 * "Mandatory Feilds Cannot be Empty"); }
 		 */
 
-	
-		  if (!UserUtility.isValidEmail(registerRequestModel.getEmail())) {
-			  
-		  
-		  String str[] = registerRequestModel.getEmail().split("@");
-		  
-		 if (str[1].compareTo("yopmail.com") == 0) {
-		 
+		if (UserUtility.isValidEmail(registerRequestModel.getEmail())) {
 
-		User user = userRepository.findByEmail(registerRequestModel.getEmail());
-		
-		/*String email=null;
-		if(UserUtility.isValidEmail(email)){
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email address");
+			String str[] = registerRequestModel.getEmail().split("@");
+
+			if (str[1].compareTo("yopmail.com") == 0) {
+
+				User user = userRepository.findByEmail(registerRequestModel.getEmail());
+
+				/*
+				 * String email=null; if(UserUtility.isValidEmail(email)){ throw
+				 * new CustomException(HttpStatus.NOT_FOUND.value(),
+				 * "Invalid email address"); }
+				 */
+
+				if (Objects.nonNull(user)) {
+					throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
+				}
+
+				registerRequestModel.setRoles(userRole);
+
+				Department dept = departmentRepository.findOne(1);
+				registerRequestModel.setDepartments(dept);
+
+				user = userRepository.save(registerRequestModel);
+				activationEmailUtility.sendMail(user);
+
+				return conversionUtility.convertUserToresponse(user);
+			} else {
+				throw new CustomException(HttpStatus.BAD_REQUEST.value(), "Invalid email address");
+
+			}
+
+		} else {
+			throw new CustomException(204, "Invalid email address");
 		}
-	*/
-		
-		
-		if (Objects.nonNull(user)) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User already exists");
-		}
 
-		registerRequestModel.setRoles(userRole);
-
-		Department dept = departmentRepository.findOne(1);
-		registerRequestModel.setDepartments(dept);
-
-		user = userRepository.save(registerRequestModel);
-		activationEmailUtility.sendMail(user);
-
-		return conversionUtility.convertUserToresponse(user);
-	} 
-		 else { throw new CustomException( HttpStatus. BAD_REQUEST.value (),
-		 "Invalid email address" ); 
-		 
-		 }
-		 
-
-	
-	  } else { throw new CustomException(); }
-	  
-	  }
-	 
+	}
 
 	@Override
 	public User FindById(long id) {
@@ -179,21 +172,27 @@ public class UserServiceImpl implements UserServices {
 
 		User updatedUser = userRepository.findByUserId(id);
 		Department department = departmentRepo.findByName(updateRequestModel.getDept_name());
-		
-		if(Objects.isNull(updatedUser)){
-			throw new CustomException(HttpStatus.NOT_FOUND.value(),"Invalid user id");
+
+		if (Objects.isNull(updatedUser)) {
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid user id");
 		}
 
 		if (Objects.nonNull(updateRequestModel)) {
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName()) || UserUtility.isValidfullName(updateRequestModel.getFirstName())) {
+			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "First name can not be empty");
+			} else if (!UserUtility.isValidName(updateRequestModel.getFirstName())) {
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid firstName");
+
 			} else {
 				updatedUser.setFirstName(updateRequestModel.getFirstName());
 			}
-			if (UserUtility.isInvalidValue(updateRequestModel.getLastName()) || UserUtility.isValidfullName(updateRequestModel.getLastName())) {
+			if (UserUtility.isInvalidValue(updateRequestModel.getLastName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Last name can not be empty");
-			} else {
+			} else if(!UserUtility.isValidName(updateRequestModel.getLastName())){
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid lastName");
+				
+			}else {
 				updatedUser.setLastName(updateRequestModel.getLastName());
 			}
 
@@ -233,12 +232,12 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
 			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
-			
-			if(Objects.isNull(department)){
+
+			if (Objects.isNull(department)) {
 				throw new CustomException(204, "Invalid Department");
 			}
 			updatedUser.setDepartments(department);
-			
+
 			userRepository.save(updatedUser);
 			// conversionUtility.convertForUpdateResponse(user);
 			// userRepository.save(user);
@@ -248,7 +247,7 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(HttpStatus.BAD_REQUEST.value(), " User already exits");
 
 		}
-		
+
 		return updatedUser;
 	}
 
@@ -266,16 +265,15 @@ public class UserServiceImpl implements UserServices {
 
 	@Override
 	public boolean updateStatus(boolean status, String email) throws CustomException {
-		
-		
+
 		User user = userRepository.findByEmail(email);
-		if(!UserUtility.isValidEmail(email))
-		{
-			throw new CustomException(204,"Invalid email address");
+		if (!UserUtility.isValidEmail(email)) {
+			throw new CustomException(204, "Invalid email address");
 		}
-		
+
 		if (user == null) {
-			//throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exist");
+			// throw new CustomException(HttpStatus.NOT_FOUND.value(), "User
+			// does not exist");
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email address");
 
 		}
@@ -323,8 +321,8 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean forgetPassword(String email) throws CustomException {
 		User user = userRepository.findByEmail(email);
-		if(!UserUtility.isValidEmail(email)){
-			throw new CustomException(204,"Invalid email address");
+		if (!UserUtility.isValidEmail(email)) {
+			throw new CustomException(204, "Invalid email address");
 		}
 		if (user != null && user.isActive()) {
 			forgotPasswordEmailUtility.sendMail(user);
@@ -335,25 +333,25 @@ public class UserServiceImpl implements UserServices {
 		}
 	}
 
-	// Reset Password 
+	// Reset Password
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
-		
-		if(UserUtility.isInvalidValue(resetPasswordModel.getPassword())){
+
+		if (UserUtility.isInvalidValue(resetPasswordModel.getPassword())) {
 			throw new CustomException(401, "Mandatory fields cannot be empty");
 		}
-		
+
 		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserId(),
 				resetPasswordModel.getToken());
-		
+
 		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
-			if (user == null){
+			if (user == null) {
 				throw new CustomException(500, "Invalid token or user id");
 			}
 
-			if (resetPasswordModel.getPassword().length() > 16){
+			if (resetPasswordModel.getPassword().length() > 16) {
 				throw new CustomException(413, "Password Length too Long");
 			}
 
@@ -369,13 +367,13 @@ public class UserServiceImpl implements UserServices {
 	// Change Password from Profile
 	@Override
 	public boolean changePassword(ChangePasswordModel changePasswordModel) throws CustomException {
-		
-		String changepassword=changePasswordModel.getEmail();
-		if(!UserUtility.isValidEmail(changepassword)){
-			throw new CustomException(204,"Invalid email address");
+
+		String changepassword = changePasswordModel.getEmail();
+		if (!UserUtility.isValidEmail(changepassword)) {
+			throw new CustomException(204, "Invalid email address");
 		}
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
-		
+
 		if (Objects.isNull(user))
 			throw new CustomException(500, "Please check mandatory fields");
 
