@@ -37,7 +37,7 @@ public class UserUtility {
 	
 	
 	public static boolean isValidfullName(String fullName){
-		Pattern fullName1=Pattern.compile("[a-zA-Z]+([ '-][a-zA-Z])*",Pattern.CASE_INSENSITIVE);
+		Pattern fullName1=Pattern.compile("^[a-zA-Z]+([ '-][a-zA-Z])*",Pattern.CASE_INSENSITIVE);
 		
 		Matcher m=fullName1.matcher(fullName);
 		return m.matches();
