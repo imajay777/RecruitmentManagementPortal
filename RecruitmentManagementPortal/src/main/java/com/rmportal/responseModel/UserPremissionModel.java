@@ -1,7 +1,5 @@
 package com.rmportal.responseModel;
 
-import com.rmportal.model.Permission;
-
 import lombok.Data;
 
 @Data

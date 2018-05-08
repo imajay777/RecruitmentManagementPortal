@@ -1,7 +1,6 @@
 package com.rmportal.controller;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.validation.Valid;
 

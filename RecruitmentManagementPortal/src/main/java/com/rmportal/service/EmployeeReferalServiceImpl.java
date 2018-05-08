@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.ReferralStatus;
-import com.rmportal.model.User;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.repository.ReferralStatusRepository;
 import com.rmportal.repository.UserRepository;

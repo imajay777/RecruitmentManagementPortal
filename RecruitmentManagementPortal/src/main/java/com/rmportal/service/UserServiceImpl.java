@@ -2,8 +2,6 @@ package com.rmportal.service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.constants.UserTokenType;
 import com.rmportal.model.Department;
 import com.rmportal.model.Role;
@@ -25,7 +22,6 @@ import com.rmportal.repository.UserTokenRepository;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.requestModel.UpdateRequestModel;
-import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
