@@ -101,13 +101,11 @@ public class JobVacancyController {
 			if (bindingResult.hasErrors())
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
 			applicationUtils.validateEntity(jobVacancyRequestModel, bindingResult);
-
-			addJobVacancyResponse = addJobVacancyService.updateJobVacancy(job_vacancy_id, jobVacancyRequestModel);
-
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
 
+		addJobVacancyResponse = addJobVacancyService.updateJobVacancy(job_vacancy_id, jobVacancyRequestModel);
 		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
 				addJobVacancyResponse));
 	}

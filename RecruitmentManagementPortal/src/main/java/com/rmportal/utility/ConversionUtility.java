@@ -465,24 +465,24 @@ public class ConversionUtility {
 		return "No Bonus";
 	}
 
-	/*
-	 * // Update JOB vacancy public JobVacancy updateJobVacancy(JobVacancy
-	 * jobVacancy, JobVacancyRequestModel jobVacancyRequestModel){
-	 * jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
-	 * jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
-	 * jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
-	 * jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description()
-	 * ); jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
-	 * jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
-	 * jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
-	 * jobVacancy.setNumber_of_openings(jobVacancyRequestModel.
-	 * getNumber_of_openings());
-	 * jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills
-	 * ()); if (jobVacancy.getSalary_ctc().isEmpty()) {
-	 * jobVacancy.setSalary_ctc("Disclosed"); } else {
-	 * jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc()); }
-	 * return jobVacancy; }
-	 */
+	// Update JOB vacancy
+	public JobVacancy updateJobVacancy(JobVacancy jobVacancy, JobVacancyRequestModel jobVacancyRequestModel) {
+		jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
+		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
+		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
+		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
+		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
+		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
+		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
+		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
+		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
+		if (jobVacancyRequestModel.getSalary_ctc().isEmpty()) {
+			jobVacancy.setSalary_ctc("Disclosed");
+		} else {
+			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
+		}
+		return jobVacancy;
+	}
 
 	// Get row from job vacancy table for JOB Update
 	public JobVacancyResponseModel getDetailJobVacancy(JobVacancy jobVacancy) {

@@ -33,16 +33,15 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 	public AddJobVacancyResponse addVacancy(JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
 
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
-		if(Objects.isNull(jobVacancyRequestModel)){
+		if (Objects.isNull(jobVacancyRequestModel)) {
 			throw new CustomException(204, "Mandatory fields must not be empty");
 		}
-		if(jobVacancyRequestModel.getExp_from() == 0 && jobVacancyRequestModel.getExp_to() == 0){
+		if (jobVacancyRequestModel.getExp_from() == 0 && jobVacancyRequestModel.getExp_to() == 0) {
 			addJobVacancyResponse.setStatus("Fresher");
-		}
-		else if(jobVacancyRequestModel.getExp_from()>=jobVacancyRequestModel.getExp_to()){
+		} else if (jobVacancyRequestModel.getExp_from() >= jobVacancyRequestModel.getExp_to()) {
 			throw new CustomException(205, "Value for experience from should be less than experience to");
 		}
-		
+
 		JobVacancy jobVacancy = conversionUtility.addJobVacancy(jobVacancyRequestModel);
 		if (Objects.isNull(jobVacancy)) {
 			throw new CustomException(501, "Error in JOB Posting.");
@@ -57,73 +56,36 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 
 	// update job vacancy
 	@Override
-	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id,
-			@Valid JobVacancyRequestModel jobVacancyRequestModel) throws CustomException {
+	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id, JobVacancyRequestModel jobVacancyRequestModel)
+			throws CustomException {
+		
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
+
+		if (jobVacancyRequestModel.getExp_from() == 0 && jobVacancyRequestModel.getExp_to() == 0) {
+			addJobVacancyResponse.setStatus("Fresher");
+		} else if (jobVacancyRequestModel.getExp_from() >= jobVacancyRequestModel.getExp_to()) {
+			throw new CustomException(205, "Value for experience from should be less than experience to");
+		}
+
 		JobVacancy jobVacancy = jobVacancyRepository.findByJobVacancyId(job_vacancy_id);
 
-		if (!jobVacancy.isActive()) {
-			throw new CustomException(401, " Sorry. Cannot update Job as it is Inactive");
-		}
-
 		if (Objects.isNull(jobVacancy)) {
-			throw new CustomException(204, " Invalid Job id. Job does not exists");
-		} else {
-			if (jobVacancy.getJob_title() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
-			}
-			/*
-			 * if(jobVacancy.getExp_to()==0) { throw new
-			 * CustomException(HttpStatus.NOT_FOUND.value()
-			 * ,"specify the job expreience"); } else {
-			 * jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to()); }
-			 * 
-			 * if(jobVacancy.getExp_from()==0){ throw new
-			 * CustomException(HttpStatus.NOT_FOUND.value()
-			 * ,"specify the job expreience"); }else{
-			 * jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from()); }
-			 */
-
-			if (jobVacancy.getEducation() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				jobVacancy.setEducation(jobVacancyRequestModel.getEducation());
-
-			}
-
-			jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
-			if (jobVacancy.getJob_location() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
-			}
-			if (jobVacancy.getJob_type() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
-			}
-
-			jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
-
-			if (jobVacancy.getTechnical_skills() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
-			}
-			if (jobVacancy.getJob_title() == null) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory fields canot be Empty");
-			} else {
-				addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
-			}
-			jobVacancyRepository.save(jobVacancy);
-
-			addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
-			addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
-			return addJobVacancyResponse;
-
+			throw new CustomException(204, "Invalid Job id. Job does not exists");
 		}
+		
+		if (!jobVacancy.isActive()) {
+			throw new CustomException(401, "Sorry. Cannot update Job as it is Inactive");
+		}
+
+
+		JobVacancy jobVacancyCU = conversionUtility.updateJobVacancy(jobVacancy, jobVacancyRequestModel);
+
+		jobVacancyRepository.save(jobVacancyCU);
+
+		addJobVacancyResponse.setJob_title(jobVacancy.getJob_title());
+		addJobVacancyResponse.setJob_id(jobVacancy.getJob_vacancy_id());
+		addJobVacancyResponse.setMessage("Job Vacancy Updated Succesfully");
+		return addJobVacancyResponse;
+
 	}
 }
