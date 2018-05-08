@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.constants.HttpStatusConstants;
@@ -46,6 +47,17 @@ public class UserUtility {
 
 	public static boolean isValidName(String name) {
 		return name.matches("^[a-zA-Z]*$");
+	}
+	
+
+	public static boolean isValidDetails(String details){
+	String[] detailsArray = details.split(",");
+	for(String array : detailsArray){
+	if(!StringUtils.isNotBlank(array)){
+	return false;
+	}
+	}
+	return true;
 	}
 	/*
 	 * public static boolean validateFirstName( String firstName ) { return
