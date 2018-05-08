@@ -5,10 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
-
-import com.rmportal.constants.HttpStatusConstants;
-import com.rmportal.requestModel.RegisterRequestModel;
 
 public class UserUtility {
 
