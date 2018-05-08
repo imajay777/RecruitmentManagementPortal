@@ -14,5 +14,5 @@ public class AddJobVacancyResponse {
 	int job_id;
 	String job_title;
 	String message;
-	
+	String status;
 }

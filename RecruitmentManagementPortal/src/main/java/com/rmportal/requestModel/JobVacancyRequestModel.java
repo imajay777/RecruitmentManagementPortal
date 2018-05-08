@@ -38,7 +38,7 @@ public class JobVacancyRequestModel {
 	@NotNull(message = "Mandatory field cannot be Empty")
 	String job_location;
 
-	@Min(value = 0, message = "Mandatory field cannot be Empty")
+//	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	String salary_ctc;
 
 
