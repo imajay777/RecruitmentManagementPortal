@@ -186,13 +186,13 @@ public class UserServiceImpl implements UserServices {
 
 		if (Objects.nonNull(updateRequestModel)) {
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName())) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
+			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName()) || UserUtility.isValidfullName(updateRequestModel.getFirstName())) {
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "First name can not be empty");
 			} else {
 				updatedUser.setFirstName(updateRequestModel.getFirstName());
 			}
-			if (UserUtility.isInvalidValue(updateRequestModel.getLastName())) {
-				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
+			if (UserUtility.isInvalidValue(updateRequestModel.getLastName()) || UserUtility.isValidfullName(updateRequestModel.getLastName())) {
+				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Last name can not be empty");
 			} else {
 				updatedUser.setLastName(updateRequestModel.getLastName());
 			}
