@@ -21,46 +21,40 @@ public class UserUtility {
 	}
 
 	public static boolean isValidEmail(String email) {
-		/*Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
-				Pattern.CASE_INSENSITIVE);
-
-		Matcher m = emailPattern.matcher(email);
-
-		return m.matches();
-		
-		
-*/
+		/*
+		 * Pattern emailPattern = Pattern.compile(
+		 * "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
+		 * Pattern.CASE_INSENSITIVE);
+		 * 
+		 * Matcher m = emailPattern.matcher(email);
+		 * 
+		 * return m.matches();
+		 * 
+		 * 
+		 */
 		return email.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
 	}
 
 	public static boolean isValidfullName(String fullName) {
-		Pattern fullName1 = Pattern.compile("^[a-zA-Z]*+([ '-][a-zA-Z])*$", Pattern.CASE_INSENSITIVE);
-
+		if (isInvalidValue(fullName)) {
+			return false;
+		}
+		Pattern fullName1 = Pattern.compile("^[a-zA-Z]+[\\s]*[a-zA-Z]*$", Pattern.CASE_INSENSITIVE);
 		Matcher m = fullName1.matcher(fullName);
 		return m.matches();
-
 	}
 
 	public static boolean isValidName(String name) {
 		return name.matches("^[a-zA-Z]*$");
 	}
-	
 
-	public static boolean isValidDetails(String details){
-	String[] detailsArray = details.split(",");
-	for(String array : detailsArray){
-	if(!StringUtils.isNotBlank(array)){
-	return false;
+	public static boolean isValidDetails(String details) {
+		String[] detailsArray = details.split(",");
+		for (String array : detailsArray) {
+			if (!StringUtils.isNotBlank(array)) {
+				return false;
+			}
+		}
+		return true;
 	}
-	}
-	return true;
-	}
-	/*
-	 * public static boolean validateFirstName( String firstName ) { return
-	 * firstName.matches( "[A-Z][a-zA-Z]*" ); } // end method validateFirstName
-	 * 
-	 * // validate last name public static boolean validateLastName( String
-	 * lastName ) { return lastName.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" ); }
-	 * // end method valida
-	 */
 }

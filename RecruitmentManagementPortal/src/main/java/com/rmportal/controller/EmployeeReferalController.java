@@ -116,7 +116,7 @@ public class EmployeeReferalController {
 		if (!UserUtility.isValidEmail(uploadResumeRequestModel.getEmail())) {
 			throw new CustomException(204, "Invalid email id");
 		}
-		if (UserUtility.isValidfullName(uploadResumeRequestModel.getApplicant_name())) {
+		if (!UserUtility.isValidfullName(uploadResumeRequestModel.getApplicant_name())) {
 			throw new CustomException(204, "Invalid applicant name");
 		}
 		if (UserUtility.isInvalidValue(uploadResumeRequestModel.getTechnical_skills())) {

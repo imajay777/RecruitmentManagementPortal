@@ -1,5 +1,7 @@
 package com.rmportal.service;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.responseModel.LoginResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
+import com.rmportal.utility.UserUtility;
 
 /**
  * @author saurabh
@@ -36,8 +39,11 @@ public class LoginServiceImpl implements LoginServices {
 	@Override
 	public LoginResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
 
+		if(!UserUtility.isValidEmail(loginRequestModel.getEmail())){
+			throw new CustomException(204, "Invalid email id");
+		}
 		User user = userRepository.findByEmail(loginRequestModel.getEmail());
-		if (user == null) {
+		if (Objects.isNull(user)) {
 			throw new CustomException(HttpStatusConstants.NO_CONTENT.id, "Invalid Email id or Password");
 		}
 		
