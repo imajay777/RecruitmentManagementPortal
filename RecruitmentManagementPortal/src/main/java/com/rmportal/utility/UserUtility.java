@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.rmportal.constants.HttpStatusConstants;
@@ -37,12 +38,30 @@ public class UserUtility {
 	
 	
 	public static boolean isValidfullName(String fullName){
-		Pattern fullName1=Pattern.compile("[a-zA-Z]+([ '-][a-zA-Z])*",Pattern.CASE_INSENSITIVE);
-		
+		if(StringUtils.isNotBlank(fullName)){
+			return false;
+		}
+		Pattern fullName1=Pattern.compile("[a-zA-Z]*+[ ]+[a-zA-Z]*",Pattern.CASE_INSENSITIVE);
 		Matcher m=fullName1.matcher(fullName);
 		return m.matches();
 		
 	}
+	
+	
+	public static boolean isValidDetails(String details){
+		String[] detailsArray = details.split(",");
+		for(String array : detailsArray){
+			if(!StringUtils.isNotBlank(array)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	/*public static void main(String[] args) {
+		System.out.println(isValidDetails("Saurabh,tejas,ram,sham"));
+	}*/
 	
 	 /*public static boolean validateFirstName( String firstName )
 	   {
