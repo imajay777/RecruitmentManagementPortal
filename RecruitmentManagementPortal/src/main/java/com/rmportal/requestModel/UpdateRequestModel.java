@@ -2,8 +2,6 @@ package com.rmportal.requestModel;
 
 import javax.validation.constraints.Size;
 
-import com.rmportal.model.Department;
-
 import lombok.Data;
 
 @Data

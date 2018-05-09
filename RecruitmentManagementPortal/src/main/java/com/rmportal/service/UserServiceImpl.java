@@ -2,8 +2,6 @@ package com.rmportal.service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.constants.UserTokenType;
 import com.rmportal.model.Department;
 import com.rmportal.model.Role;
@@ -25,7 +22,6 @@ import com.rmportal.repository.UserTokenRepository;
 import com.rmportal.requestModel.ChangePasswordModel;
 import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.requestModel.UpdateRequestModel;
-import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
 import com.rmportal.utility.ActivationEmailUtility;
@@ -174,7 +170,7 @@ public class UserServiceImpl implements UserServices {
 		Department department = departmentRepo.findByName(updateRequestModel.getDept_name());
 
 		if (Objects.isNull(updatedUser)) {
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid user id");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exists");
 		}
 
 		if (Objects.nonNull(updateRequestModel)) {
@@ -256,7 +252,7 @@ public class UserServiceImpl implements UserServices {
 
 		// System.out.println("hello");
 		List<User> getUsers = (List<User>) userRepository.findAll();
-		if (getUsers == null) {
+		if (Objects.isNull(getUsers) || getUsers.isEmpty()) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Users Are Presents");
 		}
 
@@ -271,10 +267,10 @@ public class UserServiceImpl implements UserServices {
 			throw new CustomException(204, "Invalid email address");
 		}
 
-		if (user == null) {
+		if (Objects.isNull(user)) {
 			// throw new CustomException(HttpStatus.NOT_FOUND.value(), "User
 			// does not exist");
-			throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid email address");
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exists");
 
 		}
 		if (user.isActive() && status) {
@@ -347,12 +343,8 @@ public class UserServiceImpl implements UserServices {
 		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
-			if (user == null) {
+			if (Objects.isNull(user)) {
 				throw new CustomException(500, "Invalid token or user id");
-			}
-
-			if (resetPasswordModel.getPassword().length() > 16) {
-				throw new CustomException(413, "Password Length too Long");
 			}
 
 			user.setPassword(passwordEncryption.hashEncoder(resetPasswordModel.getPassword()));
@@ -375,7 +367,7 @@ public class UserServiceImpl implements UserServices {
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
 
 		if (Objects.isNull(user))
-			throw new CustomException(500, "Please check mandatory fields");
+			throw new CustomException(500, "User does not exists");
 
 		if (!user.isActive())
 			throw new CustomException(202, "Password Cannot be changed please contact to Admin");

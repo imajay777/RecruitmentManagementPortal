@@ -2,7 +2,6 @@ package com.rmportal.service;
 
 import java.util.Objects;
 
-import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +61,7 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 
 		EmployeeReferal employeeReferal = employeeReferalRepo.findOne(setBonusRequestModel.getReferral_id());
 		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, "Invalid Selection or Referral Id");
+			throw new CustomException(204, "Invalid Referral Id");
 		}
 		/*
 		 * if (employeeReferal.getApplication_status().compareTo("Joined") != 0)
@@ -71,15 +70,15 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 		
 		String applicantEmail=setBonusRequestModel.getApplicant_email();
 		if(!UserUtility.isValidEmail(applicantEmail)){
-			throw new CustomException(204,"Invalid Applicant Email or User not yet Regeistered");
+			throw new CustomException(204,"Invalid Applicant Email Id");
 		}
 		
 		User user = userRepository.findByEmail(setBonusRequestModel.getApplicant_email());
 		if (Objects.isNull(user)) {
-			throw new CustomException(204, "Invalid Applicant Email or User not yet Regeistered");
+			throw new CustomException(204, "User does not exist");
 		}
 		if (!user.isActive()) {
-			throw new CustomException(401, "User is inActive");
+			throw new CustomException(401, "User is in-active");
 		} 
 		
 		return conversionUtility.setBonusConversion(employeeReferal, setBonusRequestModel); 

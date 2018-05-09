@@ -1,7 +1,5 @@
 package com.rmportal.requestModel;
 
-import java.util.Optional;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

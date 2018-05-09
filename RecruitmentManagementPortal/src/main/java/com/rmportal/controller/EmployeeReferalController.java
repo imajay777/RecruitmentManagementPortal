@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -88,7 +87,8 @@ public class EmployeeReferalController {
 			MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Upload Resume")
 	public ResponseEntity<?> uploadResume(
-			@ApiParam("{email, applicant_name, experience, technical_skills}") @RequestPart("details") String details,
+			@ApiParam("Please enter the value in this format. \n\n"
+					+ "{\"email\":\"value\", \"applicant_name\":\"value\", \"experience\":\"value\", \"technical_skills\":\"value\"}") @RequestPart("details") String details,
 			@RequestPart("file") MultipartFile file, BindingResult bindingResult) throws CustomException {
 
 		UploadResumeRequestModel uploadResumeRequestModel = null;

@@ -2,17 +2,13 @@ package com.rmportal.service;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.rmportal.model.JobVacancy;
 import com.rmportal.repository.JobVacancyRepository;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.responseModel.AddJobVacancyResponse;
-import com.rmportal.responseModel.JobVacancyResponseModel;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 
