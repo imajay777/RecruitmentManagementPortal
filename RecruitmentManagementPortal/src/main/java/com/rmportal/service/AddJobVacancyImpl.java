@@ -58,16 +58,9 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 	@Override
 	public AddJobVacancyResponse updateJobVacancy(int job_vacancy_id, JobVacancyRequestModel jobVacancyRequestModel)
 			throws CustomException {
-		
-		
+
 		AddJobVacancyResponse addJobVacancyResponse = new AddJobVacancyResponse();
-		
-		if(Objects.isNull(jobVacancyRequestModel))
-		{
-			throw new CustomException(204,"Job vacancy id does not exist");
-		}
-		
-		
+
 		if (jobVacancyRequestModel.getExp_from() == 0 && jobVacancyRequestModel.getExp_to() == 0) {
 			addJobVacancyResponse.setStatus("Fresher");
 		} else if (jobVacancyRequestModel.getExp_from() >= jobVacancyRequestModel.getExp_to()) {
@@ -79,11 +72,10 @@ public class AddJobVacancyImpl implements AddJobVacancyService {
 		if (Objects.isNull(jobVacancy)) {
 			throw new CustomException(204, "Invalid Job id. Job does not exists");
 		}
-		
+
 		if (!jobVacancy.isActive()) {
 			throw new CustomException(401, "Sorry. Cannot update Job as it is Inactive");
 		}
-
 
 		JobVacancy jobVacancyCU = conversionUtility.updateJobVacancy(jobVacancy, jobVacancyRequestModel);
 
