@@ -16,7 +16,7 @@ public class RegisterRequestModelValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		RegisterRequestModel regs=(RegisterRequestModel) (target);
+		RegisterRequestModel regs=(RegisterRequestModel)target;
 	}
 
 }

@@ -231,7 +231,7 @@ public class UserServiceImpl implements UserServices {
 
 			userRepository.save(updatedUser);
 		} else {
-			throw new CustomException(HttpStatus.BAD_REQUEST.value(), " User already exits");
+			throw new CustomException(HttpStatus.BAD_REQUEST.value(), "User already exits");
 		}
 
 		return updatedUser;

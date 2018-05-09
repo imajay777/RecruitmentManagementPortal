@@ -71,7 +71,7 @@ public class JobVacancyController {
 	// Get job Vacancies
 	@RequestMapping(value = "/getJobVacancy", method = RequestMethod.GET)
 	@ApiOperation(value = "Job Vacancy List")
-	public ResponseEntity<?> getJobVacancy() throws CustomException {
+	public ResponseEntity<?> getJobVacancy(){
 		List<JobVacancyResponseModel> jobVacancy = listJobVacancyService.getAllJobs();
 
 		return ResponseEntity.ok(new HttpResponseModel("Job Vacancies list fetched successfully",

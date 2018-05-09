@@ -133,13 +133,6 @@ public class RegisterController {
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
-		/*
-		 * if (users.isEmpty()) { return
-		 * ResponseEntity.ok(HttpStatus.NO_CONTENT); // return
-		 * HttpStatus.NOT_FOUND }
-		 */
-		// return ResponseEntity.ok(new HttpResponseModel("Unable to fetch
-		// list", HttpStatusConstants.OK.id, users));
 	}
 
 	// UserStatus Activation/Deactivation API through page
