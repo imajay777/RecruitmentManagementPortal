@@ -33,28 +33,29 @@ import io.swagger.annotations.ApiOperation;
 public class ChangePasswordController {
 
 	@Autowired
-	UserServices userService;
+	private UserServices userService;
 	
 	@Autowired
-	ApplicationUtils applicationUtils;
+	private ApplicationUtils applicationUtils;
 	
 	// Change Password Controller
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	@ApiOperation(value = "Change Password")
-	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel, BindingResult bingingResult)
+	public ResponseEntity<HttpResponseModel> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel, BindingResult bingingResult)
 			throws CustomException {
 		
-		if(Objects.isNull(changePasswordModel))
+		if(Objects.isNull(changePasswordModel)){
 			throw new CustomException(205, "Mandatory fields can't be Empty");
+		}
 		
 		try {
-			if (bingingResult.hasErrors())
+			if (bingingResult.hasErrors()){
 				throw new CustomException(204, bingingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(changePasswordModel, bingingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-		
 		
 		if(userService.changePassword(changePasswordModel)){
 			return ResponseEntity

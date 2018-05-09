@@ -13,6 +13,6 @@ public interface JobVacancyRepository extends CrudRepository<JobVacancy, Integer
 
 	
 	@Query(value = "SELECT * FROM job_vacancy WHERE job_vacancy_id=:job_vacancy_id", nativeQuery = true)
-	JobVacancy findByJobVacancyId(@Param("job_vacancy_id") int job_vacancy_id);
+	public JobVacancy findByJobVacancyId(@Param("job_vacancy_id") int job_vacancy_id);
 
 }

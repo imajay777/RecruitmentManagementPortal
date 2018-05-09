@@ -40,7 +40,7 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	@Autowired
 	ReferralStatusRepository referralStatusRepository;
-	
+
 	@Autowired
 	UserRepository userRepo;
 
@@ -67,10 +67,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 			uploadResumeResponseModel.setReference_id(employeeReferal.getReferal_id());
 			uploadResumeResponseModel.setApplicant_name(employeeReferal.getApplicant_name());
 			uploadResumeResponseModel.setDate(employeeReferal.getDate());
-		/*	uploadResumeResponseModel.setFileName(file.getOriginalFilename());
-			uploadResumeResponseModel.setFileExtension(FilenameUtils.getExtension(file.getOriginalFilename()));*/
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new CustomException(500, e.getMessage());
 		}
 		return uploadResumeResponseModel;
 	}
@@ -78,8 +76,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	// Get details of Referred Candidate
 	@Override
 	public List<EmployeeReferalResponseModel> getEmployeeDetails(String referance_email) throws CustomException {
-		
-		if(!UserUtility.isValidEmail(referance_email)){
+
+		if (!UserUtility.isValidEmail(referance_email)) {
 			throw new CustomException(204, "Invalid email id");
 		}
 		List<EmployeeReferal> employeeReferal = employeeReferalRepository.findByEmployeeEmail(referance_email);
@@ -95,12 +93,10 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public EmployeeReferal fetchResume(int job_vacancy_id) throws CustomException {
 
 		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(job_vacancy_id);
-		if(Objects.isNull(employeeReferal)){
+		if (Objects.isNull(employeeReferal)) {
 			throw new CustomException(204, "Reference id does not exist");
 		}
-		
-		
-		
+
 		return employeeReferal;
 	}
 
@@ -108,50 +104,45 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	@Override
 	public List<EmployeeReferalResponseModel> getEmployeeReferalList() throws CustomException {
 		List<EmployeeReferal> empReferal = (List<EmployeeReferal>) employeeReferalRepository.findAll();
-		if(Objects.isNull(empReferal))
-		{
-			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No Candidate are Referred");
+		if (Objects.isNull(empReferal)) {
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Candidate are Referred");
 		}
 		return conversionUtility.getAllEmployeeReferal(empReferal);
-		// return null;
 	}
-
-	
 
 	// Change the Referral Status
 	@Override
 	public ChangeReferralStatusResponse setReferralStatus(ReferralStatusRequestModel referralStatusRequestModel)
 			throws CustomException {
 
-		if(referralStatusRequestModel.getReferal_id()==0){
+		if (referralStatusRequestModel.getReferal_id() == 0) {
 			throw new CustomException(413, "Invalid referral id");
-			}
-			/*if(referralStatusRequestModel.getApplicant_email().isEmpty()){
-			throw new CustomException(413, "Invalid email id");
-			}*/
-			if(referralStatusRequestModel.getReferral_status().isEmpty()){
-			throw new CustomException(413, "Status is invalid");
-			}
-		
-		
-		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
-		if (Objects.isNull(employeeReferal)) {
-			throw new CustomException(204, " Invalid Referral id");
+		}
+		/*
+		 * if(referralStatusRequestModel.getApplicant_email().isEmpty()){ throw
+		 * new CustomException(413, "Please enter email id"); }
+		 */
+		if (referralStatusRequestModel.getReferral_status().isEmpty()) {
+			throw new CustomException(413, "Status entered is invalid");
 		}
 
-		/*if (referralStatusRequestModel.getReferral_status().compareTo("Joined") == 0) {
-			if (referralStatusRequestModel.getApplicant_email().isEmpty()) {
-				throw new CustomException(204, " Email is Mandatory");
-			}
-			User user = userRepo.findByEmail(referralStatusRequestModel.getApplicant_email());
-			if (Objects.isNull(user)) {
-				throw new CustomException(204, " User Not yet Registered");
-			}
-			if (!user.isActive()) {
-				throw new CustomException(403, " User is not Active");
-			}
-			employeeReferal.setApplicant_email(user.getEmail());
-		}*/
+		EmployeeReferal employeeReferal = employeeReferalRepository.findOne(referralStatusRequestModel.getReferal_id());
+		if (Objects.isNull(employeeReferal)) {
+			throw new CustomException(204, "Referal id does not exists");
+		}
+
+		/*
+		 * if
+		 * (referralStatusRequestModel.getReferral_status().compareTo("Joined")
+		 * == 0) { if
+		 * (referralStatusRequestModel.getApplicant_email().isEmpty()) { throw
+		 * new CustomException(204, " Email is Mandatory"); } User user =
+		 * userRepo.findByEmail(referralStatusRequestModel.getApplicant_email())
+		 * ; if (Objects.isNull(user)) { throw new CustomException(204,
+		 * " User Not yet Registered"); } if (!user.isActive()) { throw new
+		 * CustomException(403, " User is not Active"); }
+		 * employeeReferal.setApplicant_email(user.getEmail()); }
+		 */
 
 		employeeReferal.setApplication_status(referralStatusRequestModel.getReferral_status());
 		Date date = new Date();
@@ -168,10 +159,10 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	public List<ReferralStatus> getReferralStatusList() throws CustomException {
 
 		List<ReferralStatus> referralStatusList = (List<ReferralStatus>) referralStatusRepository.findAll();
-		if(Objects.isNull(referralStatusList)){
-			throw new CustomException(HttpStatus.NOT_FOUND.value(),"not candidate are refered");
+		if (Objects.isNull(referralStatusList)) {
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "not candidate are refered");
 		}
-		
+
 		return referralStatusList;
 	}
 
@@ -179,8 +170,8 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 	@Override
 	public List<CandidateJoinResponseModel> getJoinCandidateList() throws CustomException {
 		List<EmployeeReferal> joinCandicate = employeeReferalRepository.findByApplicationStatus();
-		if(Objects.isNull(joinCandicate)){
-			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No candidate are joined");
+		if (Objects.isNull(joinCandicate)) {
+			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No candidate are joined");
 		}
 
 		return conversionUtility.getJoinCandidateList(joinCandicate);

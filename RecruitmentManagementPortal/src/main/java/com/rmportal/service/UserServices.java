@@ -19,11 +19,9 @@ public interface UserServices {
 
 	public User findUserByEmail(String email);
 
-	UserResponseDTO saveUser(User user) throws CustomException;
+	public UserResponseDTO saveUser(User user) throws CustomException;
 
 	public User FindById(long id);
-
-	
 
 	public User updateUser(int id, UpdateRequestModel updateRequestModel) throws CustomException;
 	

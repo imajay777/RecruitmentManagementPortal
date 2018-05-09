@@ -345,8 +345,9 @@ public class ConversionUtility {
 			employeeReferalResponseModel.setJob_id(employeeReferal.getJob_id());
 			employeeReferalResponseModel.setBonous_status(employeeReferal.getBonous_status());
 			employeeReferalResponseModel.setDate(employeeReferal.getDate());
+			employeeReferalResponseModel.setFileName(employeeReferal.getFile_name());
+			employeeReferalResponseModel.setFileExtension(employeeReferal.getFile_extension());
 			employeeReferalResponselist.add(employeeReferalResponseModel);
-
 		}
 		return employeeReferalResponselist;
 

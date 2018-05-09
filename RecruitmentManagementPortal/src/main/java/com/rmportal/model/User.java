@@ -14,8 +14,10 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author tejas
@@ -26,6 +28,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(exclude="roles")
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class User {
 
 	@Id

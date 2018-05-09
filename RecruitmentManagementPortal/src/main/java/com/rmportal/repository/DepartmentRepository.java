@@ -11,5 +11,5 @@ import com.rmportal.model.Department;
 public interface DepartmentRepository extends CrudRepository<Department, Integer>{ 
 
 	@Query(value = "SELECT * FROM department WHERE dept_name=:dept_name", nativeQuery = true)
-	Department findByName(@Param("dept_name") String dept_name);
+	public Department findByName(@Param("dept_name") String dept_name);
 }

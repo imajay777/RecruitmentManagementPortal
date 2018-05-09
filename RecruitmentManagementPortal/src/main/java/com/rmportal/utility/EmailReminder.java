@@ -40,7 +40,6 @@ public class EmailReminder {
 			mailMessage.setText(message);
 			mailMessage.setFrom("no-reply-rpPortal@agsft.com");
 			emailSender.send(mailMessage);
-			System.out.println("Email Send");
 		}
 
 	}

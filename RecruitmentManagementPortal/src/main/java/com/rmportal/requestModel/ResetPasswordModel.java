@@ -4,10 +4,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author saurabh
@@ -17,15 +18,15 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ResetPasswordModel {
 
 	int userId;
-	
+
 	String token;
 
-	@Size(max=16, min=8, message="Length of password must be at least 8-16 characters" )
-	@NotEmpty	
+	@Size(max = 16, min = 8, message = "Length of password must be at least 8-16 characters")
+	@NotEmpty
 	String password;
 
 }

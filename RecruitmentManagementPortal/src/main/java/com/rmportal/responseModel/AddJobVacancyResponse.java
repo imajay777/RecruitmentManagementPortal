@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@ToString
+//@ToString
 @NoArgsConstructor
 public class AddJobVacancyResponse {
 

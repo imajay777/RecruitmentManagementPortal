@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 public class EmployeeReferralBonus {
 
 	@Autowired
-	EmployeeBonusService employeeBonusService;
+	private EmployeeBonusService employeeBonusService;
 
 	// Get referal bonus for individual candidate
 	@RequestMapping(value = "/getReferralBonus/{referal_id}", method = RequestMethod.GET)
@@ -35,8 +35,9 @@ public class EmployeeReferralBonus {
 
 		EmployeeBonusStatusResponseModel employeeBonusResponse;
 		try {
-			if (referal_id <= 0)
+			if (referal_id <= 0){
 				throw new CustomException(401, "Request cannot be proceeded");
+			}
 			employeeBonusResponse = employeeBonusService.getReferralBonus(referal_id);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), 204, "No Bonus"));

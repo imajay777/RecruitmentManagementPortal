@@ -37,4 +37,8 @@ public class EmployeeReferalResponseModel {
 	Date date;
 	
 	String bonous_status;
+	
+	String fileName;
+	
+	String fileExtension;
 }

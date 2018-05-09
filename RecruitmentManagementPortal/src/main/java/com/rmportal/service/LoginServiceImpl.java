@@ -25,16 +25,16 @@ import com.rmportal.utility.UserUtility;
 public class LoginServiceImpl implements LoginServices {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Autowired
-	PasswordEncoder bCryptPassword;
+	private PasswordEncoder bCryptPassword;
 
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
 	@Override
 	public LoginResponseModel validateUser(LoginRequestModel loginRequestModel) throws CustomException {
@@ -51,9 +51,7 @@ public class LoginServiceImpl implements LoginServices {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
 
-				LoginResponseModel responseModel = conversionUtility.convertUserToLoginResponse(user);
-				
-				return responseModel;
+				return conversionUtility.convertUserToLoginResponse(user);
 
 			} else {
 				throw new CustomException(401, "Invalid Email id or Password");

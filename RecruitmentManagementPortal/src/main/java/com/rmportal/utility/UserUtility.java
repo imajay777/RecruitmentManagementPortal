@@ -5,7 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserUtility {
 
 	private UserUtility() {
@@ -21,17 +23,6 @@ public class UserUtility {
 	}
 
 	public static boolean isValidEmail(String email) {
-		/*
-		 * Pattern emailPattern = Pattern.compile(
-		 * "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",
-		 * Pattern.CASE_INSENSITIVE);
-		 * 
-		 * Matcher m = emailPattern.matcher(email);
-		 * 
-		 * return m.matches();
-		 * 
-		 * 
-		 */
 		return email.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
 	}
 
@@ -39,6 +30,7 @@ public class UserUtility {
 		if (isInvalidValue(fullName)) {
 			return false;
 		}
+
 		Pattern fullName1 = Pattern.compile("^[a-zA-Z]+[\\s]*[a-zA-Z]*$", Pattern.CASE_INSENSITIVE);
 		Matcher m = fullName1.matcher(fullName);
 		return m.matches();

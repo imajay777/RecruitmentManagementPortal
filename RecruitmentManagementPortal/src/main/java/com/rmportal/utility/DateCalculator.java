@@ -17,9 +17,8 @@ import com.rmportal.model.EmployeeReferal;
 public class DateCalculator {
 
 	@Autowired
-	EmailReminder emailReminder;
+	private EmailReminder emailReminder;
 	
-//	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
 
 //	@Test
 	public void calculateDifferenceBetweenDates(EmployeeReferal referralList) {

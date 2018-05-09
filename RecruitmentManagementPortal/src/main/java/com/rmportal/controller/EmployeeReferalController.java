@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.ReferralStatus;
-import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.CandidateJoinResponseModel;
@@ -34,7 +33,6 @@ import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
 import com.rmportal.service.EmployeeReferalService;
 import com.rmportal.utility.ApplicationUtils;
-import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 import com.rmportal.utility.UserUtility;
 
@@ -46,22 +44,17 @@ import io.swagger.annotations.ApiParam;
  * @author tejas
  *
  */
+
 @RestController
 @Api(value = "EmployeeReferal Controller", description = "Refer the Candidate")
 @CrossOrigin("*")
 public class EmployeeReferalController {
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private EmployeeReferalService employeeReferalService;
 
 	@Autowired
-	EmployeeReferalRepository employeeReferalRepo;
-
-	@Autowired
-	EmployeeReferalService employeeReferalService;
-
-	@Autowired
-	ApplicationUtils applicationUtils;
+	private ApplicationUtils applicationUtils;
 
 	// Get Employee Details -- For the employee
 	@RequestMapping(value = "/getEmployeeReferalList", method = RequestMethod.GET)
@@ -158,7 +151,7 @@ public class EmployeeReferalController {
 
 	}
 
-	// Set Referral Status
+	// Change/Set Referral Status
 	@RequestMapping(value = "/changeReferralStatus", method = RequestMethod.POST)
 	@ApiOperation(value = "Change the Referral status for the applicant")
 	public ResponseEntity<?> setReferralStatus(@RequestBody ReferralStatusRequestModel referralStatusRequestModel)

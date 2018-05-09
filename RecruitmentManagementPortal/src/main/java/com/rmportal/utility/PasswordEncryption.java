@@ -12,9 +12,7 @@ import org.springframework.stereotype.Component;
 public class PasswordEncryption {
 
 	@Autowired
-	PasswordEncoder bCryptPassword;
-
-	
+	private PasswordEncoder bCryptPassword;
 	
 	public String hashEncoder(String password) {
 		String hashEncoder = bCryptPassword.encode(password);

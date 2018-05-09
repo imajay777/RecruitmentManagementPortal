@@ -7,22 +7,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name="department")
+@Table(name = "department")
 @Data
-@EqualsAndHashCode(exclude="user")
+@EqualsAndHashCode(exclude = "user")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Department {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="dept_id")
-	private int dept_id;
-	
-	@Column(name="dept_name")
-	private String dept_name;
+	@Column(name = "dept_id")
+	int dept_id;
 
+	@Column(name = "dept_name")
+	String dept_name;
 
 }

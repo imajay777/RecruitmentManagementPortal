@@ -23,7 +23,7 @@ public class ForgetPasswordEmailUtility {
 	@Autowired
 	private JavaMailSender emailSender;
 	@Autowired
-	UserTokenRepository userTokenRepo;
+	private UserTokenRepository userTokenRepo;
 
 	@Value("${email.resetPasswordLink}")
 	private String resetPasswordLink;

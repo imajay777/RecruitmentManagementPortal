@@ -94,9 +94,9 @@ public class RegisterController {
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-		User user = null;
+//		User user = null;
 		try {
-			user = userService.updateUser(id, updateRequestModel);
+			User user = userService.updateUser(id, updateRequestModel);
 			UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
 			return ResponseEntity.ok(
 					new HttpResponseModel("User updated successfully", HttpStatusConstants.OK.id, updateUserResponse));

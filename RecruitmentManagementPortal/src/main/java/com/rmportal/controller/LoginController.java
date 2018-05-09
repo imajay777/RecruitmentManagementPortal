@@ -73,10 +73,6 @@ public class LoginController {
 		}
 		return ResponseEntity.ok(new HttpResponseModel("Login Successfully", HttpStatusConstants.OK.id, responseModel));
 
-		/*
-		 * HttpStatus httpStatus = HttpStatus.BAD_REQUEST; return
-		 * (ResponseEntity<?>) ResponseEntity.status(httpStatus);
-		 */
 	}
 
 	// Forget Password Controller
@@ -97,7 +93,8 @@ public class LoginController {
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	@ApiOperation(value = "Reset Password")
 	public ResponseEntity<?> resetPassword(HttpServletRequest request, HttpServletResponse response,
-			@Valid @RequestBody ResetPasswordModel resetPasswordModel,BindingResult bindingResult) throws CustomException {
+			@Valid @RequestBody ResetPasswordModel resetPasswordModel, BindingResult bindingResult)
+			throws CustomException {
 
 		try {
 			if (bindingResult.hasErrors())
@@ -106,7 +103,7 @@ public class LoginController {
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-		
+
 		if (userService.resetPassword(resetPasswordModel)) {
 			return ResponseEntity
 					.ok(new HttpResponseModel("Password changed successfully", HttpStatusConstants.OK.id, null));

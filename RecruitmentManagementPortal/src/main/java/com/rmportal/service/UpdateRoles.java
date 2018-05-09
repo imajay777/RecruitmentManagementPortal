@@ -16,7 +16,7 @@ public interface UpdateRoles {
 	
 	public List<RoleResponseModel> getAllRoles() throws CustomException;
 
-	List<String> getAllRoleTypes() throws CustomException;
+	public List<String> getAllRoleTypes() throws CustomException;
 	
-	String changeRole(UpdateRoleRequestModel updateRoleRequestModel) throws CustomException;
+	public String changeRole(UpdateRoleRequestModel updateRoleRequestModel) throws CustomException;
 }

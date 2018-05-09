@@ -14,8 +14,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author tejas
@@ -25,26 +26,16 @@ import lombok.EqualsAndHashCode;
 @Table(name = "role")
 @Entity
 @Data
-@EqualsAndHashCode(exclude="user")
-
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "role_id")
-	private int id;
+	int id;
 	
 	@Column(name = "role_name")
-	private String role;
-	
-	/*@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "roles")
-	@JsonBackReference
-	List<User> user;*/
-	
-	
-	/*@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user_id")
-	@JsonBackReference
-	String userId;*/
+	String role;
 	
 	@OneToMany 
 	@JoinTable(name = "permission_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))

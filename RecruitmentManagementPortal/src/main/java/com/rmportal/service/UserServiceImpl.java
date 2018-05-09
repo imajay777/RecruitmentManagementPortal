@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.rmportal.constants.UserTokenType;
 import com.rmportal.model.Department;
@@ -37,48 +36,41 @@ import com.rmportal.utility.UserUtility;
  */
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserServices {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Autowired
-	DepartmentRepository departmentRepo;
-
-	/*
-	 * @Autowired PasswordEncryption passwordEncryption;
-	 */
-
-	private static List<User> users;
-	@Autowired
-	ActivationEmailUtility activationEmailUtility;
+	private DepartmentRepository departmentRepo;
 
 	@Autowired
-	UserTokenRepository userTokenRepository;
+	private ActivationEmailUtility activationEmailUtility;
 
 	@Autowired
-	ForgetPasswordEmailUtility forgotPasswordEmailUtility;
+	private UserTokenRepository userTokenRepository;
 
 	@Autowired
-	PasswordEncryption passwordEncryption;
+	private ForgetPasswordEmailUtility forgotPasswordEmailUtility;
 
 	@Autowired
-	PasswordEncoder bCryptPassword;
+	private PasswordEncryption passwordEncryption;
 
 	@Autowired
-	DepartmentRepository departmentRepository;
+	private PasswordEncoder bCryptPassword;
+
+	@Autowired
+	private DepartmentRepository departmentRepository;
 
 	@Override
 	public User findUserByEmail(String email) {
 		return null;
-		// userRepository.findByEmail(email);
 	}
 
 	/*
@@ -179,37 +171,38 @@ public class UserServiceImpl implements UserServices {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "First name can not be empty");
 			} else if (!UserUtility.isValidName(updateRequestModel.getFirstName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid firstName");
-
 			} else {
 				updatedUser.setFirstName(updateRequestModel.getFirstName());
 			}
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getLastName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Last name can not be empty");
-			} else if(!UserUtility.isValidName(updateRequestModel.getLastName())){
+			} else if (!UserUtility.isValidName(updateRequestModel.getLastName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid lastName");
-				
-			}else {
+			} else {
 				updatedUser.setLastName(updateRequestModel.getLastName());
 			}
 
 			updatedUser.setEmployee_id("Not Set");
-			// updatedUser.setDepartments(updatedUser.getDepartments());
-			// updatedUser.setDepartments(updateRequestModel.getDepartment());
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getAddress())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setAddress(updateRequestModel.getAddress());
 			}
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getBlood_group())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setBlood_group(updateRequestModel.getBlood_group());
 			}
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getCity())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setCity(updateRequestModel.getCity());
 			}
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getCountry())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
@@ -218,15 +211,16 @@ public class UserServiceImpl implements UserServices {
 
 			if (!UserUtility.isValidMobile(updateRequestModel.getMobile())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
+			} else {
+				updatedUser.setMobile(updateRequestModel.getMobile());
 			}
-			updatedUser.setMobile(updateRequestModel.getMobile());
-
+			
 			if (UserUtility.isInvalidValue(updateRequestModel.getDateOfBirth())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
-
 			} else {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
+			
 			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
 
 			if (Objects.isNull(department)) {
@@ -235,13 +229,8 @@ public class UserServiceImpl implements UserServices {
 			updatedUser.setDepartments(department);
 
 			userRepository.save(updatedUser);
-			// conversionUtility.convertForUpdateResponse(user);
-			// userRepository.save(user);
-			// response = "user updated succesfully";
-
 		} else {
 			throw new CustomException(HttpStatus.BAD_REQUEST.value(), " User already exits");
-
 		}
 
 		return updatedUser;
@@ -250,12 +239,10 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public List<User> getAllUsers() throws CustomException {
 
-		// System.out.println("hello");
 		List<User> getUsers = (List<User>) userRepository.findAll();
 		if (Objects.isNull(getUsers) || getUsers.isEmpty()) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Users Are Presents");
 		}
-
 		return getUsers;
 	}
 
@@ -268,10 +255,7 @@ public class UserServiceImpl implements UserServices {
 		}
 
 		if (Objects.isNull(user)) {
-			// throw new CustomException(HttpStatus.NOT_FOUND.value(), "User
-			// does not exist");
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User does not exists");
-
 		}
 		if (user.isActive() && status) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "User alerady activated");
@@ -366,14 +350,17 @@ public class UserServiceImpl implements UserServices {
 		}
 		User user = userRepository.findByEmail(changePasswordModel.getEmail());
 
-		if (Objects.isNull(user))
+		if (Objects.isNull(user)) {
 			throw new CustomException(500, "User does not exists");
+		}
 
-		if (!user.isActive())
+		if (!user.isActive()) {
 			throw new CustomException(202, "Password Cannot be changed please contact to Admin");
+		}
 
-		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword()))
+		if (!bCryptPassword.matches(changePasswordModel.getOldPassword(), user.getPassword())) {
 			throw new CustomException(500, "Old Password did not match");
+		}
 
 		/*
 		 * if (!changePasswordModel.getNewPassword().equals(changePasswordModel.
