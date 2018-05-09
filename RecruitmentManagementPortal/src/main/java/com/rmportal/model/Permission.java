@@ -7,43 +7,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "permission")
 @Data
-@ToString
-@EqualsAndHashCode(exclude = "roles")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Permission {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "permission_id")
-	private int permission_id;
+	int permission_id;
 
 	@Column(name = "permission_name")
-	private String premissionName;
+	String premissionName;
 
-/*	@ManyToMany(mappedBy = "rolePermission")
-
-	@JsonBackReference
-	private List<Role> roles;*/
-
-	/*
-	 * @ManyToMany(mappedBy = "rolePermission")
-	 * 
-	 * @JsonBackReference private String roleId;
-	 */
-	/*
-	 * @ManyToMany(mappedBy = "rolePermission")
-	 * 
-	 * @JsonBackReference private List<Role> roles;
-	 */
-
-/*	@ManyToOne()
-	@JsonBackReference
-	private String roleId;
-*/
 }

@@ -14,15 +14,13 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(includeFieldNames=true)
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = false)
 public class HttpResponseModel {
 
 	String message;
-	
-	int status;
-	
-	Object response;
 
+	int status;
+
+	Object response;
 
 }

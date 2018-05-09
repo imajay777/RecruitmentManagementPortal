@@ -20,10 +20,10 @@ import com.rmportal.utility.CustomException;
 public class ListJobVacancyImpl implements ListJobVacancyService {
 
 	@Autowired
-	JobVacancyRepository jobVacancyRepository;
+	private JobVacancyRepository jobVacancyRepository;
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Override
 	public List<JobVacancyResponseModel> getAllJobs() {

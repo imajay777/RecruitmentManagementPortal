@@ -5,15 +5,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class JobVacancyRequestModel {
 
 	@Size(min = 2, max = 100, message = "Job Title must contain atleast 2 and atmost 100 characters")
@@ -23,10 +25,6 @@ public class JobVacancyRequestModel {
 	@Min(value = 1, message = "Mandatory field cannot be Empty")
 	@Max(value = 100, message = "Mandatory field cannot be Empty")
 	int number_of_openings;
-
-/*	@Size(min = 1, max = 50, message = "Experience must contain atleast 1 characters")
-	@NotNull(message = "Mandatory field cannot be Empty")
-	String experience_required;*/
 
 	String job_description;
 
@@ -38,9 +36,8 @@ public class JobVacancyRequestModel {
 	@NotNull(message = "Mandatory field cannot be Empty")
 	String job_location;
 
-//	@Min(value = 0, message = "Mandatory field cannot be Empty")
+	// @Min(value = 0, message = "Mandatory field cannot be Empty")
 	String salary_ctc;
-
 
 	String education;
 
@@ -49,9 +46,9 @@ public class JobVacancyRequestModel {
 	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	@Max(value = 100, message = "Mandatory field cannot be Empty")
 	int exp_to;
-	
+
 	@Min(value = 0, message = "Mandatory field cannot be Empty")
 	@Max(value = 100, message = "Mandatory field cannot be Empty")
 	int exp_from;
-	
+
 }

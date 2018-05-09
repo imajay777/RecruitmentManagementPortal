@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.rmportal.model.ReferralStatus;
 
 @Repository
-public interface ReferralStatusRepository  extends CrudRepository<ReferralStatus, Integer>
-{
-	ReferralStatus save(ReferralStatus employeeReferal);
+public interface ReferralStatusRepository extends CrudRepository<ReferralStatus, Integer> {
 }

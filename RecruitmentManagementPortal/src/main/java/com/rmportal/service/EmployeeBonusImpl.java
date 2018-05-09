@@ -21,22 +21,22 @@ import com.rmportal.utility.UserUtility;
 public class EmployeeBonusImpl implements EmployeeBonusService {
 
 	@Autowired
-	EmployeeReferalRepository employeeReferalRepo;
+	private EmployeeReferalRepository employeeReferalRepo;
 
 	@Autowired
-	EmployeeReferalRepository employeeReferalBonusrepo;
+	private EmployeeReferalRepository employeeReferalBonusrepo;
 
 	@Autowired
-	CronJobSchedular cronJobSchedular;
+	private CronJobSchedular cronJobSchedular;
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
-	CalculateDifferenceInDate calculateDifferenceInDate;
+	private CalculateDifferenceInDate calculateDifferenceInDate;
 
 	// get candidate bonus
 	@Override

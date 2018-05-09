@@ -38,16 +38,16 @@ import io.swagger.annotations.ApiOperation;
 public class LoginController {
 
 	@Autowired
-	public LoginServices loginService;
+	private LoginServices loginService;
 
 	@Autowired
-	UserServices userService;
+	private UserServices userService;
 
 	@Autowired
-	GlobalExceptionHandler globalException;
+	private GlobalExceptionHandler globalException;
 
 	@Autowired
-	ApplicationUtils applicationUtils;
+	private ApplicationUtils applicationUtils;
 
 	// Login Controller
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -57,8 +57,9 @@ public class LoginController {
 			throws CustomException {
 
 		try {
-			if (bindingResult.hasErrors())
+			if (bindingResult.hasErrors()){
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(loginRequestModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
@@ -100,8 +101,9 @@ public class LoginController {
 			@Valid @RequestBody ResetPasswordModel resetPasswordModel,BindingResult bindingResult) throws CustomException {
 
 		try {
-			if (bindingResult.hasErrors())
+			if (bindingResult.hasErrors()){
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(resetPasswordModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());

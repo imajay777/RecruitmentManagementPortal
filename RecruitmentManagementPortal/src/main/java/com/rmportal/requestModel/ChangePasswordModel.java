@@ -3,10 +3,12 @@ package com.rmportal.requestModel;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author saurabh
@@ -15,7 +17,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class ChangePasswordModel {
 
 	@NotNull(message = "Internal Error Occured. Please contact to Admin")

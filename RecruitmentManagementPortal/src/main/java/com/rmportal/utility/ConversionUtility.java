@@ -41,10 +41,10 @@ import com.rmportal.responseModel.UserResponseDTO;
 public class ConversionUtility {
 
 	@Autowired
-	PasswordEncryption passwordEncryption;
+	private PasswordEncryption passwordEncryption;
 
 	@Autowired
-	CalculateDifferenceInDate calculateDifferenceInDate;
+	private CalculateDifferenceInDate calculateDifferenceInDate;
 
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
@@ -138,11 +138,9 @@ public class ConversionUtility {
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
 
-		// System.out.println("inside model"+model);
 
 		for (Permission permission : list) {
 
-			// System.out.println("number of permission"+permission);
 
 			if (permission.getPremissionName().compareTo("AddOpenPosition") == 0) {
 

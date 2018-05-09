@@ -33,19 +33,19 @@ import com.rmportal.utility.UserUtility;
 public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Autowired
-	EmployeeReferalRepository employeeReferalRepository;
+	private EmployeeReferalRepository employeeReferalRepository;
 
 	@Autowired
-	ReferralStatusRepository referralStatusRepository;
+	private ReferralStatusRepository referralStatusRepository;
 	
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 
 	@Autowired
-	EmployeeReferalRepository employeeReferralRepo;
+	private EmployeeReferalRepository employeeReferralRepo;
 
 	// Upload Resume
 	@Override
@@ -113,7 +113,6 @@ public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(),"No Candidate are Referred");
 		}
 		return conversionUtility.getAllEmployeeReferal(empReferal);
-		// return null;
 	}
 
 	

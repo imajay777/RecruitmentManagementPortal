@@ -1,6 +1,7 @@
 package com.rmportal.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ import io.swagger.annotations.ApiOperation;
 public class UpdateRolesController {
 
 	@Autowired
-	UpdateRoles updateRoles;
+	private UpdateRoles updateRoles;
 
 	// Get user Roles
 	@RequestMapping(value = "/getRoles", method = RequestMethod.GET)
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> getRoles() throws CustomException {
 		List<RoleResponseModel> roles = updateRoles.getAllRoles();
-
+		
 		return ResponseEntity.ok(new HttpResponseModel("Role list fetched successfully", HttpStatusConstants.OK.id, roles));
 
 	}

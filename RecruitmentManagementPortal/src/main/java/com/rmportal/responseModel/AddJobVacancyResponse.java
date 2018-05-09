@@ -1,14 +1,16 @@
 package com.rmportal.responseModel;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddJobVacancyResponse {
 
 	int job_id;

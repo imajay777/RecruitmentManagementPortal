@@ -40,13 +40,13 @@ import io.swagger.annotations.ApiOperation;
 public class RegisterController {
 
 	@Autowired
-	UserServices userService;
+	private UserServices userService;
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 	
 	@Autowired
-	ApplicationUtils applicationUtils;
+	private ApplicationUtils applicationUtils;
 
 	// Registration API
 	@RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "application/json")
@@ -55,8 +55,9 @@ public class RegisterController {
 			BindingResult bindingResult) throws CustomException {
 		
 		try {
-			if (bindingResult.hasErrors())
+			if (bindingResult.hasErrors()){
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(registerRequestModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
@@ -88,8 +89,9 @@ public class RegisterController {
 	
 		
 		try {
-			if (bindingResult.hasErrors())
+			if (bindingResult.hasErrors()){
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(updateRequestModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
