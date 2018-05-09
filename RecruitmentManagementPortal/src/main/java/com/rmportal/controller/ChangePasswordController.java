@@ -41,7 +41,8 @@ public class ChangePasswordController {
 	// Change Password Controller
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	@ApiOperation(value = "Change Password")
-	public ResponseEntity<HttpResponseModel> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel,
+
+	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel,
 			BindingResult bingingResult) throws CustomException {
 
 		if (Objects.isNull(changePasswordModel)) {

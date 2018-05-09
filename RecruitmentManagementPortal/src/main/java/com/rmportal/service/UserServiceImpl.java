@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserServices {
 
 		Role userRole = roleRepository.findOne(1);
 
-		if (userRole == null) {
+		if (Objects.isNull(userRole)) {
 			throw new CustomException(HttpStatus.NOT_FOUND.value(), "No Role is Assign ");
 		}
 
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserServices {
 
 		if (UserUtility.isValidEmail(registerRequestModel.getEmail())) {
 
-			String str[] = registerRequestModel.getEmail().split("@");
+			String[] str = registerRequestModel.getEmail().split("@");
 
 			if (str[1].compareTo("yopmail.com") == 0) {
 
@@ -214,13 +214,13 @@ public class UserServiceImpl implements UserServices {
 			} else {
 				updatedUser.setMobile(updateRequestModel.getMobile());
 			}
-			
+
 			if (UserUtility.isInvalidValue(updateRequestModel.getDateOfBirth())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
-			
+
 			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
 
 			if (Objects.isNull(department)) {
@@ -304,7 +304,7 @@ public class UserServiceImpl implements UserServices {
 		if (!UserUtility.isValidEmail(email)) {
 			throw new CustomException(204, "Invalid email address");
 		}
-		if (user != null && user.isActive()) {
+		if (Objects.nonNull(user) && user.isActive()) {
 			forgotPasswordEmailUtility.sendMail(user);
 			return true;
 		} else {
@@ -324,7 +324,8 @@ public class UserServiceImpl implements UserServices {
 		UserToken userToken = userTokenRepository.findByToken(resetPasswordModel.getUserId(),
 				resetPasswordModel.getToken());
 
-		if (userToken != null && userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
+		if (Objects.nonNull(userToken)
+				&& userToken.getTokenType().compareTo(UserTokenType.RESET_PASSWORD.name()) == 0) {
 			User user = userRepository.findByUserId(userToken.getUser_id());
 
 			if (Objects.isNull(user)) {

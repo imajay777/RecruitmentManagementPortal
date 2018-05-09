@@ -39,6 +39,9 @@ public class UpdateRolesImpl implements UpdateRoles {
 	public List<RoleResponseModel> getAllRoles() throws CustomException {
 
 		List<Role> roles = (List<Role>) roleRepository.findAll();
+		if(roles.isEmpty()){
+			throw new CustomException(204, "Roles list is empty");
+		}
 		return conversionUtility.convertToRoleResponseModel(roles);
 
 	}
