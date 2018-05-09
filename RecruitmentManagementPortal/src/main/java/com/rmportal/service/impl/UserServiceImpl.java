@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserServices {
 
 		if (Objects.nonNull(updateRequestModel)) {
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getFirstName())) {
+			if (StringUtils.isBlank(updateRequestModel.getFirstName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "First name can not be empty");
 			} else if (!UserUtility.isValidName(updateRequestModel.getFirstName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid firstName");
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setFirstName(updateRequestModel.getFirstName());
 			}
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getLastName())) {
+			if (StringUtils.isBlank(updateRequestModel.getLastName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Last name can not be empty");
 			} else if (!UserUtility.isValidName(updateRequestModel.getLastName())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Invalid lastName");
@@ -186,25 +186,25 @@ public class UserServiceImpl implements UserServices {
 
 			updatedUser.setEmployee_id("Not Set");
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getAddress())) {
+			if (StringUtils.isBlank(updateRequestModel.getAddress())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setAddress(updateRequestModel.getAddress());
 			}
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getBlood_group())) {
+			if (StringUtils.isBlank(updateRequestModel.getBlood_group())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setBlood_group(updateRequestModel.getBlood_group());
 			}
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getCity())) {
+			if (StringUtils.isBlank(updateRequestModel.getCity())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setCity(updateRequestModel.getCity());
 			}
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getCountry())) {
+			if (StringUtils.isBlank(updateRequestModel.getCountry())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setCountry(updateRequestModel.getCountry());
@@ -216,7 +216,7 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setMobile(updateRequestModel.getMobile());
 			}
 
-			if (UserUtility.isInvalidValue(updateRequestModel.getDateOfBirth())) {
+			if (StringUtils.isBlank(updateRequestModel.getDateOfBirth())) {
 				throw new CustomException(HttpStatus.NOT_FOUND.value(), "Mandatory Feilds Cannot be Empty");
 			} else {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
@@ -318,7 +318,7 @@ public class UserServiceImpl implements UserServices {
 	@Override
 	public boolean resetPassword(ResetPasswordModel resetPasswordModel) throws CustomException {
 
-		if (UserUtility.isInvalidValue(resetPasswordModel.getPassword())) {
+		if (StringUtils.isBlank(resetPasswordModel.getPassword())) {
 			throw new CustomException(401, "Mandatory fields cannot be empty");
 		}
 

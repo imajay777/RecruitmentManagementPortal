@@ -52,10 +52,10 @@ public class ConversionUtility {
 
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
-		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
-				&& UserUtility.isInvalidValue(registerRequestModel.getLastName())
-				&& UserUtility.isInvalidValue(registerRequestModel.getEmail())
-				&& UserUtility.isInvalidValue(registerRequestModel.getPassword())) {
+		if (StringUtils.isBlank(registerRequestModel.getFirstName())
+				&& StringUtils.isBlank(registerRequestModel.getLastName())
+				&& StringUtils.isBlank(registerRequestModel.getEmail())
+				&& StringUtils.isBlank(registerRequestModel.getPassword())) {
 
 			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
 		}

@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -89,7 +90,7 @@ public class EmployeeReferalController {
 		if (file.isEmpty()) {
 			return ResponseEntity.ok(new HttpResponseModel("Please attach the File", HttpStatusConstants.OK.id, null));
 		}
-		if (UserUtility.isInvalidValue(details)) {
+		if (StringUtils.isBlank(details)) {
 			return ResponseEntity.ok(new HttpResponseModel("Please fill the Details", HttpStatusConstants.OK.id, null));
 		}
 		if (!UserUtility.isValidDetails(details)) {
@@ -106,13 +107,16 @@ public class EmployeeReferalController {
 			e.getMessage();
 		}
 
+		if(Objects.isNull(uploadResumeRequestModel)){
+			throw new CustomException(401, "Details field cannot be empty");
+		}
 		if (!UserUtility.isValidEmail(uploadResumeRequestModel.getEmail())) {
 			throw new CustomException(204, "Invalid email id");
 		}
 		if (!UserUtility.isValidfullName(uploadResumeRequestModel.getApplicant_name())) {
 			throw new CustomException(204, "Invalid applicant name");
 		}
-		if (UserUtility.isInvalidValue(uploadResumeRequestModel.getTechnical_skills())) {
+		if (StringUtils.isBlank(uploadResumeRequestModel.getTechnical_skills())) {
 			throw new CustomException(204, "Please enter technical skills");
 		}
 		if (uploadResumeRequestModel.getExperience() == 0) {
