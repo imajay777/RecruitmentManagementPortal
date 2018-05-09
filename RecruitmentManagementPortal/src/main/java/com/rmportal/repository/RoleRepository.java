@@ -12,7 +12,7 @@ import com.rmportal.model.Role;
 @Repository("roleRepository")
 public interface RoleRepository extends CrudRepository<Role, Integer>{
 	
-	Role findByRole(String role);
+	public Role findByRole(String role);
 	
 
 }

@@ -17,10 +17,10 @@ public interface UserTokenRepository extends CrudRepository<UserToken, Integer>{
 	
 	 
 	 @Query(value = "SELECT * FROM user_token WHERE user_id =:userId AND user_token=:token", nativeQuery = true)
-	 UserToken findByToken(@Param("userId") int userId,@Param("token")String token) throws CustomException;
+	 public UserToken findByToken(@Param("userId") int userId,@Param("token")String token) throws CustomException;
 	 
-	 @Query(value = "SELECT * FROM user_token WHERE user_token=:token", nativeQuery = true)
-	 UserToken findByTokenValue(@Param("token") String token) throws CustomException;
+	  @Query(value = "SELECT * FROM user_token WHERE user_token=:token", nativeQuery = true)
+	 public UserToken findByTokenValue(@Param("token") String token) throws CustomException;
 	 
 	 
 	 

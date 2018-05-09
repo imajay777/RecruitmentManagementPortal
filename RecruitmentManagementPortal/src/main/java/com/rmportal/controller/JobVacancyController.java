@@ -38,13 +38,13 @@ import io.swagger.annotations.ApiOperation;
 public class JobVacancyController {
 
 	@Autowired
-	AddJobVacancyService addJobVacancyService;
+	private AddJobVacancyService addJobVacancyService;
 
 	@Autowired
-	ListJobVacancyService listJobVacancyService;
+	private	ListJobVacancyService listJobVacancyService;
 
 	@Autowired
-	ApplicationUtils applicationUtils;
+	private ApplicationUtils applicationUtils;
 	
 	// Add Job Vacancies
 	@RequestMapping(value = "/addJobVacancy", method = RequestMethod.POST)
@@ -97,8 +97,9 @@ public class JobVacancyController {
 		AddJobVacancyResponse addJobVacancyResponse = null;
 
 		try {
-			if (bindingResult.hasErrors())
+			if (bindingResult.hasErrors()){
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
+			}
 			applicationUtils.validateEntity(jobVacancyRequestModel, bindingResult);
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));

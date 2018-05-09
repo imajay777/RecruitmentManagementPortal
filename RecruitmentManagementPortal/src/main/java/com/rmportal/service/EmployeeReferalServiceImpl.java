@@ -14,7 +14,6 @@ import com.rmportal.model.EmployeeReferal;
 import com.rmportal.model.ReferralStatus;
 import com.rmportal.repository.EmployeeReferalRepository;
 import com.rmportal.repository.ReferralStatusRepository;
-import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.ReferralStatusRequestModel;
 import com.rmportal.requestModel.UploadResumeRequestModel;
 import com.rmportal.responseModel.CandidateJoinResponseModel;
@@ -33,20 +32,14 @@ import com.rmportal.utility.UserUtility;
 public class EmployeeReferalServiceImpl implements EmployeeReferalService {
 
 	@Autowired
-	ConversionUtility conversionUtility;
+	private ConversionUtility conversionUtility;
 
 	@Autowired
-	EmployeeReferalRepository employeeReferalRepository;
+	private EmployeeReferalRepository employeeReferalRepository;
 
 	@Autowired
-	ReferralStatusRepository referralStatusRepository;
-
-	@Autowired
-	UserRepository userRepo;
-
-	@Autowired
-	EmployeeReferalRepository employeeReferralRepo;
-
+	private ReferralStatusRepository referralStatusRepository;
+	
 	// Upload Resume
 	@Override
 	public UploadResumeResponseModel addResume(UploadResumeRequestModel uploadResumeRequestModel, MultipartFile file)

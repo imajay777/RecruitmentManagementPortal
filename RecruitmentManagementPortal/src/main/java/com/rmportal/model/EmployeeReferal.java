@@ -10,11 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Table(name = "employee_referal")
 @Entity
 @Data
+@FieldDefaults(level=AccessLevel.PRIVATE)
 public class EmployeeReferal {
 
 	@Id
