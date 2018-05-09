@@ -26,46 +26,43 @@ import io.swagger.annotations.ApiOperation;
 /**
  * @author saurabh Controller for Login, Forgot Password and Reset Password
  */
-	
+
 @RestController
-@Api(value="User Upgradation", description="Change Details from Profile Page")
+@Api(value = "User Upgradation", description = "Change Details from Profile Page")
 @CrossOrigin("*")
 public class ChangePasswordController {
 
 	@Autowired
 	private UserServices userService;
-	
+
 	@Autowired
 	private ApplicationUtils applicationUtils;
-	
+
 	// Change Password Controller
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	@ApiOperation(value = "Change Password")
-	public ResponseEntity<HttpResponseModel> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel, BindingResult bingingResult)
-			throws CustomException {
-		
-		if(Objects.isNull(changePasswordModel)){
+	public ResponseEntity<HttpResponseModel> changePassword(@Valid @RequestBody ChangePasswordModel changePasswordModel,
+			BindingResult bingingResult) throws CustomException {
+
+		if (Objects.isNull(changePasswordModel)) {
 			throw new CustomException(205, "Mandatory fields can't be Empty");
 		}
-		
+
 		try {
-			if (bingingResult.hasErrors()){
+			if (bingingResult.hasErrors()) {
 				throw new CustomException(204, bingingResult.getAllErrors().get(0).getDefaultMessage());
 			}
 			applicationUtils.validateEntity(changePasswordModel, bingingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-		
-		if(userService.changePassword(changePasswordModel)){
-			return ResponseEntity
-					.ok(new HttpResponseModel("Password Changed",
-							HttpStatusConstants.OK.id, null));
+
+		if (userService.changePassword(changePasswordModel)) {
+			return ResponseEntity.ok(new HttpResponseModel("Password Changed", HttpStatusConstants.OK.id, null));
 		}
 
-		return ResponseEntity
-				.ok(new HttpResponseModel("Unable to change the password, please try again.",
-						HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
+		return ResponseEntity.ok(new HttpResponseModel("Unable to change the password, please try again.",
+				HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 
 	}
 }

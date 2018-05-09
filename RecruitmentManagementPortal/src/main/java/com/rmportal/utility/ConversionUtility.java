@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,9 @@ public class ConversionUtility {
 	@Autowired
 	private CalculateDifferenceInDate calculateDifferenceInDate;
 
+	@Autowired
+	private EmployeeReferalRepository employeeReferalBonusrepo;
+
 	// Registration
 	public User convertRequestToUser(RegisterRequestModel registerRequestModel) throws CustomException {
 		if (UserUtility.isInvalidValue(registerRequestModel.getFirstName())
@@ -55,12 +59,12 @@ public class ConversionUtility {
 
 			throw new CustomException(HttpStatusConstants.BAD_REQUEST.getId(), "Mandatory Feilds Cannot be Empty");
 		}
-		
-		if(!UserUtility.isValidName(registerRequestModel.getFirstName())){
+
+		if (!UserUtility.isValidName(registerRequestModel.getFirstName())) {
 			throw new CustomException(204, "Invalid First Name");
 		}
-		
-		if(!UserUtility.isValidName(registerRequestModel.getLastName())){
+
+		if (!UserUtility.isValidName(registerRequestModel.getLastName())) {
 			throw new CustomException(204, "Invalid Last Name");
 		}
 
@@ -138,9 +142,7 @@ public class ConversionUtility {
 	public UserPremissionModel getPermission(List<Permission> list) {
 		UserPremissionModel model = new UserPremissionModel();
 
-
 		for (Permission permission : list) {
-
 
 			if (permission.getPremissionName().compareTo("AddOpenPosition") == 0) {
 
@@ -232,14 +234,13 @@ public class ConversionUtility {
 		JobVacancy jobVacancy = new JobVacancy();
 		jobVacancy.setJob_title(jobVacancyRequestModel.getJob_title());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
-		// jobVacancy.setExperience_required(jobVacancyRequestModel.getExperience_required());
 		jobVacancy.setExp_to(jobVacancyRequestModel.getExp_to());
 		jobVacancy.setExp_from(jobVacancyRequestModel.getExp_from());
 		jobVacancy.setJob_description(jobVacancyRequestModel.getJob_description());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
 		jobVacancy.setJob_location(jobVacancyRequestModel.getJob_location());
-		if (jobVacancyRequestModel.getSalary_ctc() == "" || jobVacancyRequestModel.getSalary_ctc() == " ") {
-			jobVacancy.setSalary_ctc("Disclosed");
+		if (StringUtils.isBlank(jobVacancyRequestModel.getSalary_ctc())) {
+			jobVacancy.setSalary_ctc("Not Disclosed");
 		} else {
 			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
 		}
@@ -259,13 +260,11 @@ public class ConversionUtility {
 				jobVacancyResponse.setJob_vacancy_id(jobVacancy.getJob_vacancy_id());
 				jobVacancyResponse.setJob_title(jobVacancy.getJob_title());
 				jobVacancyResponse.setNumber_of_openings(jobVacancy.getNumber_of_openings());
-				// jobVacancyResponse.setExperience_required(jobVacancy.getExperience_required());
 				jobVacancyResponse.setExp_to(jobVacancy.getExp_to());
 				jobVacancyResponse.setExp_from(jobVacancy.getExp_from());
 				jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
 				jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
-				jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
-				if (jobVacancy.getSalary_ctc() == null || jobVacancy.getSalary_ctc() == "") {
+				if (StringUtils.isBlank(jobVacancy.getSalary_ctc())) {
 					jobVacancyResponse.setSalary_ctc("Not Disclosed");
 				} else {
 					jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
@@ -317,7 +316,7 @@ public class ConversionUtility {
 		employeeReferal.setFile_name(file.getOriginalFilename());
 		employeeReferal.setFile_extension(FilenameUtils.getExtension(file.getOriginalFilename()));
 		if (!file.isEmpty()) {
-			if (!file.getOriginalFilename().equals("")) {
+			if (!file.getOriginalFilename().isEmpty()) {
 				employeeReferal.setResume(file.getBytes());
 			} else {
 				throw new CustomException(204, "File Name is empty");
@@ -350,29 +349,6 @@ public class ConversionUtility {
 		return employeeReferalResponselist;
 
 	}
-
-	/*
-	 * // Response model for Update Profile public UpdateResponseModel
-	 * convertToUpdateResponseModel(User user) {
-	 * 
-	 * UpdateResponseModel updateResponseModel = new UpdateResponseModel();
-	 * updateResponseModel.setFirstName(user.getFirstName());
-	 * updateResponseModel.setLastName(user.getLastName());
-	 * updateResponseModel.setDOB(user.getDOB());
-	 * updateResponseModel.setBlood_group(user.getBlood_group());
-	 * updateResponseModel.setEmail(user.getEmail());
-	 * updateResponseModel.setAddress(user.getAddress());
-	 * updateResponseModel.setCity(user.getCity());
-	 * updateResponseModel.setCountry(user.getCountry());
-	 * updateResponseModel.setMobile(user.getMobile());
-	 * updateResponseModel.setEmployee_id(user.getEmployee_id());
-	 * updateResponseModel.setDepartment(user.getDepartments()); //
-	 * updateResponseModel.setRole(user.getRoles());
-	 * 
-	 * return updateResponseModel; }
-	 */
-	@Autowired
-	EmployeeReferalRepository employeeReferalBonusrepo;
 
 	// Calculate Bonus
 	public EmployeeBonusStatusResponseModel calculateBonus(EmployeeReferal employeeReferal) {
@@ -488,8 +464,8 @@ public class ConversionUtility {
 		jobVacancy.setJob_type(jobVacancyRequestModel.getJob_type());
 		jobVacancy.setNumber_of_openings(jobVacancyRequestModel.getNumber_of_openings());
 		jobVacancy.setTechnical_skills(jobVacancyRequestModel.getTechnical_skills());
-		if (jobVacancyRequestModel.getSalary_ctc().isEmpty()) {
-			jobVacancy.setSalary_ctc("Disclosed");
+		if (StringUtils.isBlank(jobVacancyRequestModel.getSalary_ctc())) {
+			jobVacancy.setSalary_ctc("Not Disclosed");
 		} else {
 			jobVacancy.setSalary_ctc(jobVacancyRequestModel.getSalary_ctc());
 		}
@@ -509,8 +485,8 @@ public class ConversionUtility {
 		jobVacancyResponse.setJob_description(jobVacancy.getJob_description());
 		jobVacancyResponse.setTechnical_skills(jobVacancy.getTechnical_skills());
 		jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
-		if (jobVacancy.getSalary_ctc() == null || jobVacancy.getSalary_ctc() == "") {
-			jobVacancyResponse.setSalary_ctc("Disclosed");
+		if (StringUtils.isBlank(jobVacancy.getSalary_ctc())) {
+			jobVacancyResponse.setSalary_ctc("Not Disclosed");
 		} else {
 			jobVacancyResponse.setSalary_ctc(jobVacancy.getSalary_ctc());
 		}

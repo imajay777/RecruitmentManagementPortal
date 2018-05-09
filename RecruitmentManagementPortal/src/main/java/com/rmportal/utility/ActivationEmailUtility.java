@@ -1,5 +1,6 @@
 package com.rmportal.utility;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class ActivationEmailUtility {
 
 	public void sendMail(User user) {
 
-		if (user != null) {
+		if (Objects.nonNull(user)) {
 			String subject = "Activation Link for Recruitment Management Portal";
 			String message = "Hi " + user.getFirstName() + ", \n"
 					+ "\n Welcome to AGSFT Recruitment Management Portal...! \n\n Please click on the activation link below to activate your account, \n";
