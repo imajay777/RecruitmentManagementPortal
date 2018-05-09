@@ -44,7 +44,7 @@ public class RegisterController {
 
 	@Autowired
 	private ConversionUtility conversionUtility;
-	
+
 	@Autowired
 	private ApplicationUtils applicationUtils;
 
@@ -53,17 +53,16 @@ public class RegisterController {
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> registeration(@RequestBody @Valid RegisterRequestModel registerRequestModel,
 			BindingResult bindingResult) throws CustomException {
-		
+
 		try {
-			if (bindingResult.hasErrors()){
+			if (bindingResult.hasErrors()) {
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
 			}
 			applicationUtils.validateEntity(registerRequestModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-	
-		
+
 		User user = conversionUtility.convertRequestToUser(registerRequestModel);
 		UserResponseDTO httpResponseModel = null;
 
@@ -74,29 +73,28 @@ public class RegisterController {
 
 		} catch (CustomException e) {
 
-			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id,
-					null));
+			return ResponseEntity
+					.ok(new HttpResponseModel(e.getMessage(), HttpStatusConstants.INTERNAL_SERVER_ERROR.id, null));
 		}
 
-		
 	}
 
 	// UpdateUser API
 	@RequestMapping(value = "/updateUser/{id}", method = RequestMethod.POST, consumes = "application/json")
 	@ApiOperation(value = "Update User")
 	public ResponseEntity<?> updateUser(@PathVariable("id") int id,
-			@Valid @RequestBody UpdateRequestModel updateRequestModel, BindingResult bindingResult) throws CustomException {
-	
-		
+			@Valid @RequestBody UpdateRequestModel updateRequestModel, BindingResult bindingResult)
+			throws CustomException {
+
 		try {
-			if (bindingResult.hasErrors()){
+			if (bindingResult.hasErrors()) {
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
 			}
 			applicationUtils.validateEntity(updateRequestModel, bindingResult);
 		} catch (Exception e) {
 			throw new CustomException(201, e.getMessage());
 		}
-//		User user = null;
+
 		try {
 			User user = userService.updateUser(id, updateRequestModel);
 			UpdateResponseModel updateUserResponse = conversionUtility.convertForUpdateResponse(user);
@@ -130,7 +128,8 @@ public class RegisterController {
 		List<User> users = null;
 		try {
 			users = userService.getAllUsers();
-			return ResponseEntity.ok(new HttpResponseModel("User list fetched successfully", HttpStatusConstants.OK.id, users));
+			return ResponseEntity
+					.ok(new HttpResponseModel("User list fetched successfully", HttpStatusConstants.OK.id, users));
 		} catch (CustomException e) {
 			return ResponseEntity.ok(new HttpResponseModel(e.getMessage(), e.getId(), null));
 		}
@@ -171,8 +170,8 @@ public class RegisterController {
 					updateResponseModel));
 		}
 
-		return ResponseEntity
-				.ok(new HttpResponseModel("User details fetched successfully", HttpStatusConstants.OK.id, updateResponseModel));
+		return ResponseEntity.ok(new HttpResponseModel("User details fetched successfully", HttpStatusConstants.OK.id,
+				updateResponseModel));
 
 	}
 

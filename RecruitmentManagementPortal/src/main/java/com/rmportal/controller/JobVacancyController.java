@@ -41,11 +41,11 @@ public class JobVacancyController {
 	private AddJobVacancyService addJobVacancyService;
 
 	@Autowired
-	private	ListJobVacancyService listJobVacancyService;
+	private ListJobVacancyService listJobVacancyService;
 
 	@Autowired
 	private ApplicationUtils applicationUtils;
-	
+
 	// Add Job Vacancies
 	@RequestMapping(value = "/addJobVacancy", method = RequestMethod.POST)
 	@ApiOperation(value = "Add Job Vacancies")
@@ -74,14 +74,16 @@ public class JobVacancyController {
 	public ResponseEntity<?> getJobVacancy() throws CustomException {
 		List<JobVacancyResponseModel> jobVacancy = listJobVacancyService.getAllJobs();
 
-		return ResponseEntity.ok(new HttpResponseModel("Job Vacancies list fetched successfully", HttpStatusConstants.OK.id, jobVacancy));
+		return ResponseEntity.ok(new HttpResponseModel("Job Vacancies list fetched successfully",
+				HttpStatusConstants.OK.id, jobVacancy));
 
 	}
 
 	// Update Job Status
 	@RequestMapping(value = "/jobStatus", method = RequestMethod.GET)
 	@ApiOperation(value = "Activate or Deactivate the jobs")
-	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id, @RequestParam boolean is_active) throws CustomException {
+	public ResponseEntity<?> jobStatus(@RequestParam int job_vacancy_id, @RequestParam boolean is_active)
+			throws CustomException {
 
 		String message = listJobVacancyService.updateJobStatus(job_vacancy_id, is_active);
 		return ResponseEntity.ok(
@@ -97,7 +99,7 @@ public class JobVacancyController {
 		AddJobVacancyResponse addJobVacancyResponse = null;
 
 		try {
-			if (bindingResult.hasErrors()){
+			if (bindingResult.hasErrors()) {
 				throw new CustomException(204, bindingResult.getAllErrors().get(0).getDefaultMessage());
 			}
 			applicationUtils.validateEntity(jobVacancyRequestModel, bindingResult);
@@ -109,14 +111,14 @@ public class JobVacancyController {
 		return ResponseEntity.ok(new HttpResponseModel("JOB vacancy updated Successfully", HttpStatusConstants.OK.id,
 				addJobVacancyResponse));
 	}
-	
+
 	// Get row from job vacancy table for JOB Update
 	@RequestMapping(value = "/getDetailsOfJob/{job_vacancy_id}", method = RequestMethod.POST)
 	@ApiOperation(value = "Get job vacancy details for update job vacancy")
-	public ResponseEntity<?> addJobVacancy(@PathVariable("job_vacancy_id") int job_vacancy_id) throws CustomException{
+	public ResponseEntity<?> addJobVacancy(@PathVariable("job_vacancy_id") int job_vacancy_id) throws CustomException {
 		JobVacancyResponseModel jobVacancyResponseModel = listJobVacancyService.getJobDetails(job_vacancy_id);
-		return ResponseEntity.ok(new HttpResponseModel("Detais of the job_vacancy id fetched Successfully", HttpStatusConstants.OK.id,
-				jobVacancyResponseModel));
+		return ResponseEntity.ok(new HttpResponseModel("Detais of the job_vacancy id fetched Successfully",
+				HttpStatusConstants.OK.id, jobVacancyResponseModel));
 	}
 
 }

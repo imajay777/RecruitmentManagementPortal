@@ -35,7 +35,7 @@ public class EmployeeReferralBonus {
 
 		EmployeeBonusStatusResponseModel employeeBonusResponse;
 		try {
-			if (referal_id <= 0){
+			if (referal_id <= 0) {
 				throw new CustomException(401, "Request cannot be proceeded");
 			}
 			employeeBonusResponse = employeeBonusService.getReferralBonus(referal_id);

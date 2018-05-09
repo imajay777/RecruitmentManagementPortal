@@ -1,6 +1,5 @@
 package com.rmportal.utility;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +14,7 @@ public class UserUtility {
 	}
 
 	public static boolean isInvalidValue(String value) {
-		return (Objects.isNull(value) || value.isEmpty());
+		return StringUtils.isBlank(value);
 	}
 
 	public static boolean isValidMobile(String mobile) {

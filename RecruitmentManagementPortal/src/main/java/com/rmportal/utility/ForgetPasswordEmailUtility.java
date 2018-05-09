@@ -1,5 +1,6 @@
 package com.rmportal.utility;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ForgetPasswordEmailUtility {
 
 	public void sendMail(User user) {
 
-		if (user != null) {
+		if (Objects.nonNull(user)) {
 			String subject = "Reset Password Link for Recruitment Management Portal";
 			String message = "Hi " + user.getFirstName() + ", \n"
 					+ "\n Welcome to AGSFT Recruitment Management Portal...! \n\n Please click on the Reset Password link below to reset your password, \n";
