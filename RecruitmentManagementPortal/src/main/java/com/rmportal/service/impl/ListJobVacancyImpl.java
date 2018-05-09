@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.rmportal.model.JobVacancy;
 import com.rmportal.repository.JobVacancyRepository;
 import com.rmportal.responseModel.JobVacancyResponseModel;
+import com.rmportal.service.ListJobVacancyService;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 

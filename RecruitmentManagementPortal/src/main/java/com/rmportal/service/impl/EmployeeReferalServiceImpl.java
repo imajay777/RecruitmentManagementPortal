@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.io.IOException;
 import java.util.Date;
@@ -20,6 +20,7 @@ import com.rmportal.responseModel.CandidateJoinResponseModel;
 import com.rmportal.responseModel.ChangeReferralStatusResponse;
 import com.rmportal.responseModel.EmployeeReferalResponseModel;
 import com.rmportal.responseModel.UploadResumeResponseModel;
+import com.rmportal.service.EmployeeReferalService;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 import com.rmportal.utility.UserUtility;

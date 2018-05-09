@@ -14,7 +14,7 @@ import com.rmportal.constants.HttpStatusConstants;
 import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.HttpResponseModel;
 import com.rmportal.responseModel.RoleResponseModel;
-import com.rmportal.service.UpdateRoles;
+import com.rmportal.service.UpdateRolesService;
 import com.rmportal.utility.CustomException;
 
 import io.swagger.annotations.Api;
@@ -30,13 +30,13 @@ import io.swagger.annotations.ApiOperation;
 public class UpdateRolesController {
 
 	@Autowired
-	private UpdateRoles updateRoles;
+	private UpdateRolesService updateRolesService;
 
 	// Get user Roles
 	@RequestMapping(value = "/getRoles", method = RequestMethod.GET)
 	@ApiOperation(value = "User Registration")
 	public ResponseEntity<?> getRoles() throws CustomException {
-		List<RoleResponseModel> roles = updateRoles.getAllRoles();
+		List<RoleResponseModel> roles = updateRolesService.getAllRoles();
 		
 		return ResponseEntity.ok(new HttpResponseModel("Role list fetched successfully", HttpStatusConstants.OK.id, roles));
 
@@ -48,7 +48,7 @@ public class UpdateRolesController {
 	public ResponseEntity<?> updateUserRole(@RequestBody UpdateRoleRequestModel updateRoleRequestModel)
 			throws CustomException {
 
-		String message = updateRoles.changeRole(updateRoleRequestModel);
+		String message = updateRolesService.changeRole(updateRoleRequestModel);
 		return ResponseEntity.ok(new HttpResponseModel(message, HttpStatusConstants.OK.id, null));
 	}
 

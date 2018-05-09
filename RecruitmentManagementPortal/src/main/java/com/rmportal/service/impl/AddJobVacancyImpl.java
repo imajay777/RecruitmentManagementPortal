@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.util.Objects;
 
@@ -9,6 +9,7 @@ import com.rmportal.model.JobVacancy;
 import com.rmportal.repository.JobVacancyRepository;
 import com.rmportal.requestModel.JobVacancyRequestModel;
 import com.rmportal.responseModel.AddJobVacancyResponse;
+import com.rmportal.service.AddJobVacancyService;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 

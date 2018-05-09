@@ -11,7 +11,7 @@ import com.rmportal.utility.CustomException;
  * @author saurabh
  *
  */
-public interface UpdateRoles {
+public interface UpdateRolesService {
 
 	
 	public List<RoleResponseModel> getAllRoles() throws CustomException;

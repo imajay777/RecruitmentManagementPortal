@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +14,7 @@ import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.UpdateRoleRequestModel;
 import com.rmportal.responseModel.RoleResponseModel;
+import com.rmportal.service.UpdateRolesService;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 import com.rmportal.utility.UserUtility;
@@ -24,7 +25,7 @@ import com.rmportal.utility.UserUtility;
  */
 @Service
 @Transactional
-public class UpdateRolesImpl implements UpdateRoles {
+public class UpdateRolesImpl implements UpdateRolesService {
 
 	@Autowired
 	RoleRepository roleRepository;

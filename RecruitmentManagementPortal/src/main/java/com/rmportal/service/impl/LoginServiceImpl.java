@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.util.Objects;
 
@@ -12,6 +12,7 @@ import com.rmportal.repository.RoleRepository;
 import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.LoginRequestModel;
 import com.rmportal.responseModel.LoginResponseModel;
+import com.rmportal.service.LoginServices;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
 import com.rmportal.utility.UserUtility;

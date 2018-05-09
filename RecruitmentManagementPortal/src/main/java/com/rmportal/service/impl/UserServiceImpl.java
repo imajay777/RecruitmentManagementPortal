@@ -1,4 +1,4 @@
-package com.rmportal.service;
+package com.rmportal.service.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +23,7 @@ import com.rmportal.requestModel.ResetPasswordModel;
 import com.rmportal.requestModel.UpdateRequestModel;
 import com.rmportal.responseModel.UpdateResponseModel;
 import com.rmportal.responseModel.UserResponseDTO;
+import com.rmportal.service.UserServices;
 import com.rmportal.utility.ActivationEmailUtility;
 import com.rmportal.utility.ConversionUtility;
 import com.rmportal.utility.CustomException;
