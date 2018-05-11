@@ -222,8 +222,9 @@ public class UserServiceImpl implements UserServices {
 				updatedUser.setDOB(updateRequestModel.getDateOfBirth());
 			}
 
-			updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
-
+			// updatedUser.setEmployee_id(updateRequestModel.getEmployee_id());
+			updatedUser.setEmployee_id("AGSxxx"); // temporary value set for employee id
+			
 			if (Objects.isNull(department)) {
 				throw new CustomException(204, "Invalid Department");
 			}
