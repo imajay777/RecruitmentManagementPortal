@@ -56,6 +56,6 @@ public class VelocityTemplateUtility {
 		mimeMessageHelper.setFrom("no-reply-rpPortal@agsft.com");
 		mimeMessageHelper.setText(text, true);
 		emailSender.send(mimeMessage);
-		return "Email Sent...";
+		return "Email Sent Successfully...";
 	}
 }
