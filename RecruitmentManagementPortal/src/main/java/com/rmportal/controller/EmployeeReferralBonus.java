@@ -29,6 +29,13 @@ public class EmployeeReferralBonus {
 	private EmployeeBonusService employeeBonusService;
 
 	// Get referal bonus for individual candidate
+	/**
+	 * Show the bonus for the referred employee by respective referral ID.<br>
+	 * Throws exception {@link CustomException} if invalid ID is entered.
+	 * 
+	 * @param referal_id
+	 * @return bonus amount and details for particular candidate(with respect to referral ID)
+	 */
 	@RequestMapping(value = "/getReferralBonus/{referal_id}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get the Referral Bonus Status for the Employee")
 	public ResponseEntity<?> getReferralBonus(@PathVariable int referal_id) {

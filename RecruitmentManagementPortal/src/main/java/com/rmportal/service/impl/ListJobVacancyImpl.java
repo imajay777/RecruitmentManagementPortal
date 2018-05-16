@@ -26,12 +26,12 @@ public class ListJobVacancyImpl implements ListJobVacancyService {
 	@Autowired
 	private ConversionUtility conversionUtility;
 
+	// List of all job which are active in the database
 	@Override
 	public List<JobVacancyResponseModel> getAllJobs() {
 		List<JobVacancy> getJobs = (List<JobVacancy>) jobVacancyRepository.findAll();
 
 		return conversionUtility.getAllJobVacancy(getJobs);
-		// return getJobs;
 	}
 
 	// Update the job Status
@@ -54,6 +54,7 @@ public class ListJobVacancyImpl implements ListJobVacancyService {
 		return "Job Status Changed Successfully";
 	}
 
+	// Get all the job details added in database
 	@Override
 	public JobVacancyResponseModel getJobDetails(int job_vacancy_id) throws CustomException {
 		JobVacancy jobVacancy = jobVacancyRepository.findOne(job_vacancy_id);

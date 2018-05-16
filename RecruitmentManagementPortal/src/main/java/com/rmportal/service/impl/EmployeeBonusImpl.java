@@ -12,9 +12,7 @@ import com.rmportal.repository.UserRepository;
 import com.rmportal.requestModel.SetBonusRequestModel;
 import com.rmportal.responseModel.EmployeeBonusStatusResponseModel;
 import com.rmportal.service.EmployeeBonusService;
-import com.rmportal.utility.CalculateDifferenceInDate;
 import com.rmportal.utility.ConversionUtility;
-import com.rmportal.utility.CronJobSchedular;
 import com.rmportal.utility.CustomException;
 import com.rmportal.utility.UserUtility;
 
@@ -25,19 +23,10 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 	private EmployeeReferalRepository employeeReferalRepo;
 
 	@Autowired
-	private EmployeeReferalRepository employeeReferalBonusrepo;
-
-	@Autowired
-	private CronJobSchedular cronJobSchedular;
-
-	@Autowired
 	private ConversionUtility conversionUtility;
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private CalculateDifferenceInDate calculateDifferenceInDate;
 
 	// get candidate bonus
 	@Override
@@ -67,20 +56,20 @@ public class EmployeeBonusImpl implements EmployeeBonusService {
 		 * if (employeeReferal.getApplication_status().compareTo("Joined") != 0)
 		 * { throw new CustomException(206, " Candidate is Still not Joined"); }
 		 */
-		
-		String applicantEmail=setBonusRequestModel.getApplicant_email();
-		if(!UserUtility.isValidEmail(applicantEmail)){
-			throw new CustomException(204,"Invalid Applicant Email Id");
+
+		String applicantEmail = setBonusRequestModel.getApplicant_email();
+		if (!UserUtility.isValidEmail(applicantEmail)) {
+			throw new CustomException(204, "Invalid Applicant Email Id");
 		}
-		
+
 		User user = userRepository.findByEmail(setBonusRequestModel.getApplicant_email());
 		if (Objects.isNull(user)) {
 			throw new CustomException(204, "User does not exist");
 		}
 		if (!user.isActive()) {
 			throw new CustomException(401, "User is in-active");
-		} 
-		
-		return conversionUtility.setBonusConversion(employeeReferal, setBonusRequestModel); 
+		}
+
+		return conversionUtility.setBonusConversion(employeeReferal, setBonusRequestModel);
 	}
 }
