@@ -76,6 +76,7 @@ public class ConversionUtility {
 		user.setEmail(registerRequestModel.getEmail());
 		user.setFirstName(registerRequestModel.getFirstName());
 		user.setLastName(registerRequestModel.getLastName());
+		user.setCreatedAt(new Date());
 		user.setPassword(passwordEncryption.hashEncoder(registerRequestModel.getPassword()));
 
 		return user;
@@ -121,7 +122,6 @@ public class ConversionUtility {
 		responseModel.setUser_id(userFromTable.getId());
 		responseModel.setProfileStatus(false);
 		responseModel.setPermissions(getPermission(userFromTable.getRoles().getRolePermission()));
-
 		RoleResponseModel roleResponse = new RoleResponseModel();
 		roleResponse.setId(userFromTable.getRoles().getId());
 		roleResponse.setRole(userFromTable.getRoles().getRole());
@@ -134,6 +134,8 @@ public class ConversionUtility {
 		} else {
 			responseModel.setProfileStatus(true);
 		}
+		
+		userFromTable.setLastLogin(new Date());
 		return responseModel;
 
 	}

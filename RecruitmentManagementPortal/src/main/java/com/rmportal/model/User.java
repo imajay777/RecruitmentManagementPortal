@@ -1,5 +1,7 @@
 package com.rmportal.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -87,6 +89,12 @@ public class User {
 	@JoinColumn(name = "dept_id")	
 	@JsonManagedReference
 	Department departments;
+	
+	@Column(name = "created_at")
+	Date createdAt;
+	
+	@Column(name = "last_login")
+	Date lastLogin; 
 
 	
 }

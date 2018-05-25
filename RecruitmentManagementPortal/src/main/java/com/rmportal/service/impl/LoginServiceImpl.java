@@ -1,5 +1,6 @@
 package com.rmportal.service.impl;
 
+import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class LoginServiceImpl implements LoginServices {
 		if (user.isActive()) {
 
 			if (bCryptPassword.matches(loginRequestModel.getPassword(), user.getPassword())) {
-
+				
 				return conversionUtility.convertUserToLoginResponse(user);
 
 			} else {
